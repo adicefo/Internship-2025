@@ -1,18 +1,15 @@
-package com.example.internship_api.entities;
+package com.example.internship_api.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.Set;
 
 @Getter
 @Setter
-@RequiredArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor  // Generates a no-args constructor
+@AllArgsConstructor
 @Entity
 @Table(name="notification")
 public class Notification {
@@ -34,9 +31,9 @@ public class Notification {
 
     @Column
     private boolean forClient;
-    @OneToMany(mappedBy = "notification")
+    @OneToMany(mappedBy = "notification",cascade = CascadeType.ALL)
     private Set<ClientNotification> clientNotifications;
-    @OneToMany(mappedBy = "driver")
+    @OneToMany(mappedBy = "notification",cascade = CascadeType.ALL)
     private Set<DriverNotification> driverNotifications;
 
 }

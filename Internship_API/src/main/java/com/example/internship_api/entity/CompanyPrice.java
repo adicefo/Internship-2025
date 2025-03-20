@@ -1,16 +1,15 @@
-package com.example.internship_api.entities;
+package com.example.internship_api.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.Set;
 
 @Getter
 @Setter
-@RequiredArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor  // Generates a no-args constructor
+@AllArgsConstructor
 @Entity
 @Table(name="companyPrice")
 public class CompanyPrice {

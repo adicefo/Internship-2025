@@ -1,15 +1,12 @@
-package com.example.internship_api.entities;
+package com.example.internship_api.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
-@RequiredArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor  // Generates a no-args constructor
+@AllArgsConstructor
 @Entity
 @Table(name="admin")
 public class Admin {
