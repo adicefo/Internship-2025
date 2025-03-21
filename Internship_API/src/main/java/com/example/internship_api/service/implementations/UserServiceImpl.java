@@ -20,8 +20,22 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class UserServiceImpl implements UserService {
-    @Autowired
+public class UserServiceImpl extends  BaseCRUDServiceImpl<UserDTO, UserSearchObject, User, UserInsertRequest, UserUpdateRequest> implements UserService {
+
+    public UserServiceImpl(UserRepository repository, ModelMapper modelMapper) {
+        super(repository, modelMapper, UserDTO.class, User.class);
+    }
+
+    @Override
+    protected void beforeInsert(UserInsertRequest request, User user) {
+
+    }
+
+    @Override
+    protected void addFilter(UserSearchObject searchObject, List<User> query) {
+
+    }
+    /*@Autowired
     private UserRepository repository;
     @Autowired
     private ModelMapper modelMapper;
@@ -77,5 +91,5 @@ public class UserServiceImpl implements UserService {
     }
     private void beforeUpdate(UserUpdateRequest request, User entity) {
 
-    }
+    }*/
 }
