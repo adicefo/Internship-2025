@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 @RestController
 public class BaseController<TModel,TSearch extends BaseSearchObject> {
-    protected UserService service;
+    protected BaseService<TModel,TSearch> service;
 
 
 
