@@ -1,15 +1,23 @@
 package com.example.internship_api.service.implementations;
 
 import com.example.internship_api.PagedResult;
-import com.example.internship_api.data.model.User;
+import com.example.internship_api.data.model.UserDTO;
+import com.example.internship_api.data.model.UserDTO;
 import com.example.internship_api.data.model.request.UserInsertRequest;
 import com.example.internship_api.data.model.request.UserUpdateRequest;
 import com.example.internship_api.data.model.search_object.UserSearchObject;
+import com.example.internship_api.entity.User;
 import com.example.internship_api.repository.UserRepository;
 import com.example.internship_api.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -19,30 +27,55 @@ public class UserServiceImpl implements UserService {
     private ModelMapper modelMapper;
 
     @Override
-    public User save(UserInsertRequest request) {
+    public UserDTO save(UserInsertRequest request) {
+        User entity = modelMapper.map(request, User.class);
+
+        beforeInsert(request, entity);
+
+        repository.save(entity);
+
+        return modelMapper.map(entity, UserDTO.class);
+    }
+
+    @Override
+    public UserDTO updateById(Long id, UserUpdateRequest request) {
         return null;
     }
 
     @Override
-    public User updateById(Long id, UserUpdateRequest request) {
+    public UserDTO deleteById(Long id) {
         return null;
     }
 
     @Override
-    public User deleteById(Long id) {
-        return null;
+    public PagedResult<UserDTO> getAll(UserSearchObject search) {
+        var query=repository.findAll();
+        addFilter(search,query);
+        int count=repository.findAll().size();
+        //adding pagination
+        if (search!=null&&search.getPageNumber() != null && search.getPageSize() != null) {
+            Pageable pageable = PageRequest.of(search.getPageNumber(), search.getPageSize());
+            Page<User> pageResult = repository.findAll(pageable);
+        List<UserDTO> result=pageResult.getContent().stream().map(item->modelMapper.map(item,UserDTO.class)).collect(Collectors.toList());
+        return new PagedResult<>(result,count);
+        }
+        List<UserDTO> result=query.stream().map(item->modelMapper.map(item,UserDTO.class)).collect(Collectors.toList());
+        return new PagedResult<>(result,count);
+
     }
 
     @Override
-    public PagedResult<User> getAll(UserSearchObject search) {
-
+    public UserDTO getById(int id) {
         return null;
     }
 
-    @Override
-    public User getById(int id) {
-        return null;
+    private void addFilter(UserSearchObject search, List<User> list) {
+
     }
+    private void beforeInsert(UserInsertRequest request, User entity) {
 
+    }
+    private void beforeUpdate(UserUpdateRequest request, User entity) {
 
+    }
 }

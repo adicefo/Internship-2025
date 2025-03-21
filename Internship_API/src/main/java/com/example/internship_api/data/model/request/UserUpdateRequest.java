@@ -5,15 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-public class UserUpdateRequest {
-    private String name;
-    private String surname;
-    private String telephoneNumber;
-    private String email;
-    private String password;
-    private String passwordConfirm;
+
+public record UserUpdateRequest(String name,
+                                String surname,
+                                String telephoneNumber,
+                                String email,
+                                String password,
+                                String passwordConfirm) {
+
 }

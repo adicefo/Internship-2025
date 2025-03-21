@@ -5,18 +5,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-public class UserInsertRequest {
-    private String name;
-    private String surname;
-    private String username;
-    private String email;
-    private String password;
-    private String passwordConfirm;
-    private String telephoneNumber;
-    private String gender;
-    private Boolean isActive;
+
+public record UserInsertRequest ( String name,
+                                  String surname,
+                                  String username,
+                                  String email,
+                                  String password,
+                                  String passwordConfirm,
+                                  String telephoneNumber,
+                                  String gender,
+                                  Boolean isActive){
+
 }

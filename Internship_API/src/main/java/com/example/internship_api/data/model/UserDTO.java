@@ -11,24 +11,24 @@ import java.util.Set;
 
 @Getter
 @Setter
-@NoArgsConstructor
+@NoArgsConstructor // <-- Add this!
 @AllArgsConstructor
-public class User {
+public class UserDTO {
+   private Long id;
 
-    private long id;
+   private String name;
 
-    private String name;
+   private String surname;
 
-    private String surname;
-
-    private String username;
+   private String username;
 
     private String email;
 
-    private String telephoneNumber;
+   private String telephoneNumber;
 
-    private String gender;
+   private String gender;
 
-    private LocalDateTime registrationDate;
+   private LocalDateTime registrationDate;
+
 
 }
