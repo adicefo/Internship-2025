@@ -1,13 +1,10 @@
 package com.example.internship_api.service.implementations;
 
-import com.example.internship_api.PagedResult;
-import com.example.internship_api.data.model.UserDTO;
+import com.example.internship_api.data.model.PagedResult;
 import com.example.internship_api.data.model.search_object.BaseSearchObject;
-import com.example.internship_api.data.model.search_object.UserSearchObject;
-import com.example.internship_api.entity.User;
+import com.example.internship_api.exception.EntityNotFoundException;
 import com.example.internship_api.service.BaseService;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -66,7 +63,7 @@ public abstract class BaseServiceImpl<TModel,TSearch extends BaseSearchObject,TD
     }
    protected TDbEntity unwrapEntity(Optional<TDbEntity> entity, Long entityId) {
         if (entity.isPresent()) return entity.get();
-        else throw new RuntimeException();
+        else throw new EntityNotFoundException(entityId, dbEntityClass);
     }
     protected abstract void addFilter(TSearch search, List<TDbEntity> query);
 }

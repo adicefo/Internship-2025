@@ -1,7 +1,5 @@
 package com.example.internship_api.service.implementations;
 
-import com.example.internship_api.PagedResult;
-import com.example.internship_api.data.model.UserDTO;
 import com.example.internship_api.data.model.UserDTO;
 import com.example.internship_api.data.model.request.UserInsertRequest;
 import com.example.internship_api.data.model.request.UserUpdateRequest;
@@ -11,10 +9,6 @@ import com.example.internship_api.repository.UserRepository;
 import com.example.internship_api.service.UserService;
 import com.example.internship_api.utils.PasswordUtils;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;

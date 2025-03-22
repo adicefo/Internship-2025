@@ -1,6 +1,6 @@
 package com.example.internship_api.controller;
 
-import com.example.internship_api.PagedResult;
+import com.example.internship_api.data.model.PagedResult;
 import com.example.internship_api.data.model.UserDTO;
 import com.example.internship_api.data.model.request.UserInsertRequest;
 import com.example.internship_api.data.model.request.UserUpdateRequest;
