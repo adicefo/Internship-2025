@@ -1,10 +1,11 @@
 package com.example.internship_api.service.implementations;
 
 import com.example.internship_api.data.model.UserDTO;
-import com.example.internship_api.data.model.request.UserInsertRequest;
-import com.example.internship_api.data.model.request.UserUpdateRequest;
-import com.example.internship_api.data.model.search_object.UserSearchObject;
+import com.example.internship_api.data.request.UserInsertRequest;
+import com.example.internship_api.data.request.UserUpdateRequest;
+import com.example.internship_api.data.search_object.UserSearchObject;
 import com.example.internship_api.entity.User;
+import com.example.internship_api.exception.PasswordNotMatchException;
 import com.example.internship_api.repository.UserRepository;
 import com.example.internship_api.service.UserService;
 import com.example.internship_api.utils.PasswordUtils;
@@ -25,7 +26,7 @@ public class UserServiceImpl extends  BaseCRUDServiceImpl<UserDTO, UserSearchObj
     @Override
     protected void beforeInsert(UserInsertRequest request, User entity) {
         if(!request.password().equals(request.passwordConfirm())){
-            throw new RuntimeException("Passwords do not match");
+            throw new PasswordNotMatchException();
         }
         entity.setPasswordSalt(PasswordUtils.generateSalt());
         var passwordHash=PasswordUtils.generateHash(entity.getPasswordSalt(),request.password());
@@ -37,7 +38,7 @@ public class UserServiceImpl extends  BaseCRUDServiceImpl<UserDTO, UserSearchObj
     protected void beforeUpdate(UserUpdateRequest request, User entity) {
         if(request.password()!=null){
             if(!request.password().equals(request.passwordConfirm())){
-                throw new RuntimeException("Passwords do not match");
+                throw new PasswordNotMatchException();
             }
             entity.setPasswordSalt(PasswordUtils.generateSalt());
             var passwordHash=PasswordUtils.generateHash(entity.getPasswordSalt(),request.password());

@@ -5,13 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
 @Setter
+@NoArgsConstructor // <-- Add this!
 @AllArgsConstructor
-@NoArgsConstructor
-public class PagedResult<T>{
-    private List<T> result;
-    private int count;
+public class AdminDTO {
+    private Long id;
+    private UserDTO user;
+
 }

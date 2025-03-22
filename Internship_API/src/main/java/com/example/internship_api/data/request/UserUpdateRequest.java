@@ -1,4 +1,4 @@
-package com.example.internship_api.data.model.request;
+package com.example.internship_api.data.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

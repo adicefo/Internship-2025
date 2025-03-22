@@ -1,13 +1,10 @@
 package com.example.internship_api.service.implementations;
 
-import com.example.internship_api.data.model.UserDTO;
-import com.example.internship_api.data.model.search_object.BaseSearchObject;
-import com.example.internship_api.entity.User;
+import com.example.internship_api.data.search_object.BaseSearchObject;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service

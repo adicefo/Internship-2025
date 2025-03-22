@@ -1,4 +1,4 @@
-package com.example.internship_api.data.model.search_object;
+package com.example.internship_api.data.search_object;
 
 import jakarta.validation.constraints.Null;
 import lombok.Getter;

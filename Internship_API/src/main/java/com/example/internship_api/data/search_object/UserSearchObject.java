@@ -1,8 +1,6 @@
-package com.example.internship_api.data.model.search_object;
+package com.example.internship_api.data.search_object;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 @Getter
 @Setter
