@@ -8,7 +8,7 @@ import java.util.Set;
 
 @Getter
 @Setter
-@NoArgsConstructor  // Generates a no-args constructor
+@NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name="users")

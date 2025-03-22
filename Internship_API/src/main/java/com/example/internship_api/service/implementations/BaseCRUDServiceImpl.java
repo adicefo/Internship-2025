@@ -8,22 +8,17 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public abstract class BaseCRUDServiceImpl<TModel,TSearch extends BaseSearchObject,TDbEntity,TInsert,TUpdate>
 extends BaseServiceImpl<TModel,TSearch,TDbEntity> {
-    private final JpaRepository<TDbEntity, Long> repository;
-    private final ModelMapper modelMapper;
-    private final Class<TModel> modelClass;
-    private final Class<TDbEntity> dbEntityClass;
+
 
     public BaseCRUDServiceImpl(JpaRepository<TDbEntity, Long> repository, ModelMapper modelMapper,
                                Class<TModel> modelClass, Class<TDbEntity> dbEntityClass) {
         super(repository, modelMapper, modelClass, dbEntityClass);
-        this.repository = repository;
-        this.modelMapper = modelMapper;
-        this.modelClass = modelClass;
-        this.dbEntityClass = dbEntityClass;
+
     }
 
     public TModel save(TInsert request) {
@@ -40,12 +35,33 @@ extends BaseServiceImpl<TModel,TSearch,TDbEntity> {
 
 
     public TModel updateById(Long id, TUpdate request) {
-        return null;
+        Optional<TDbEntity> entity=repository.findById(id);
+        TDbEntity unwrapEntity=unwrapEntity(entity,id);
+
+        modelMapper.map(request,unwrapEntity);
+
+
+        beforeUpdate(request,unwrapEntity);
+
+        repository.save(unwrapEntity);
+
+        var result=modelMapper.map(unwrapEntity,modelClass);
+        return result;
     }
 
     public TModel deleteById(Long id) {
-        return null;
-    }
-    protected abstract void beforeInsert(TInsert request, TDbEntity entity);
+        Optional<TDbEntity> entity=repository.findById(id);
+        TDbEntity unwrapEntity=unwrapEntity(entity,id);
 
+
+        repository.delete(unwrapEntity);
+
+
+        var result=modelMapper.map(unwrapEntity,modelClass);
+        return result;
+    }
+
+
+    protected abstract void beforeInsert(TInsert request, TDbEntity entity);
+    protected abstract void beforeUpdate(TUpdate request, TDbEntity entity);
 }

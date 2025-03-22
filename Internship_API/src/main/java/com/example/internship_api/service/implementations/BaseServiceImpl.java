@@ -15,15 +15,16 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public abstract class BaseServiceImpl<TModel,TSearch extends BaseSearchObject,TDbEntity> implements BaseService<TModel,TSearch> {
-    private final JpaRepository<TDbEntity,Long> repository;
-    private  final ModelMapper modelMapper;
+    protected final JpaRepository<TDbEntity,Long> repository;
+    protected   final ModelMapper modelMapper;
 
-    private final Class<TModel> modelClass;  // Store class type
-    private final Class<TDbEntity> dbEntityClass;
+    protected final Class<TModel> modelClass;  // Store class type
+    protected final Class<TDbEntity> dbEntityClass;
 
     public BaseServiceImpl(JpaRepository<TDbEntity, Long> repository, ModelMapper modelMapper,
                            Class<TModel> modelClass, Class<TDbEntity> dbEntityClass) {
@@ -52,11 +53,20 @@ public abstract class BaseServiceImpl<TModel,TSearch extends BaseSearchObject,TD
 
     }
 
-    protected abstract void addFilter(TSearch search, List<TDbEntity> query);
 
 
     @Override
-    public TModel getById(int id) {
-        return null;
+    public TModel getById(Long id) {
+        Optional<TDbEntity> entity=repository.findById(id);
+        TDbEntity unwrapEntity=unwrapEntity(entity,id);
+
+        var result=modelMapper.map(unwrapEntity,modelClass);
+        return result;
+
     }
+   protected TDbEntity unwrapEntity(Optional<TDbEntity> entity, Long entityId) {
+        if (entity.isPresent()) return entity.get();
+        else throw new RuntimeException();
+    }
+    protected abstract void addFilter(TSearch search, List<TDbEntity> query);
 }

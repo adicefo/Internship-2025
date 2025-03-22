@@ -10,6 +10,7 @@ public record UserUpdateRequest(String name,
                                 String surname,
                                 String telephoneNumber,
                                 String email,
+                                String username,
                                 String password,
                                 String passwordConfirm) {
 

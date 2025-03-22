@@ -9,6 +9,7 @@ import com.example.internship_api.data.model.search_object.UserSearchObject;
 import com.example.internship_api.entity.User;
 import com.example.internship_api.repository.UserRepository;
 import com.example.internship_api.service.UserService;
+import com.example.internship_api.utils.PasswordUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,6 +17,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,14 +29,44 @@ public class UserServiceImpl extends  BaseCRUDServiceImpl<UserDTO, UserSearchObj
     }
 
     @Override
-    protected void beforeInsert(UserInsertRequest request, User user) {
+    protected void beforeInsert(UserInsertRequest request, User entity) {
+        if(!request.password().equals(request.passwordConfirm())){
+            throw new RuntimeException("Passwords do not match");
+        }
+        entity.setPasswordSalt(PasswordUtils.generateSalt());
+        var passwordHash=PasswordUtils.generateHash(entity.getPasswordSalt(),request.password());
+        entity.setPasswordHash(passwordHash);
+        entity.setRegistrationDate(LocalDateTime.now());
 
     }
-
     @Override
-    protected void addFilter(UserSearchObject searchObject, List<User> query) {
-
+    protected void beforeUpdate(UserUpdateRequest request, User entity) {
+        if(request.password()!=null){
+            if(!request.password().equals(request.passwordConfirm())){
+                throw new RuntimeException("Passwords do not match");
+            }
+            entity.setPasswordSalt(PasswordUtils.generateSalt());
+            var passwordHash=PasswordUtils.generateHash(entity.getPasswordSalt(),request.password());
+            entity.setPasswordHash(passwordHash);
+        }
     }
+    @Override
+    protected void addFilter(UserSearchObject search, List<User> query) {
+        if (search == null) {
+            return;
+        }
+
+        List<User> filteredQuery = query.stream()
+                .filter(user -> search.getUsername() == null || user.getUsername().startsWith(search.getUsername()))
+                .filter(user -> search.getEmail() == null || user.getEmail().startsWith(search.getEmail()))
+                .filter(user -> search.getName() == null || user.getName().startsWith(search.getName()))
+                .filter(user -> search.getSurname() == null || user.getSurname().startsWith(search.getSurname()))
+                .collect(Collectors.toList());
+
+        query.clear();
+        query.addAll(filteredQuery);
+    }
+
     /*@Autowired
     private UserRepository repository;
     @Autowired
