@@ -7,10 +7,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
+@NoArgsConstructor // <-- Add this!
 @AllArgsConstructor
-public class AdminDTO {
+public class ClientDTO {
     private Long id;
+    private byte[] image;
     private UserDTO user;
-
 }

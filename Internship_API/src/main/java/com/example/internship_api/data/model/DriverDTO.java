@@ -1,16 +1,13 @@
 package com.example.internship_api.data.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-public class AdminDTO {
+public class DriverDTO {
     private Long id;
+    private Integer numberOfClientsAmount;
+    private Integer numberOfHoursAmount;
     private UserDTO user;
-
 }
