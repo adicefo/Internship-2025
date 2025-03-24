@@ -36,6 +36,11 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
         ErrorResponse error = new ErrorResponse(Arrays.asList(ex.getMessage()));
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<Object> handleIllegalArgumentException(IllegalArgumentException ex) {
+        ErrorResponse error = new ErrorResponse(Arrays.asList(ex.getMessage()));
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
 
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         List<String> errors = new ArrayList<>();

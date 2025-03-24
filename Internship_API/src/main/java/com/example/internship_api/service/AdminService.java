@@ -9,4 +9,5 @@ import com.example.internship_api.data.search_object.UserSearchObject;
 
 public interface AdminService extends BaseCRUDService<AdminDTO, AdminSearchObject,
         UserInsertRequest, UserUpdateRequest>{
+    AdminDTO saveBasedOnUser(Long userId);
 }

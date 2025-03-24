@@ -2,13 +2,16 @@ package com.example.internship_api.service.implementations;
 
 
 import com.example.internship_api.data.model.AdminDTO;
+import com.example.internship_api.data.model.ClientDTO;
 import com.example.internship_api.data.model.UserDTO;
 import com.example.internship_api.data.request.UserInsertRequest;
 import com.example.internship_api.data.request.UserUpdateRequest;
 import com.example.internship_api.data.search_object.AdminSearchObject;
 import com.example.internship_api.data.search_object.UserSearchObject;
 import com.example.internship_api.entity.Admin;
+import com.example.internship_api.entity.Client;
 import com.example.internship_api.entity.User;
+import com.example.internship_api.exception.EntityNotFoundException;
 import com.example.internship_api.exception.PasswordNotMatchException;
 import com.example.internship_api.repository.AdminRepository;
 import com.example.internship_api.repository.UserRepository;
@@ -33,7 +36,18 @@ public class AdminServiceImpl extends BaseCRUDServiceImpl<AdminDTO, AdminSearchO
         super(repository, modelMapper, AdminDTO.class, Admin.class);
     }
 
-
+    @Override
+    public AdminDTO saveBasedOnUser(Long userId) {
+        var user=userRepository.findById(userId);
+        if(!user.isPresent()){
+            throw new EntityNotFoundException(userId, User.class);
+        }
+        var unwrappUser=user.get();
+        var entity=new Admin();
+        entity.setUser(unwrappUser);
+        repository.save(entity);
+        return modelMapper.map(entity, AdminDTO.class);
+    }
     @Override
     protected void beforeInsert(UserInsertRequest request, Admin entity) {
         if(!request.password().equals(request.passwordConfirm())){
@@ -76,4 +90,6 @@ public class AdminServiceImpl extends BaseCRUDServiceImpl<AdminDTO, AdminSearchO
         query.addAll(filteredQuery);
 
     }
+
+
 }

@@ -36,7 +36,7 @@ public class Route {
     private LocalDateTime endDate;
 
     @Column
-    private int Duration;
+    private int duration;
 
     @Column
     private double numberOfKilometers;

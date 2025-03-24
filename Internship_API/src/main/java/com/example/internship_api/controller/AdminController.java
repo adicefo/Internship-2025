@@ -2,6 +2,7 @@ package com.example.internship_api.controller;
 
 import com.example.internship_api.data.PagedResult;
 import com.example.internship_api.data.model.AdminDTO;
+import com.example.internship_api.data.model.DriverDTO;
 import com.example.internship_api.data.model.UserDTO;
 import com.example.internship_api.data.request.UserInsertRequest;
 import com.example.internship_api.data.request.UserUpdateRequest;
@@ -35,6 +36,11 @@ public class AdminController {
     public ResponseEntity<AdminDTO> save(@RequestBody UserInsertRequest request) {
 
         return new ResponseEntity<>(service.save(request),HttpStatus.CREATED);
+    }
+    @PostMapping("/save/{userId}")
+    public ResponseEntity<AdminDTO> save(@PathVariable Long userId) {
+
+        return new ResponseEntity<>(service.saveBasedOnUser(userId),HttpStatus.CREATED);
     }
     @PutMapping("/update/{id}")
     public ResponseEntity<AdminDTO> update(@PathVariable Long id, @RequestBody UserUpdateRequest request) {
