@@ -25,7 +25,7 @@ public class Vehicle {
 
     @NonNull
     @Column(nullable = false)
-    private String Name;
+    private String name;
 
     @Column
     private byte[] image;
