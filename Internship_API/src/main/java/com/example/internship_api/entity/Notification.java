@@ -12,7 +12,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity
 @Table(name="notification")
-public class Notification {
+public class    Notification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
