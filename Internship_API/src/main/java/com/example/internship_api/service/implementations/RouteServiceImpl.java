@@ -20,6 +20,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -39,11 +40,11 @@ public class RouteServiceImpl extends BaseCRUDServiceImpl<RouteDTO, RouteSearchO
     }
     @Override
     public RouteDTO updateFinish(Long id) {
-        var route=checkRoute(id);
+        var route=unwrapEntity( repository.findById(id),id);
         route.setStatus("finished");
         route.setEndDate(LocalDateTime.now());
-        int duration=route.getEndDate().getMinute()-route.getStartDate().getMinute();
-        route.setDuration(duration);
+        long duration= Duration.between(route.getStartDate(), route.getEndDate()).toMinutes();
+        route.setDuration((int)duration);
         repository.save(route);
         return modelMapper.map(route,RouteDTO.class);
 
@@ -51,7 +52,7 @@ public class RouteServiceImpl extends BaseCRUDServiceImpl<RouteDTO, RouteSearchO
 
     @Override
     public RouteDTO updatePayment(Long id) {
-        var route=checkRoute(id);
+        var route=unwrapEntity( repository.findById(id),id);
         route.setPaid(true);
         repository.save(route);
         return modelMapper.map(route,RouteDTO.class);
@@ -119,11 +120,5 @@ public class RouteServiceImpl extends BaseCRUDServiceImpl<RouteDTO, RouteSearchO
         throw new EntityNotFoundException(client_id, Client.class);
     }
     //method for checking if passed route exist in db
-    private Route checkRoute(Long id) {
-        Optional<Route> route=repository.findById(id);
-        if(route.isPresent()){
-            return route.get();
-        }
-        throw new EntityNotFoundException(id, Route.class);
-    }
+
 }
