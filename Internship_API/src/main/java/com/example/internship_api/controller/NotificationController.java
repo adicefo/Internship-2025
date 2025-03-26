@@ -32,17 +32,17 @@ public class NotificationController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<NotificationDTO> createUser(@RequestBody NotificationUpsertRequest request) {
+    public ResponseEntity<NotificationDTO> save(@RequestBody NotificationUpsertRequest request) {
 
         return new ResponseEntity<>(service.save(request),HttpStatus.CREATED);
     }
     @PutMapping("/update/{id}")
-    public ResponseEntity<NotificationDTO> updateUser(@PathVariable Long id, @RequestBody NotificationUpsertRequest request) {
+    public ResponseEntity<NotificationDTO> update(@PathVariable Long id, @RequestBody NotificationUpsertRequest request) {
 
         return new ResponseEntity<>(service.updateById(id,request),HttpStatus.OK);
     }
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<NotificationDTO> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<NotificationDTO> delete(@PathVariable Long id) {
         return new ResponseEntity<>(service.deleteById(id),HttpStatus.OK);
     }
 }

@@ -15,7 +15,7 @@ public class Request {
     private long id;
 
     @Column
-    private boolean accepted;
+    private Boolean accepted;
 
     @ManyToOne
     @JoinColumn(name = "route_id",referencedColumnName = "id")

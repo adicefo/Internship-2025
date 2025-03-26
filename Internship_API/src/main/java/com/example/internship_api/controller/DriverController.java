@@ -40,7 +40,7 @@ public class DriverController {
         return new ResponseEntity<>(service.saveBasedOnUser(userId),HttpStatus.CREATED);
     }
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<DriverDTO> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<DriverDTO> delete(@PathVariable Long id) {
         return new ResponseEntity<>(service.deleteById(id),HttpStatus.OK);
     }
 }
