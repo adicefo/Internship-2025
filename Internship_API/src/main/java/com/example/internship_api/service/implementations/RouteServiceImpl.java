@@ -2,6 +2,7 @@ package com.example.internship_api.service.implementations;
 
 import com.example.internship_api.data.model.DriverDTO;
 import com.example.internship_api.data.model.RouteDTO;
+import com.example.internship_api.data.request.GeneralReportRequest;
 import com.example.internship_api.data.request.RouteInsertRequest;
 import com.example.internship_api.data.request.RouteUpdateRequest;
 import com.example.internship_api.data.search_object.RouteSearchObject;
@@ -23,6 +24,7 @@ import org.springframework.stereotype.Service;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -56,6 +58,21 @@ public class RouteServiceImpl extends BaseCRUDServiceImpl<RouteDTO, RouteSearchO
         route.setPaid(true);
         repository.save(route);
         return modelMapper.map(route,RouteDTO.class);
+    }
+
+    @Override
+    public Map<String, Double> getAmountForReport(GeneralReportRequest request) {
+        var routes=repository.findAll()
+                .stream()
+                .filter(item->item.getStatus().equals("finished"))
+                .filter(item->item.getEndDate()!=null)
+                .filter(item->item.getEndDate().getMonthValue()==request.month())
+                .filter(item->item.getEndDate().getYear()==request.year())
+                .collect(Collectors.toList());
+        var amount=routes.stream().mapToDouble(item->item.getFullPrice()).sum();
+        if(amount==0)
+            return Map.of("fullAmount",0.0);
+        return Map.of("fullAmount",amount);
     }
 
     @Override

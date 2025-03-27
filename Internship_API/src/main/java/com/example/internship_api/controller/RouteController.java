@@ -4,19 +4,19 @@ import com.example.internship_api.data.PagedResult;
 import com.example.internship_api.data.model.DriverDTO;
 import com.example.internship_api.data.model.RouteDTO;
 import com.example.internship_api.data.model.UserDTO;
-import com.example.internship_api.data.request.RouteInsertRequest;
-import com.example.internship_api.data.request.RouteUpdateRequest;
-import com.example.internship_api.data.request.UserInsertRequest;
-import com.example.internship_api.data.request.UserUpdateRequest;
+import com.example.internship_api.data.request.*;
 import com.example.internship_api.data.search_object.DriverSearchObject;
 import com.example.internship_api.data.search_object.RouteSearchObject;
 import com.example.internship_api.entity.Route;
 import com.example.internship_api.service.DriverService;
 import com.example.internship_api.service.RouteService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/route")
@@ -34,6 +34,11 @@ public class RouteController {
     public ResponseEntity<RouteDTO> getById(@PathVariable Long id) {
 
         return new ResponseEntity<>(service.getById(id),HttpStatus.OK);
+    }
+    @GetMapping("/getAmountForReport")
+    public ResponseEntity<Map<String,Double>> getAmountForReport(@Valid @RequestBody GeneralReportRequest request) {
+
+        return new ResponseEntity<>(service.getAmountForReport(request),HttpStatus.OK);
     }
     @PostMapping("/save")
     public ResponseEntity<RouteDTO> save(@RequestBody RouteInsertRequest request) {

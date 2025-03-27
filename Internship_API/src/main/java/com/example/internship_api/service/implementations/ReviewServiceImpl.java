@@ -1,6 +1,7 @@
 package com.example.internship_api.service.implementations;
 
 import com.example.internship_api.data.model.ReviewDTO;
+import com.example.internship_api.data.request.GeneralReportRequest;
 import com.example.internship_api.data.request.ReviewInsertRequest;
 import com.example.internship_api.data.request.ReviewUpdateRequest;
 import com.example.internship_api.data.search_object.ReviewSearchObject;
@@ -16,7 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 
@@ -32,6 +35,44 @@ public class ReviewServiceImpl extends BaseCRUDServiceImpl<ReviewDTO, ReviewSear
     public ReviewServiceImpl(ReviewRepository repository, ModelMapper modelMapper)
     {
         super(repository, modelMapper, ReviewDTO.class, Review.class);
+    }
+    @Override
+    public List<Map<String, Object>> getDriversForReport(GeneralReportRequest request) {
+        //takes all reviews for the given month and year
+        var reviews = repository.findAll().stream()
+                .filter(item -> item.getAddingDate() != null)
+                .filter(item -> item.getAddingDate().getYear() == request.year())
+                .filter(item -> item.getAddingDate().getMonthValue() == request.month())
+                .collect(Collectors.toList());
+
+        //if it is empty returns null
+        if (reviews.isEmpty()) {
+            return List.of(Map.of("maxDriver", "null", "minDriver", "null"));
+        }
+
+        //grouping driver and his average mark for that period
+        var driverReviews = reviews.stream()
+                .collect(Collectors.groupingBy(
+                        x -> Map.of("name", x.getDriver().getUser().getName(), "surname", x.getDriver().getUser().getSurname()),
+                        Collectors.averagingDouble(Review::getValue)
+                ))
+                .entrySet().stream()
+                .map(entry -> Map.of(
+                        "DriverName", entry.getKey(),
+                        "AvgMark", Math.round(entry.getValue() * 100.0) / 100.0
+                ))
+                .collect(Collectors.toList());
+
+        //finding driver with max and min average mark
+        var maxAvgDriver = driverReviews.stream()
+                .max(Comparator.comparingDouble(x -> (Double) x.get("AvgMark")))
+                .orElse(Map.of("DriverName", "null", "AvgMark", 0.0));
+
+        var minAvgDriver = driverReviews.stream()
+                .min(Comparator.comparingDouble(x -> (Double) x.get("AvgMark")))
+                .orElse(Map.of("DriverName", "null", "AvgMark", 0.0));
+
+        return List.of(Map.of("maxDriver", maxAvgDriver, "minDriver", minAvgDriver));
     }
     @Override
     protected void beforeInsert(ReviewInsertRequest request, Review entity) {
@@ -85,4 +126,6 @@ public class ReviewServiceImpl extends BaseCRUDServiceImpl<ReviewDTO, ReviewSear
             return driver.get();
         throw new EntityNotFoundException(driver_id, Driver.class);
     }
+
+
 }

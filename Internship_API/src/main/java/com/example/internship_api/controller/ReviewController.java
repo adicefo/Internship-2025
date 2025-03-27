@@ -3,6 +3,7 @@ package com.example.internship_api.controller;
 import com.example.internship_api.data.PagedResult;
 import com.example.internship_api.data.model.NotificationDTO;
 import com.example.internship_api.data.model.ReviewDTO;
+import com.example.internship_api.data.request.GeneralReportRequest;
 import com.example.internship_api.data.request.NotificationUpsertRequest;
 import com.example.internship_api.data.request.ReviewInsertRequest;
 import com.example.internship_api.data.request.ReviewUpdateRequest;
@@ -14,6 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/review")
@@ -31,6 +35,11 @@ public class ReviewController {
     public ResponseEntity<ReviewDTO> getById(@PathVariable Long id) {
 
         return new ResponseEntity<>(service.getById(id),HttpStatus.OK);
+    }
+    @GetMapping("/getDriversForReport")
+    public ResponseEntity<List<Map<String,Object>>> getById(@Valid @RequestBody GeneralReportRequest request) {
+
+        return new ResponseEntity<>(service.getDriversForReport(request),HttpStatus.OK);
     }
 
     @PostMapping("/save")
