@@ -9,6 +9,7 @@ import com.example.internship_api.data.request.RequestUpdateRequest;
 import com.example.internship_api.data.search_object.NotificationSearchObject;
 import com.example.internship_api.data.search_object.RequestSearchObject;
 import com.example.internship_api.service.RequestService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,12 +33,12 @@ public class RequestController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<RequestDTO> save(@RequestBody RequestInsertRequest request) {
+    public ResponseEntity<RequestDTO> save(@Valid @RequestBody RequestInsertRequest request) {
 
         return new ResponseEntity<>(service.save(request),HttpStatus.CREATED);
     }
     @PutMapping("/update/{id}")
-    public ResponseEntity<RequestDTO> update(@PathVariable Long id, @RequestBody RequestUpdateRequest request) {
+    public ResponseEntity<RequestDTO> update(@PathVariable Long id, @Valid @RequestBody RequestUpdateRequest request) {
 
         return new ResponseEntity<>(service.updateById(id,request),HttpStatus.OK);
     }

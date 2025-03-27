@@ -6,6 +6,7 @@ import com.example.internship_api.data.request.UserInsertRequest;
 import com.example.internship_api.data.request.UserUpdateRequest;
 import com.example.internship_api.data.search_object.UserSearchObject;
 import com.example.internship_api.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,12 +31,12 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<UserDTO> createUser(@RequestBody UserInsertRequest request) {
+    public ResponseEntity<UserDTO> createUser(@Valid @RequestBody UserInsertRequest request) {
 
         return new ResponseEntity<>(service.save(request),HttpStatus.CREATED);
     }
     @PutMapping("/update/{id}")
-    public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @RequestBody UserUpdateRequest request) {
+    public ResponseEntity<UserDTO> updateUser(@PathVariable Long id,@Valid @RequestBody UserUpdateRequest request) {
 
         return new ResponseEntity<>(service.updateById(id,request),HttpStatus.OK);
     }

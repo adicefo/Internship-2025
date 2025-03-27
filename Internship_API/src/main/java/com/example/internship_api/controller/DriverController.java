@@ -7,6 +7,7 @@ import com.example.internship_api.data.request.UserInsertRequest;
 import com.example.internship_api.data.search_object.ClientSearchObject;
 import com.example.internship_api.data.search_object.DriverSearchObject;
 import com.example.internship_api.service.DriverService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +31,7 @@ public class DriverController {
         return new ResponseEntity<>(service.getById(id),HttpStatus.OK);
     }
     @PostMapping("/save")
-    public ResponseEntity<DriverDTO> save(@RequestBody UserInsertRequest request) {
+    public ResponseEntity<DriverDTO> save(@Valid @RequestBody UserInsertRequest request) {
 
         return new ResponseEntity<>(service.save(request),HttpStatus.CREATED);
     }

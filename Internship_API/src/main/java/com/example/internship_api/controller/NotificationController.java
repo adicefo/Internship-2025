@@ -9,6 +9,7 @@ import com.example.internship_api.data.request.UserUpdateRequest;
 import com.example.internship_api.data.search_object.NotificationSearchObject;
 import com.example.internship_api.data.search_object.UserSearchObject;
 import com.example.internship_api.service.NotificationService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,12 +33,12 @@ public class NotificationController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<NotificationDTO> save(@RequestBody NotificationUpsertRequest request) {
+    public ResponseEntity<NotificationDTO> save( @Valid @RequestBody NotificationUpsertRequest request) {
 
         return new ResponseEntity<>(service.save(request),HttpStatus.CREATED);
     }
     @PutMapping("/update/{id}")
-    public ResponseEntity<NotificationDTO> update(@PathVariable Long id, @RequestBody NotificationUpsertRequest request) {
+    public ResponseEntity<NotificationDTO> update(@PathVariable Long id,@Valid @RequestBody NotificationUpsertRequest request) {
 
         return new ResponseEntity<>(service.updateById(id,request),HttpStatus.OK);
     }

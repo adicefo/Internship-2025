@@ -8,6 +8,7 @@ import com.example.internship_api.data.request.RentInsertRequest;
 import com.example.internship_api.data.search_object.CompanyPriceSearchObject;
 import com.example.internship_api.data.search_object.RentSearchObject;
 import com.example.internship_api.service.CompanyPriceService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +37,7 @@ public class CompanyPriceController {
         return new ResponseEntity<>(service.getById(id),HttpStatus.OK);
     }
     @PostMapping("/save")
-    public ResponseEntity<CompanyPriceDTO> save(@RequestBody CompanyPriceInsertRequest request) {
+    public ResponseEntity<CompanyPriceDTO> save(@Valid @RequestBody CompanyPriceInsertRequest request) {
 
         return new ResponseEntity<>(service.save(request),HttpStatus.CREATED);
     }

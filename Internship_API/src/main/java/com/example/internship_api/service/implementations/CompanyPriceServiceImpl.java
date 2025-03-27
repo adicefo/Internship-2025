@@ -38,8 +38,6 @@ public class CompanyPriceServiceImpl extends BaseCRUDServiceImpl<CompanyPriceDTO
 
     @Override
     protected void beforeInsert(CompanyPriceInsertRequest request, CompanyPrice entity) {
-        if(request.pricePerKilometer()<1||request.pricePerKilometer()>15)
-            throw new IllegalArgumentException("Price per kilometer must be between 1 and 15");
         entity.setAddingDate(LocalDateTime.now());
     }
 

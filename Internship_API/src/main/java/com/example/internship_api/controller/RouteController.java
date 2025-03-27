@@ -41,12 +41,12 @@ public class RouteController {
         return new ResponseEntity<>(service.getAmountForReport(request),HttpStatus.OK);
     }
     @PostMapping("/save")
-    public ResponseEntity<RouteDTO> save(@RequestBody RouteInsertRequest request) {
+    public ResponseEntity<RouteDTO> save(@Valid @RequestBody RouteInsertRequest request) {
 
         return new ResponseEntity<>(service.save(request),HttpStatus.CREATED);
     }
     @PutMapping("/update/{id}")
-    public ResponseEntity<RouteDTO> update(@PathVariable Long id, @RequestBody RouteUpdateRequest request) {
+    public ResponseEntity<RouteDTO> update(@PathVariable Long id,@Valid @RequestBody RouteUpdateRequest request) {
 
         return new ResponseEntity<>(service.updateById(id,request),HttpStatus.OK);
     }

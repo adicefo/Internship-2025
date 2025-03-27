@@ -10,6 +10,7 @@ import com.example.internship_api.data.search_object.AdminSearchObject;
 import com.example.internship_api.data.search_object.UserSearchObject;
 import com.example.internship_api.service.AdminService;
 import com.example.internship_api.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +34,7 @@ public class AdminController {
         return new ResponseEntity<>(service.getById(id),HttpStatus.OK);
     }
     @PostMapping("/save")
-    public ResponseEntity<AdminDTO> save(@RequestBody UserInsertRequest request) {
+    public ResponseEntity<AdminDTO> save(@Valid @RequestBody UserInsertRequest request) {
 
         return new ResponseEntity<>(service.save(request),HttpStatus.CREATED);
     }
@@ -43,7 +44,7 @@ public class AdminController {
         return new ResponseEntity<>(service.saveBasedOnUser(userId),HttpStatus.CREATED);
     }
     @PutMapping("/update/{id}")
-    public ResponseEntity<AdminDTO> update(@PathVariable Long id, @RequestBody UserUpdateRequest request) {
+    public ResponseEntity<AdminDTO> update(@Valid @PathVariable Long id, @RequestBody UserUpdateRequest request) {
 
         return new ResponseEntity<>(service.updateById(id,request),HttpStatus.OK);
     }

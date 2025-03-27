@@ -7,6 +7,7 @@ import com.example.internship_api.data.request.*;
 import com.example.internship_api.data.search_object.RentSearchObject;
 import com.example.internship_api.data.search_object.RouteSearchObject;
 import com.example.internship_api.service.RentService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,16 +33,16 @@ public class RentController {
         return new ResponseEntity<>(service.getById(id),HttpStatus.OK);
     }
     @PostMapping("/save")
-    public ResponseEntity<RentDTO> save(@RequestBody RentInsertRequest request) {
+    public ResponseEntity<RentDTO> save(@Valid @RequestBody RentInsertRequest request) {
 
         return new ResponseEntity<>(service.save(request),HttpStatus.CREATED);
     }
     @PostMapping("/checkAvailability/{id}")
-    public ResponseEntity<Map<String,Boolean>>checkAvailability(@PathVariable Long id, @RequestBody RentAvailabilityRequest request){
+    public ResponseEntity<Map<String,Boolean>>checkAvailability(@PathVariable Long id,@Valid @RequestBody RentAvailabilityRequest request){
         return new ResponseEntity<>(service.checkAvailability(id,request),HttpStatus.OK);
     }
     @PutMapping("/update/{id}")
-    public ResponseEntity<RentDTO> update(@PathVariable Long id, @RequestBody RentUpdateRequest request) {
+    public ResponseEntity<RentDTO> update(@PathVariable Long id, @Valid @RequestBody RentUpdateRequest request) {
 
         return new ResponseEntity<>(service.updateById(id,request),HttpStatus.OK);
     }

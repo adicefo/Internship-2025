@@ -9,6 +9,7 @@ import com.example.internship_api.data.request.VehicleUpsertRequest;
 import com.example.internship_api.data.search_object.RouteSearchObject;
 import com.example.internship_api.data.search_object.VehicleSearchObject;
 import com.example.internship_api.service.VehicleService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,12 +33,12 @@ public class VehicleController {
         return new ResponseEntity<>(service.getById(id),HttpStatus.OK);
     }
     @PostMapping("/save")
-    public ResponseEntity<VehicleDTO> save(@RequestBody VehicleUpsertRequest request) {
+    public ResponseEntity<VehicleDTO> save(@Valid @RequestBody VehicleUpsertRequest request) {
 
         return new ResponseEntity<>(service.save(request),HttpStatus.CREATED);
     }
     @PutMapping("/update/{id}")
-    public ResponseEntity<VehicleDTO> update(@PathVariable Long id, @RequestBody VehicleUpsertRequest request) {
+    public ResponseEntity<VehicleDTO> update(@PathVariable Long id,@Valid @RequestBody VehicleUpsertRequest request) {
 
         return new ResponseEntity<>(service.updateById(id,request),HttpStatus.OK);
     }
