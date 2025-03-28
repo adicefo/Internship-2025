@@ -11,6 +11,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -31,6 +32,7 @@ public class DriverController {
         return new ResponseEntity<>(service.getById(id),HttpStatus.OK);
     }
     @PostMapping("/save")
+    @PreAuthorize("hasRole('admin')")
     public ResponseEntity<DriverDTO> save(@Valid @RequestBody UserInsertRequest request) {
 
         return new ResponseEntity<>(service.save(request),HttpStatus.CREATED);
@@ -41,6 +43,8 @@ public class DriverController {
         return new ResponseEntity<>(service.saveBasedOnUser(userId),HttpStatus.CREATED);
     }
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasRole('admin')")
+
     public ResponseEntity<DriverDTO> delete(@PathVariable Long id) {
         return new ResponseEntity<>(service.deleteById(id),HttpStatus.OK);
     }

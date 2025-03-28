@@ -14,6 +14,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -36,16 +37,22 @@ public class StatisticsController {
     }
 
     @PostMapping("/save")
+    @PreAuthorize("hasRole('driver') or hasRole('admin')")
+
     public ResponseEntity<StatisticsDTO> save(@Valid @RequestBody StatisticsInsertRequest request) {
 
         return new ResponseEntity<>(service.save(request),HttpStatus.CREATED);
     }
     @PutMapping("/update/{id}")
+    @PreAuthorize("hasRole('driver')")
+
     public ResponseEntity<StatisticsDTO> update(@PathVariable Long id,@Valid @RequestBody StatisticsUpdateRequest request) {
 
         return new ResponseEntity<>(service.updateById(id,request),HttpStatus.OK);
     }
     @PutMapping("/updateFinish/{id}")
+    @PreAuthorize("hasRole('driver')")
+
     public ResponseEntity<StatisticsDTO> update(@PathVariable Long id) {
 
         return new ResponseEntity<>(service.updateFinish(id),HttpStatus.OK);

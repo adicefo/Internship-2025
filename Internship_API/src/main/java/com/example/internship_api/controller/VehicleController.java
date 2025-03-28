@@ -13,6 +13,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -33,16 +34,19 @@ public class VehicleController {
         return new ResponseEntity<>(service.getById(id),HttpStatus.OK);
     }
     @PostMapping("/save")
+    @PreAuthorize("hasRole('admin')")
     public ResponseEntity<VehicleDTO> save(@Valid @RequestBody VehicleUpsertRequest request) {
 
         return new ResponseEntity<>(service.save(request),HttpStatus.CREATED);
     }
     @PutMapping("/update/{id}")
+    @PreAuthorize("hasRole('admin')")
     public ResponseEntity<VehicleDTO> update(@PathVariable Long id,@Valid @RequestBody VehicleUpsertRequest request) {
 
         return new ResponseEntity<>(service.updateById(id,request),HttpStatus.OK);
     }
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasRole('admin')")
     public ResponseEntity<VehicleDTO> delete(@PathVariable Long id) {
         return new ResponseEntity<>(service.deleteById(id),HttpStatus.OK);
     }

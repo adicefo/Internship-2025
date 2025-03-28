@@ -14,6 +14,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,12 +38,14 @@ public class ReviewController {
         return new ResponseEntity<>(service.getById(id),HttpStatus.OK);
     }
     @GetMapping("/getDriversForReport")
-    public ResponseEntity<List<Map<String,Object>>> getById(@Valid @RequestBody GeneralReportRequest request) {
+    @PreAuthorize("hasRole('admin')")
+    public ResponseEntity<List<Map<String,Object>>> get(@Valid @RequestBody GeneralReportRequest request) {
 
         return new ResponseEntity<>(service.getDriversForReport(request),HttpStatus.OK);
     }
 
     @PostMapping("/save")
+    @PreAuthorize("hasRole('client')")
     public ResponseEntity<ReviewDTO> save(@Valid @RequestBody ReviewInsertRequest request) {
 
         return new ResponseEntity<>(service.save(request),HttpStatus.CREATED);

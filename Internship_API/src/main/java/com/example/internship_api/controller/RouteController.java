@@ -14,6 +14,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -36,6 +37,8 @@ public class RouteController {
         return new ResponseEntity<>(service.getById(id),HttpStatus.OK);
     }
     @GetMapping("/getAmountForReport")
+    @PreAuthorize("hasRole('admin')")
+
     public ResponseEntity<Map<String,Double>> getAmountForReport(@Valid @RequestBody GeneralReportRequest request) {
 
         return new ResponseEntity<>(service.getAmountForReport(request),HttpStatus.OK);
