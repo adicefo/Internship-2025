@@ -1,9 +1,58 @@
+
 services:
+  internship-api:
+    build:
+      context: .
+      dockerfile: 'Dockerfile'
+    container_name: 'internship-api'
+    ports:
+      - "8081:8081"
+    environment:
+      - 'SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/internship_db'
+      - 'SPRING_DATASOURCE_USERNAME=adi'
+      - 'SPRING_DATASOURCE_PASSWORD=@di123!!'
+      - 'SPRING_JPA_HIBERNATE_DDL_AUTO=update'
+      - 'SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI=http://keycloak:8080/realms/Internship_API'
+      - 'SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI=http://keycloak:8080/realms/Internship_API/protocol/openid-connect/certs'
+      - 'JWT_AUTH_CONVERTER_RESOURCE_ID=internship-rest-api'
+      - 'JWT_AUTH_CONVERTER_PRINCIPLE_ATTRIBUTE=preferred_username'
+    depends_on:
+      - 'postgres'
+      - 'keycloak'
+    networks:
+      - 'internship-network'
+
   postgres:
     image: 'postgres:latest'
+    container_name: 'postgresql-database'
     environment:
       - 'POSTGRES_DB=internship_db'
       - 'POSTGRES_PASSWORD=@di123!!'
       - 'POSTGRES_USER=adi'
     ports:
-      - '5432'
+      - '5433:5432'
+    volumes:
+      - 'internship_db_data:/var/lib/postgresql/data'
+    networks:
+      - 'internship-network'
+
+  keycloak:
+    image: 'quay.io/keycloak/keycloak:latest'
+    container_name: 'keycloak-server'
+    environment:
+      - 'KEYCLOAK_ADMIN=real_admin'
+      - 'KEYCLOAK_ADMIN_PASSWORD=rpuk123!'
+    command: 'start-dev'
+    ports:
+      - "8080:8080"
+    volumes:
+      - 'keycloak_data:/opt/keycloak/data'
+    networks:
+      - 'internship-network'
+
+networks:
+  internship-network:
+
+volumes:
+  internship_db_data:
+  keycloak_data:
