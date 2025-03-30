@@ -9,6 +9,18 @@
 - **Navigate to the path of the `docker-compose.yaml` file in the cloned repo**
 - **Run `docker-compose up --build `**
 
+## Credentials
 
+### Postgresql database:
+
+- **Host name/address:** `localhost`
+- **Port:** `5433`
+- **Username:** `adi`
+- **Password:** `@di123!!`
+- **Database:** `internship_db`
+
+### Keycloak:
+- **Username:** `real_admin`
+- **Password:** `rpuk123!`
 
 
