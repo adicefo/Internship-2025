@@ -10,4 +10,6 @@ public class InternshipApiApplication {
         SpringApplication.run(InternshipApiApplication.class, args);
     }
 
+
+
 }

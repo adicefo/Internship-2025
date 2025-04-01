@@ -1,10 +1,10 @@
-
 services:
   internship-api:
     build:
       context: .
       dockerfile: 'Dockerfile'
     container_name: 'internship-api'
+    restart: "always"
     ports:
       - "8081:8081"
     environment:
@@ -24,7 +24,7 @@ services:
 
   postgres:
     image: 'postgres:latest'
-    container_name: 'postgresql-database'
+    container_name: 'postgres'
     environment:
       - 'POSTGRES_DB=internship_db'
       - 'POSTGRES_PASSWORD=@di123!!'
@@ -33,6 +33,7 @@ services:
       - '5433:5432'
     volumes:
       - 'internship_db_data:/var/lib/postgresql/data'
+      - './src/main/resources/data.sql:/docker-entrypoint-initdb.d/data.sql'
     networks:
       - 'internship-network'
 
@@ -52,6 +53,7 @@ services:
 
 networks:
   internship-network:
+    driver: "bridge"
 
 volumes:
   internship_db_data:
