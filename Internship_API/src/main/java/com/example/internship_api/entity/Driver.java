@@ -17,10 +17,10 @@ public class Driver {
     private long id;
 
     @Column
-    private int numberOfHoursAmount;
+    private Integer numberOfHoursAmount;
 
     @Column
-    private int numberOfClientsAmount;
+    private Integer numberOfClientsAmount;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_id", referencedColumnName = "id")

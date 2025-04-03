@@ -41,7 +41,7 @@ public class NotificationServiceImpl extends BaseCRUDServiceImpl<NotificationDTO
         }
         List<Notification> filteredQuery = query.stream()
                 .filter(item-> search.getTitle() == null || item.getTitle().startsWith(search.getTitle()))
-                .filter(item -> search.getForClient() == null || item.isForClient()==search.getForClient())
+                .filter(item -> search.getForClient() == null || item.getForClient()==search.getForClient())
 
                 .collect(Collectors.toList());
 

@@ -66,7 +66,7 @@ public class StatisticsServiceImpl extends BaseCRUDServiceImpl<StatisticsDTO, St
         entity.setBeginningOfWork(LocalDateTime.now());
         entity.setNumberOfClients(0);
         entity.setNumberOfHours(0);
-        entity.setPriceAmount(0);
+        entity.setPriceAmount(0.0);
         entity.setDriver(driver);
     }
 

@@ -23,13 +23,13 @@ public class Rent {
     private LocalDateTime endDate;
 
     @Column
-    private int numberOfDays;
+    private Integer numberOfDays;
 
     @Column
-    private double fullPrice;
+    private Double fullPrice;
 
     @Column
-    private boolean paid;
+    private Boolean paid=false;
 
     @Column
     private String status;

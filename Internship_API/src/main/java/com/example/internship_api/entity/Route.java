@@ -18,16 +18,16 @@ public class Route {
     private long id;
 
     @Column
-    private double sourcePointLat;
+    private Double sourcePointLat;
 
     @Column
-    private double sourcePointLon;
+    private Double sourcePointLon;
 
     @Column
-    private double destinationPointLat;
+    private Double destinationPointLat;
 
     @Column
-    private double destinationPointLon;
+    private Double destinationPointLon;
 
     @Column
     private LocalDateTime startDate;
@@ -36,16 +36,16 @@ public class Route {
     private LocalDateTime endDate;
 
     @Column
-    private int duration;
+    private Integer duration=0;
 
     @Column
-    private double numberOfKilometers;
+    private Double numberOfKilometers;
 
     @Column
-    private double fullPrice;
+    private Double fullPrice;
 
     @Column
-    private boolean paid;
+    private Boolean paid=false;
 
     @Column
     private String status;

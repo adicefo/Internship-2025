@@ -43,7 +43,7 @@ public class VehicleServiceImpl extends BaseCRUDServiceImpl<VehicleDTO, VehicleS
             return;
         }
         List<Vehicle> filteredQuery = query.stream()
-                .filter(item-> search.getAvailable() == null || item.isAvailable()==search.getAvailable())
+                .filter(item-> search.getAvailable() == null || item.getAvailable()==search.getAvailable())
                 .filter(item -> search.getName() == null || item.getName().equals(search.getName()))
                 .collect(Collectors.toList());
 

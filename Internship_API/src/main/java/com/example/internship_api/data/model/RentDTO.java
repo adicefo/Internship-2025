@@ -17,7 +17,7 @@ public class RentDTO {
     private LocalDateTime endDate;
     private Integer numberOfDays;
     private Double fullPrice;
-    private Boolean paid;
+    private Boolean paid=null;
     private String status;
     private VehicleDTO vehicle;
     private ClientDTO client;

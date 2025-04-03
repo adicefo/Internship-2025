@@ -18,7 +18,7 @@ public class Review {
 
     @NonNull
     @Column(nullable = false)
-    private int value;
+    private Integer value;
 
     @NonNull
     @Column(nullable = false)

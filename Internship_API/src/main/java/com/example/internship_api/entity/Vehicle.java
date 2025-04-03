@@ -18,10 +18,10 @@ public class Vehicle {
     private long id;
 
     @Column
-    private boolean available;
+    private Boolean available;
 
     @Column
-    private double averageFuelConsumption;
+    private Double averageFuelConsumption;
 
     @NonNull
     @Column(nullable = false)
@@ -32,7 +32,7 @@ public class Vehicle {
 
     @NonNull
     @Column(nullable = false)
-    private double price;
+    private Double price;
 
     @OneToMany(mappedBy = "vehicle",cascade = CascadeType.ALL)
     private Set<DriverVehicle> driverVehicles;

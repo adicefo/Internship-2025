@@ -19,7 +19,7 @@ public class RouteDTO {
     private Double destinationPointLon;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
-    private Integer duration;
+    private Integer duration=null;
     private Double numberOfKilometers;
     private Double fullPrice;
     private Boolean paid;

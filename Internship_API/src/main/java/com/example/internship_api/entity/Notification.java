@@ -30,7 +30,7 @@ public class    Notification {
     private LocalDateTime addingDate;
 
     @Column
-    private boolean forClient;
+    private Boolean forClient;
     @OneToMany(mappedBy = "notification",cascade = CascadeType.ALL)
     private Set<ClientNotification> clientNotifications;
     @OneToMany(mappedBy = "notification",cascade = CascadeType.ALL)

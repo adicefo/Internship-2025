@@ -19,7 +19,7 @@ public class CompanyPrice {
 
     @NonNull
     @Column(nullable = false)
-    private double pricePerKilometer;
+    private Double pricePerKilometer;
 
     @Column
     private LocalDateTime addingDate;

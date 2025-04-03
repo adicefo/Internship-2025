@@ -17,13 +17,13 @@ public class Statistics {
     private long id;
 
     @Column
-    private int numberOfHours;
+    private Integer numberOfHours;
 
     @Column
-    private int numberOfClients;
+    private Integer numberOfClients;
 
     @Column
-    private double priceAmount;
+    private Double priceAmount;
 
     @Column
     private LocalDateTime beginningOfWork;
