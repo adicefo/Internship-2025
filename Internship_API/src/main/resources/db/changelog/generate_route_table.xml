@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="8" author="adi">
+        <createTable tableName="route">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="source_point_lat" type="double"/>
+            <column name="source_point_lon" type="double"/>
+            <column name="destination_point_lat" type="double"/>
+            <column name="destination_point_lon" type="double"/>
+            <column name="start_date" type="timestamp"/>
+            <column name="end_date" type="timestamp"/>
+            <column name="duration" type="integer" defaultValue="0"/>
+            <column name="number_of_kilometers" type="double"/>
+            <column name="full_price" type="double"/>
+            <column name="paid" type="boolean" defaultValue="false"/>
+            <column name="status" type="varchar(255)"/>
+            <column name="client_id" type="bigint"/>
+            <column name="driver_id" type="bigint"/>
+            <column name="company_price_id" type="bigint"/>
+        </createTable>
+
+        <!-- Add Foreign Key constraints -->
+        <addForeignKeyConstraint
+                baseTableName="route"
+                baseColumnNames="client_id"
+                referencedTableName="client"
+                referencedColumnNames="id"
+                constraintName="fk_route_client"/>
+
+        <addForeignKeyConstraint
+                baseTableName="route"
+                baseColumnNames="driver_id"
+                referencedTableName="driver"
+                referencedColumnNames="id"
+                constraintName="fk_route_driver"/>
+
+        <addForeignKeyConstraint
+                baseTableName="route"
+                baseColumnNames="company_price_id"
+                referencedTableName="company_price"
+                referencedColumnNames="id"
+                constraintName="fk_route_companyPrice"/>
+    </changeSet>
+
+</databaseChangeLog>

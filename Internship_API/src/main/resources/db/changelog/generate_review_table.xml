@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="11" author="adi">
+        <createTable tableName="review">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="value" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="adding_date" type="timestamp"/>
+            <column name="reviews_id" type="bigint"/>
+            <column name="reviewed_id" type="bigint"/>
+            <column name="route_id" type="bigint"/>
+        </createTable>
+
+        <!-- Foreign Key Constraints -->
+        <addForeignKeyConstraint
+                baseTableName="review"
+                baseColumnNames="reviews_id"
+                referencedTableName="client"
+                referencedColumnNames="id"
+                constraintName="fk_review_client"/>
+
+        <addForeignKeyConstraint
+                baseTableName="review"
+                baseColumnNames="reviewed_id"
+                referencedTableName="driver"
+                referencedColumnNames="id"
+                constraintName="fk_review_driver"/>
+
+        <addForeignKeyConstraint
+                baseTableName="review"
+                baseColumnNames="route_id"
+                referencedTableName="route"
+                referencedColumnNames="id"
+                constraintName="fk_review_route"/>
+    </changeSet>
+
+</databaseChangeLog>

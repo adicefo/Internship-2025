@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="16" author="adi">
+        <createTable tableName="driver_vehicle">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="date_pick" type="timestamp"/>
+            <column name="date_drop" type="timestamp"/>
+            <column name="vehicle_id" type="bigint"/>
+            <column name="driver_id" type="bigint"/>
+        </createTable>
+
+        <!-- Foreign Key Constraints -->
+        <addForeignKeyConstraint
+                baseTableName="driver_vehicle"
+                baseColumnNames="vehicle_id"
+                referencedTableName="vehicle"
+                referencedColumnNames="id"
+                constraintName="fk_driver_vehicle_vehicle"/>
+
+        <addForeignKeyConstraint
+                baseTableName="driver_vehicle"
+                baseColumnNames="driver_id"
+                referencedTableName="driver"
+                referencedColumnNames="id"
+                constraintName="fk_driver_vehicle_driver"/>
+    </changeSet>
+
+</databaseChangeLog>

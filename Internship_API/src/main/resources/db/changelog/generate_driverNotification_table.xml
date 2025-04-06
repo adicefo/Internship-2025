@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="15" author="adi">
+        <createTable tableName="driver_notification">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="adding_date" type="timestamp"/>
+            <column name="driver_id" type="bigint"/>
+            <column name="notification_id" type="bigint"/>
+        </createTable>
+
+        <!-- Foreign Key Constraints -->
+        <addForeignKeyConstraint
+                baseTableName="driver_notification"
+                baseColumnNames="driver_id"
+                referencedTableName="driver"
+                referencedColumnNames="id"
+                constraintName="fk_driver_notification_driver"/>
+
+        <addForeignKeyConstraint
+                baseTableName="driver_notification"
+                baseColumnNames="notification_id"
+                referencedTableName="notification"
+                referencedColumnNames="id"
+                constraintName="fk_driver_notification_notification"/>
+    </changeSet>
+
+</databaseChangeLog>

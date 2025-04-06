@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+        http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+     <include file="generate_users_table.xml" relativeToChangelogFile="true"/>
+     <include file="generate_admin_table.xml" relativeToChangelogFile="true"/>
+     <include file="generate_client_table.xml" relativeToChangelogFile="true"/>
+     <include file="generate_driver_table.xml" relativeToChangelogFile="true"/>
+     <include file="generate_vehicle_table.xml" relativeToChangelogFile="true"/>
+     <include file="generate_companyPrice_table.xml" relativeToChangelogFile="true"/>
+     <include file="generate_companyDetails_table.xml" relativeToChangelogFile="true"/>
+     <include file="generate_route_table.xml" relativeToChangelogFile="true"/>
+     <include file="generate_rent_table.xml" relativeToChangelogFile="true"/>
+     <include file="generate_notification_table.xml" relativeToChangelogFile="true"/>
+     <include file="generate_review_table.xml" relativeToChangelogFile="true"/>
+     <include file="generate_request_table.xml" relativeToChangelogFile="true"/>
+     <include file="generate_statistics_table.xml" relativeToChangelogFile="true"/>
+     <include file="generate_clientNotification_table.xml" relativeToChangelogFile="true"/>
+     <include file="generate_driverNotification_table.xml" relativeToChangelogFile="true"/>
+     <include file="generate_driverVehicle_table.xml" relativeToChangelogFile="true"/>
+     <include file="changelog_insert_test_data.xml" relativeToChangelogFile="true"/>
+
+</databaseChangeLog>
