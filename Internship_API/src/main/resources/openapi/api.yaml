@@ -13,6 +13,9 @@ paths:
         - Users
       summary: Get Users
       operationId: getUsers
+      security:
+        - internship_api_security_scheme:
+            - read_access
       responses:
         '200':
           description: Success
@@ -30,6 +33,16 @@ paths:
 
 
 components:
+  securitySchemes:
+    internship_api_security_scheme:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: http://keycloak:8080/realms/Internship_API/protocol/openid-connect/auth
+          tokenUrl: http://keycloak:8080/realms/Internship_API/protocol/openid-connect/token
+          scopes:
+            read_access: read data
+            write_access: modify data
   schemas:
     List:
       type: object
