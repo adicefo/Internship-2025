@@ -16,6 +16,14 @@ paths:
       security:
         - internship_api_security_scheme:
             - read_access
+
+      parameters:
+        - name: search
+          in: query
+          description: Search parameters for filtering users
+          required: false
+          schema:
+            $ref: '#/components/schemas/UserSearchObject'
       responses:
         '200':
           description: Success
@@ -67,4 +75,24 @@ components:
         registrationDate:
           type: string
           format: date-time
-
+    UserSearchObject: # Define UserSearchObject schema here
+      type: object
+      properties:
+        pageNumber:
+          type: integer
+          description: The page number for pagination
+        pageSize:
+          type: integer
+          description: The page size for pagination
+        username:
+          type: string
+          description: The username to filter by
+        email:
+          type: string
+          description: The email to filter by
+        name:
+          type: string
+          description: The name to filter by
+        surname:
+          type: string
+          description: The surname to filter by

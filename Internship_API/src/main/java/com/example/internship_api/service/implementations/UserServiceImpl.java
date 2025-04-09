@@ -3,7 +3,7 @@ package com.example.internship_api.service.implementations;
 import com.example.internship_api.dto.UserDTO;
 import com.example.internship_api.data.request.UserInsertRequest;
 import com.example.internship_api.data.request.UserUpdateRequest;
-import com.example.internship_api.data.search_object.UserSearchObject;
+import com.example.internship_api.dto.UserSearchObject;
 import com.example.internship_api.entity.User;
 import com.example.internship_api.exception.PasswordNotMatchException;
 import com.example.internship_api.repository.UserRepository;

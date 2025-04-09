@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
-public abstract class BaseCRUDServiceImpl<TModel,TSearch extends BaseSearchObject,TDbEntity,TInsert,TUpdate>
+public abstract class BaseCRUDServiceImpl<TModel,TSearch,TDbEntity,TInsert,TUpdate>
 extends BaseServiceImpl<TModel,TSearch,TDbEntity> {
 
 

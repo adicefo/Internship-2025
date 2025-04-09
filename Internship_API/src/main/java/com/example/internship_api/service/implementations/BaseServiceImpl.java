@@ -16,7 +16,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public abstract class BaseServiceImpl<TModel,TSearch extends BaseSearchObject,TDbEntity> implements BaseService<TModel,TSearch> {
+public abstract class BaseServiceImpl<TModel,TSearch,TDbEntity> implements BaseService<TModel,TSearch> {
     protected final JpaRepository<TDbEntity,Long> repository;
     protected   final ModelMapper modelMapper;
 
@@ -36,13 +36,6 @@ public abstract class BaseServiceImpl<TModel,TSearch extends BaseSearchObject,TD
         var query=repository.findAll();
         addFilter(search,query);
         int count=repository.findAll().size();
-        //adding pagination
-        if (search!=null&&search.getPageNumber() != null && search.getPageSize() != null) {
-            Pageable pageable = PageRequest.of(search.getPageNumber(), search.getPageSize());
-            Page<TDbEntity> pageResult = repository.findAll(pageable);
-            List<TModel> result=pageResult.getContent().stream().map(item->modelMapper.map(item,modelClass)).collect(Collectors.toList());
-            return new PagedResult<>(result,count);
-        }
         List<TModel> result = query.stream()
                 .map(item -> modelMapper.map(item, modelClass))
                 .collect(Collectors.toList());
