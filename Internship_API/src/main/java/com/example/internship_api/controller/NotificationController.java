@@ -16,37 +16,37 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
-@RequestMapping("/notification")
-public class NotificationController {
-    @Autowired
-    private NotificationService service;
-    @GetMapping("/get")
-    public ResponseEntity<PagedResult<NotificationDTO>> getAll(@ModelAttribute NotificationSearchObject searchObject) {
-
-        return new ResponseEntity<>(service.getAll(searchObject), HttpStatus.OK);
-    }
-
-    @GetMapping("/getById/{id}")
-    public ResponseEntity<NotificationDTO> getById(@PathVariable Long id) {
-
-        return new ResponseEntity<>(service.getById(id),HttpStatus.OK);
-    }
-
-    @PostMapping("/save")
-    @PreAuthorize("hasRole('admin')")
-
-    public ResponseEntity<NotificationDTO> save( @Valid @RequestBody NotificationUpsertRequest request) {
-
-        return new ResponseEntity<>(service.save(request),HttpStatus.CREATED);
-    }
-    @PutMapping("/update/{id}")
-    public ResponseEntity<NotificationDTO> update(@PathVariable Long id,@Valid @RequestBody NotificationUpsertRequest request) {
-
-        return new ResponseEntity<>(service.updateById(id,request),HttpStatus.OK);
-    }
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<NotificationDTO> delete(@PathVariable Long id) {
-        return new ResponseEntity<>(service.deleteById(id),HttpStatus.OK);
-    }
-}
+//@RestController
+//@RequestMapping("/notification")
+//public class NotificationController {
+//    @Autowired
+//    private NotificationService service;
+//    @GetMapping("/get")
+//    public ResponseEntity<PagedResult<NotificationDTO>> getAll(@ModelAttribute NotificationSearchObject searchObject) {
+//
+//        return new ResponseEntity<>(service.getAll(searchObject), HttpStatus.OK);
+//    }
+//
+//    @GetMapping("/getById/{id}")
+//    public ResponseEntity<NotificationDTO> getById(@PathVariable Long id) {
+//
+//        return new ResponseEntity<>(service.getById(id),HttpStatus.OK);
+//    }
+//
+//    @PostMapping("/save")
+//    @PreAuthorize("hasRole('admin')")
+//
+//    public ResponseEntity<NotificationDTO> save( @Valid @RequestBody NotificationUpsertRequest request) {
+//
+//        return new ResponseEntity<>(service.save(request),HttpStatus.CREATED);
+//    }
+//    @PutMapping("/update/{id}")
+//    public ResponseEntity<NotificationDTO> update(@PathVariable Long id,@Valid @RequestBody NotificationUpsertRequest request) {
+//
+//        return new ResponseEntity<>(service.updateById(id,request),HttpStatus.OK);
+//    }
+//    @DeleteMapping("/delete/{id}")
+//    public ResponseEntity<NotificationDTO> delete(@PathVariable Long id) {
+//        return new ResponseEntity<>(service.deleteById(id),HttpStatus.OK);
+//    }
+//}

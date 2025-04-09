@@ -1,0 +1,57 @@
+openapi: 3.0.1
+info:
+  title: Internship_API
+  description: This is the Internship API documentation. My goal is to learn best practices about REST API Design and Architecture.
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8081/v2
+paths:
+  /users/get:
+    get:
+      tags:
+        - Users
+      summary: Get Users
+      operationId: getUsers
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/List"
+                  - type: object
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/UserDTO"
+
+
+components:
+  schemas:
+    List:
+      type: object
+      properties:
+        count:
+          type: integer
+    UserDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+        surname:
+          type: string
+        username:
+          type: string
+        email:
+          type: string
+        telephoneNumber:
+          type: string
+        gender:
+          type: string
+        registrationDate:
+          type: string
+          format: date-time
+

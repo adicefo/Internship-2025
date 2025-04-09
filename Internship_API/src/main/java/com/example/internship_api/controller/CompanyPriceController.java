@@ -15,40 +15,40 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
-@RequestMapping("/companyPrice")
-public class CompanyPriceController {
-    @Autowired
-    private CompanyPriceService service;
-
-    @GetMapping("/get")
-    @PreAuthorize("hasRole('admin') or hasRole('driver')")
-    public ResponseEntity<PagedResult<CompanyPriceDTO>> getAll(@ModelAttribute CompanyPriceSearchObject searchObject) {
-
-        return new ResponseEntity<>(service.getAll(searchObject), HttpStatus.OK);
-    }
-    @GetMapping("/getCurrent")
-    @PreAuthorize("hasRole('admin') or hasRole('driver')")
-    public ResponseEntity<CompanyPriceDTO> getCurrentPrice() {
-
-        return new ResponseEntity<>(service.getCurrentPrice(), HttpStatus.OK);
-    }
-
-    @GetMapping("/getById/{id}")
-    @PreAuthorize("hasRole('admin')")
-    public ResponseEntity<CompanyPriceDTO> getById(@PathVariable Long id) {
-
-        return new ResponseEntity<>(service.getById(id),HttpStatus.OK);
-    }
-    @PostMapping("/save")
-    @PreAuthorize("hasRole('admin')")
-    public ResponseEntity<CompanyPriceDTO> save(@Valid @RequestBody CompanyPriceInsertRequest request) {
-
-        return new ResponseEntity<>(service.save(request),HttpStatus.CREATED);
-    }
-    @DeleteMapping("/delete/{id}")
-    @PreAuthorize("hasRole('admin')")
-    public ResponseEntity<CompanyPriceDTO> delete(@PathVariable Long id) {
-        return new ResponseEntity<>(service.deleteById(id),HttpStatus.OK);
-    }
-}
+//@RestController
+//@RequestMapping("/companyPrice")
+//public class CompanyPriceController {
+//    @Autowired
+//    private CompanyPriceService service;
+//
+//    @GetMapping("/get")
+//    @PreAuthorize("hasRole('admin') or hasRole('driver')")
+//    public ResponseEntity<PagedResult<CompanyPriceDTO>> getAll(@ModelAttribute CompanyPriceSearchObject searchObject) {
+//
+//        return new ResponseEntity<>(service.getAll(searchObject), HttpStatus.OK);
+//    }
+//    @GetMapping("/getCurrent")
+//    @PreAuthorize("hasRole('admin') or hasRole('driver')")
+//    public ResponseEntity<CompanyPriceDTO> getCurrentPrice() {
+//
+//        return new ResponseEntity<>(service.getCurrentPrice(), HttpStatus.OK);
+//    }
+//
+//    @GetMapping("/getById/{id}")
+//    @PreAuthorize("hasRole('admin')")
+//    public ResponseEntity<CompanyPriceDTO> getById(@PathVariable Long id) {
+//
+//        return new ResponseEntity<>(service.getById(id),HttpStatus.OK);
+//    }
+//    @PostMapping("/save")
+//    @PreAuthorize("hasRole('admin')")
+//    public ResponseEntity<CompanyPriceDTO> save(@Valid @RequestBody CompanyPriceInsertRequest request) {
+//
+//        return new ResponseEntity<>(service.save(request),HttpStatus.CREATED);
+//    }
+//    @DeleteMapping("/delete/{id}")
+//    @PreAuthorize("hasRole('admin')")
+//    public ResponseEntity<CompanyPriceDTO> delete(@PathVariable Long id) {
+//        return new ResponseEntity<>(service.deleteById(id),HttpStatus.OK);
+//    }
+//}

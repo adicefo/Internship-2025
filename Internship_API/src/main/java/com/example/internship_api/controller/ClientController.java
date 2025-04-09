@@ -14,35 +14,35 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
-@RequestMapping("/client")
-public class ClientController {
-    @Autowired
-    private ClientService service;
-
-    @GetMapping("/get")
-    public ResponseEntity<PagedResult<ClientDTO>> getAll(@ModelAttribute ClientSearchObject searchObject) {
-
-        return new ResponseEntity<>(service.getAll(searchObject), HttpStatus.OK);
-    }
-
-    @GetMapping("/getById/{id}")
-    public ResponseEntity<ClientDTO> getById(@PathVariable Long id) {
-
-        return new ResponseEntity<>(service.getById(id),HttpStatus.OK);
-    }
-    @PostMapping("/save")
-    public ResponseEntity<ClientDTO> save(@Valid @RequestBody UserInsertRequest request) {
-
-        return new ResponseEntity<>(service.save(request),HttpStatus.CREATED);
-    }
-    @PostMapping("/save/{userId}")
-    public ResponseEntity<ClientDTO> save(@PathVariable Long userId) {
-
-        return new ResponseEntity<>(service.saveBasedOnUser(userId),HttpStatus.CREATED);
-    }
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<ClientDTO> delete(@PathVariable Long id) {
-        return new ResponseEntity<>(service.deleteById(id),HttpStatus.OK);
-    }
-}
+//@RestController
+//@RequestMapping("/client")
+//public class ClientController {
+//    @Autowired
+//    private ClientService service;
+//
+//    @GetMapping("/get")
+//    public ResponseEntity<PagedResult<ClientDTO>> getAll(@ModelAttribute ClientSearchObject searchObject) {
+//
+//        return new ResponseEntity<>(service.getAll(searchObject), HttpStatus.OK);
+//    }
+//
+//    @GetMapping("/getById/{id}")
+//    public ResponseEntity<ClientDTO> getById(@PathVariable Long id) {
+//
+//        return new ResponseEntity<>(service.getById(id),HttpStatus.OK);
+//    }
+//    @PostMapping("/save")
+//    public ResponseEntity<ClientDTO> save(@Valid @RequestBody UserInsertRequest request) {
+//
+//        return new ResponseEntity<>(service.save(request),HttpStatus.CREATED);
+//    }
+//    @PostMapping("/save/{userId}")
+//    public ResponseEntity<ClientDTO> save(@PathVariable Long userId) {
+//
+//        return new ResponseEntity<>(service.saveBasedOnUser(userId),HttpStatus.CREATED);
+//    }
+//    @DeleteMapping("/delete/{id}")
+//    public ResponseEntity<ClientDTO> delete(@PathVariable Long id) {
+//        return new ResponseEntity<>(service.deleteById(id),HttpStatus.OK);
+//    }
+//}
