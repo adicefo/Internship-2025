@@ -1,12 +1,12 @@
 package com.example.internship_api.service.implementations;
 
 
-import com.example.internship_api.data.model.AdminDTO;
+import com.example.internship_api.dto.AdminDTO;
 import com.example.internship_api.data.model.ClientDTO;
 import com.example.internship_api.data.model.UserDTO;
-import com.example.internship_api.data.request.UserInsertRequest;
-import com.example.internship_api.data.request.UserUpdateRequest;
-import com.example.internship_api.data.search_object.AdminSearchObject;
+import com.example.internship_api.dto.UserInsertRequest;
+import com.example.internship_api.dto.UserUpdateRequest;
+import com.example.internship_api.dto.AdminSearchObject;
 import com.example.internship_api.data.search_object.UserSearchObject;
 import com.example.internship_api.entity.Admin;
 import com.example.internship_api.entity.Client;
@@ -50,12 +50,12 @@ public class AdminServiceImpl extends BaseCRUDServiceImpl<AdminDTO, AdminSearchO
     }
     @Override
     protected void beforeInsert(UserInsertRequest request, Admin entity) {
-        if(!request.password().equals(request.passwordConfirm())){
+        if(!request.getPassword().equals(request.getPasswordConfirm())){
             throw new PasswordNotMatchException();
         }
         User user=modelMapper.map(request,User.class);
         user.setPasswordSalt(PasswordUtils.generateSalt());
-        user.setPasswordHash(PasswordUtils.generateHash(user.getPasswordSalt(),request.password()));
+        user.setPasswordHash(PasswordUtils.generateHash(user.getPasswordSalt(),request.getPassword()));
         user.setRegistrationDate(LocalDateTime.now());
         user.setActive(true);
         userRepository.save(user);
@@ -64,12 +64,12 @@ public class AdminServiceImpl extends BaseCRUDServiceImpl<AdminDTO, AdminSearchO
 
     @Override
     protected void beforeUpdate(UserUpdateRequest request, Admin entity) {
-        if(request.password()!=null){
-            if(!request.password().equals(request.passwordConfirm())){
+        if(request.getPassword()!=null){
+            if(!request.getPassword().equals(request.getPasswordConfirm())){
                 throw new PasswordNotMatchException();
             }
             entity.getUser().setPasswordSalt(PasswordUtils.generateSalt());
-            var passwordHash=PasswordUtils.generateHash(entity.getUser().getPasswordSalt(),request.password());
+            var passwordHash=PasswordUtils.generateHash(entity.getUser().getPasswordSalt(),request.getPassword());
             entity.getUser().setPasswordHash(passwordHash);
 
         }

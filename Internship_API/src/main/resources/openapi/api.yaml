@@ -54,7 +54,7 @@ paths:
             schema:
               $ref: '#/components/schemas/UserInsertRequest'
       responses:
-        '200':
+        '201':
           description: User registered successfully
           content:
             application/json:
@@ -179,7 +179,213 @@ paths:
                     type: string
                   statusCode:
                     type: integer
+  # Admin path
+  /admin/get:
+    get:
+      tags:
+        - Admin
+      summary: Get Admin
+      operationId: getAdmin
+      security:
+        - internship_api_security_scheme:
+            - read_access
+      parameters:
+        - name: search
+          in: query
+          description: Search parameters for filtering admin
+          required: false
+          schema:
+            $ref: '#/components/schemas/AdminSearchObject'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/List"
+                  - type: object
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/AdminDTO"
 
+  /admin/save:
+    post:
+      tags:
+        - Admin
+      summary: Save Admin
+      operationId: createAdmin
+      security:
+        - internship_api_security_scheme:
+            - write_access
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInsertRequest'
+      responses:
+        '201':
+          description: Admin registered successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminDTO'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer
+  /admin/save/{userId}:
+    post:
+      tags:
+        - Admin
+      summary: Save Admin Based on Current User
+      operationId: createAdminBasedOnUser
+      security:
+        - internship_api_security_scheme:
+            - write_access
+      parameters:
+        - name: userId
+          in: path
+          description: ID of the user to save as admin
+          required: true
+          schema:
+            type: integer
+      responses:
+        '201':
+          description: Admin registered successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminDTO'
+        '404':
+          description: The User with the specified ID does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer
+  /admin/getById/{id}:
+    get:
+      tags:
+        - Admin
+      summary: Get admin by ID
+      operationId: getAdminById
+      security:
+        - internship_api_security_scheme:
+            - read_access
+      parameters:
+        - name: id
+          in: path
+          description: ID of the admin to fetch
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successfully retrieved admin
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminDTO'
+        '404':
+          description: The Admin with the specified ID does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer
+  /admin/update/{id}:
+    put:
+      tags:
+        - Admin
+      summary: Update admin details by ID
+      operationId: updateAdmin
+      security:
+        - internship_api_security_scheme:
+            - write_access
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the user to update
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpdateRequest'
+      responses:
+        '200':
+          description: Admin updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminDTO'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer
+  /admin/delete/{id}:
+    delete:
+      tags:
+        - Admin
+      summary: Delete admin by ID
+      operationId: deleteAdmin
+      security:
+        - internship_api_security_scheme:
+            - write_access
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the admin to delete
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Admin deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminDTO'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer
 components:
   securitySchemes:
     internship_api_security_scheme:
@@ -292,6 +498,7 @@ components:
           description: The name of the user
           minLength: 2
           pattern: '^[A-Z][A-Za-z0-9]{1,}$'
+          example: 'Joshua'
         surname:
           type: string
           description: The surname of the user
@@ -301,10 +508,12 @@ components:
           type: string
           description: The telephone number of the user
           pattern: '^06\d-\d{3}-\d{3,4}$'
+          example: 'Philips'
         email:
           type: string
           description: The email of the user
           pattern: '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+          example: 'name.surname(name)@edu.fit.ba'
         username:
           type: string
           description: The username of the user
@@ -318,3 +527,26 @@ components:
       required:
         - name
         - surname
+    #Admin data objects
+    AdminDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+        user:
+          $ref: '#/components/schemas/UserDTO'
+    AdminSearchObject:
+        type: object
+        properties:
+          pageNumber:
+            type: integer
+            description: The page number for pagination
+          pageSize:
+            type: integer
+            description: The page size for pagination
+          name:
+            type: string
+            description: The name to filter by
+          surname:
+            type: string
+            description: The surname to filter by
