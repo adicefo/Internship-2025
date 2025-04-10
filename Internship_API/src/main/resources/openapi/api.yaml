@@ -7,6 +7,7 @@ info:
 servers:
   - url: http://localhost:8081/v2
 paths:
+  # Users path
   /users/get:
     get:
       tags:
@@ -16,7 +17,6 @@ paths:
       security:
         - internship_api_security_scheme:
             - read_access
-
       parameters:
         - name: search
           in: query
@@ -38,7 +38,147 @@ paths:
                         type: array
                         items:
                           $ref: "#/components/schemas/UserDTO"
-
+  /users/register:
+    post:
+      tags:
+        - Users
+      summary: Register a new user
+      operationId: createUser
+      security:
+        - internship_api_security_scheme:
+            - write_access
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInsertRequest'
+      responses:
+        '200':
+          description: User registered successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer
+  /users/getById/{id}:
+    get:
+      tags:
+        - Users
+      summary: Get a user by ID
+      operationId: getUserById
+      security:
+        - internship_api_security_scheme:
+            - read_access
+      parameters:
+        - name: id
+          in: path
+          description: ID of the user to fetch
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successfully retrieved user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+        '404':
+          description: The User with the specified ID does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer
+  /users/update/{id}:
+    put:
+      tags:
+        - Users
+      summary: Update user details by ID
+      operationId: updateUser
+      security:
+        - internship_api_security_scheme:
+            - write_access
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the user to update
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpdateRequest'
+      responses:
+        '200':
+          description: User updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer
+  /users/delete/{id}:
+    delete:
+      tags:
+        - Users
+      summary: Delete user by ID
+      operationId: deleteUser
+      security:
+        - internship_api_security_scheme:
+            - write_access
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the user to delete
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: User deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer
 
 components:
   securitySchemes:
@@ -57,11 +197,14 @@ components:
       properties:
         count:
           type: integer
+    #User data objecets
     UserDTO:
       type: object
       properties:
         id:
           type: integer
+        name:
+          type: string
         surname:
           type: string
         username:
@@ -75,7 +218,7 @@ components:
         registrationDate:
           type: string
           format: date-time
-    UserSearchObject: # Define UserSearchObject schema here
+    UserSearchObject:
       type: object
       properties:
         pageNumber:
@@ -96,3 +239,82 @@ components:
         surname:
           type: string
           description: The surname to filter by
+    UserInsertRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the user
+          pattern: '^[A-Z][A-Za-z0-9]{1,}$'
+          example: 'Mustafa'
+        surname:
+          type: string
+          description: The surname of the user
+          pattern: '^[A-Z][A-Za-z0-9]{1,}$'
+          example: 'Kovac'
+        username:
+            type: string
+            description: The username of the user
+            minLength: 5
+            maxLength: 20
+        email:
+          type: string
+          description: The email of the user
+          pattern: '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+          example: 'name.surname@edu.fit.ba'
+        password:
+          type: string
+          description: The password of the user
+        passwordConfirm:
+          type: string
+          description: The password confirmation of the user
+        telephoneNumber:
+          type: string
+          description: The telephone number of the user
+          pattern: '^06\d-\d{3}-\d{3,4}$'
+          example: '06X-XXX-XXXX'
+        gender:
+          type: string
+          enum: [male,Male,female,Female]
+          description: The user's gender
+        isActive:
+          type: boolean
+          description: The user's active status
+      required:
+        - name
+        - surname
+
+    UserUpdateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the user
+          minLength: 2
+          pattern: '^[A-Z][A-Za-z0-9]{1,}$'
+        surname:
+          type: string
+          description: The surname of the user
+          minLength: 2
+          pattern: '^[A-Z][A-Za-z0-9]{1,}$'
+        telephoneNumber:
+          type: string
+          description: The telephone number of the user
+          pattern: '^06\d-\d{3}-\d{3,4}$'
+        email:
+          type: string
+          description: The email of the user
+          pattern: '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+        username:
+          type: string
+          description: The username of the user
+          minLength: 5
+        password:
+          type: string
+          description: The new password of the user
+        passwordConfirm:
+          type: string
+          description: The new password confirmation of the user
+      required:
+        - name
+        - surname

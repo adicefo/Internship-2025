@@ -1,9 +1,9 @@
 package com.example.internship_api.service.implementations;
 
 import com.example.internship_api.dto.UserDTO;
-import com.example.internship_api.data.request.UserInsertRequest;
-import com.example.internship_api.data.request.UserUpdateRequest;
+import com.example.internship_api.dto.UserInsertRequest;
 import com.example.internship_api.dto.UserSearchObject;
+import com.example.internship_api.dto.UserUpdateRequest;
 import com.example.internship_api.entity.User;
 import com.example.internship_api.exception.PasswordNotMatchException;
 import com.example.internship_api.repository.UserRepository;
@@ -25,23 +25,23 @@ public class UserServiceImpl extends  BaseCRUDServiceImpl<UserDTO, UserSearchObj
 
     @Override
     protected void beforeInsert(UserInsertRequest request, User entity) {
-        if(!request.password().equals(request.passwordConfirm())){
+        if(!request.getPassword().equals(request.getPasswordConfirm())){
             throw new PasswordNotMatchException();
         }
         entity.setPasswordSalt(PasswordUtils.generateSalt());
-        var passwordHash=PasswordUtils.generateHash(entity.getPasswordSalt(),request.password());
+        var passwordHash=PasswordUtils.generateHash(entity.getPasswordSalt(),request.getPassword());
         entity.setPasswordHash(passwordHash);
         entity.setRegistrationDate(LocalDateTime.now());
 
     }
     @Override
     protected void beforeUpdate(UserUpdateRequest request, User entity) {
-        if(request.password()!=null){
-            if(!request.password().equals(request.passwordConfirm())){
+        if(request.getPassword()!=null){
+            if(!request.getPassword().equals(request.getPasswordConfirm())){
                 throw new PasswordNotMatchException();
             }
             entity.setPasswordSalt(PasswordUtils.generateSalt());
-            var passwordHash=PasswordUtils.generateHash(entity.getPasswordSalt(),request.password());
+            var passwordHash=PasswordUtils.generateHash(entity.getPasswordSalt(),request.getPassword());
             entity.setPasswordHash(passwordHash);
         }
     }

@@ -1,10 +1,12 @@
 package com.example.internship_api.delegate;
 
+
+
 import com.example.internship_api.api.UsersApiDelegate;
-import com.example.internship_api.dto.GetUsers200Response;
-import com.example.internship_api.dto.UserSearchObject;
+import com.example.internship_api.dto.*;
 import com.example.internship_api.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -19,5 +21,25 @@ public class UserDelegateImpl implements UsersApiDelegate {
         response.setItems(service.getAll(search).getResult());
         response.setCount(service.getAll(search).getCount());
         return ResponseEntity.ok(response);
+    }
+
+    @Override
+    public ResponseEntity<UserDTO> createUser(UserInsertRequest userInsertRequest) {
+        return new ResponseEntity<>(service.save(userInsertRequest), HttpStatus.CREATED);
+    }
+
+    @Override
+    public ResponseEntity<UserDTO> getUserById(Integer id) {
+        return new ResponseEntity<>(service.getById(id.longValue()),HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<UserDTO> updateUser(Integer id, UserUpdateRequest userUpdateRequest) {
+        return new ResponseEntity<>(service.updateById(id.longValue(), userUpdateRequest), HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<UserDTO> deleteUser(Integer id) {
+        return new ResponseEntity<>(service.deleteById(id.longValue()), HttpStatus.OK);
     }
 }

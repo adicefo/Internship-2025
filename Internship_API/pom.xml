@@ -105,12 +105,14 @@
             <artifactId>jackson-databind-nullable</artifactId>
             <version>0.2.6</version>
         </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
         <plugins>
-
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -135,13 +137,14 @@
                     </excludes>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.openapitools</groupId>
                 <artifactId>openapi-generator-maven-plugin</artifactId>
                 <version>7.4.0</version>
                 <executions>
                     <execution>
-                        <id>generate-server</id>
+                        <id>generate-server-api</id>
                         <goals>
                             <goal>generate</goal>
                         </goals>
@@ -160,7 +163,6 @@
                             </configOptions>
                         </configuration>
                     </execution>
-
                 </executions>
             </plugin>
         </plugins>
