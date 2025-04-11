@@ -553,6 +553,173 @@ paths:
                     type: string
                   statusCode:
                     type: integer
+  #Driver path
+  /driver/get:
+    get:
+      tags:
+        - Driver
+      summary: Get Driver
+      operationId: getDriver
+      security:
+        - internship_api_security_scheme:
+            - read_access
+      parameters:
+        - name: search
+          in: query
+          description: Search parameters for filtering driver
+          required: false
+          schema:
+            $ref: '#/components/schemas/DriverSearchObject'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/List"
+                  - type: object
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/DriverDTO"
+
+  /driver/save:
+    post:
+      tags:
+        - Driver
+      summary: Save Driver
+      operationId: createDriver
+      security:
+        - internship_api_security_scheme:
+            - write_access
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInsertRequest'
+      responses:
+        '201':
+          description: Driver registered successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DriverDTO'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer
+  /driver/save/{userId}:
+    post:
+      tags:
+        - Driver
+      summary: Save Driver Based on Current User
+      operationId: createDriverBasedOnUser
+      security:
+        - internship_api_security_scheme:
+            - write_access
+      parameters:
+        - name: userId
+          in: path
+          description: ID of the user to save as driver
+          required: true
+          schema:
+            type: integer
+      responses:
+        '201':
+          description: Driver registered successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DriverDTO'
+        '404':
+          description: The User with the specified ID does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer
+  /driver/getById/{id}:
+    get:
+      tags:
+        - Driver
+      summary: Get driver by ID
+      operationId: getDriverById
+      security:
+        - internship_api_security_scheme:
+            - read_access
+      parameters:
+        - name: id
+          in: path
+          description: ID of the driver to fetch
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successfully retrieved driver
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DriverDTO'
+        '404':
+          description: The Driver with the specified ID does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer
+  /driver/delete/{id}:
+    delete:
+      tags:
+        - Driver
+      summary: Delete driver by ID
+      operationId: deleteDriver
+      security:
+        - internship_api_security_scheme:
+            - write_access
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the driver to delete
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Driver deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DriverDTO'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer
 
 components:
   securitySchemes:
@@ -730,6 +897,33 @@ components:
         user:
           $ref: '#/components/schemas/UserDTO'
     ClientSearchObject:
+      type: object
+      properties:
+        pageNumber:
+          type: integer
+          description: The page number for pagination
+        pageSize:
+          type: integer
+          description: The page size for pagination
+        name:
+          type: string
+          description: The name to filter by
+        surname:
+          type: string
+          description: The surname to filter by
+    #Driver data objects
+    DriverDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+        numberOfClientsAmount:
+          type: integer
+        numberOfHoursAmount:
+          type: integer
+        user:
+          $ref: '#/components/schemas/UserDTO'
+    DriverSearchObject:
       type: object
       properties:
         pageNumber:
