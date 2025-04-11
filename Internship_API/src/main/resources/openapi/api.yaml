@@ -386,6 +386,174 @@ paths:
                     type: string
                   statusCode:
                     type: integer
+  #Client path
+  /client/get:
+    get:
+      tags:
+        - Client
+      summary: Get Client
+      operationId: getClient
+      security:
+        - internship_api_security_scheme:
+            - read_access
+      parameters:
+        - name: search
+          in: query
+          description: Search parameters for filtering client
+          required: false
+          schema:
+            $ref: '#/components/schemas/ClientSearchObject'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/List"
+                  - type: object
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/ClientDTO"
+
+  /client/save:
+    post:
+      tags:
+        - Client
+      summary: Save Client
+      operationId: createClient
+      security:
+        - internship_api_security_scheme:
+            - write_access
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInsertRequest'
+      responses:
+        '201':
+          description: Client registered successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientDTO'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer
+  /client/save/{userId}:
+    post:
+      tags:
+        - Client
+      summary: Save Client Based on Current User
+      operationId: createClientBasedOnUser
+      security:
+        - internship_api_security_scheme:
+            - write_access
+      parameters:
+        - name: userId
+          in: path
+          description: ID of the user to save as client
+          required: true
+          schema:
+            type: integer
+      responses:
+        '201':
+          description: Client registered successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientDTO'
+        '404':
+          description: The User with the specified ID does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer
+  /client/getById/{id}:
+    get:
+      tags:
+        - Client
+      summary: Get client by ID
+      operationId: getClientById
+      security:
+        - internship_api_security_scheme:
+            - read_access
+      parameters:
+        - name: id
+          in: path
+          description: ID of the client to fetch
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successfully retrieved client
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientDTO'
+        '404':
+          description: The Client with the specified ID does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer
+  /client/delete/{id}:
+    delete:
+      tags:
+        - Client
+      summary: Delete client by ID
+      operationId: deleteClient
+      security:
+        - internship_api_security_scheme:
+            - write_access
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the client to delete
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Client deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientDTO'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer
+
 components:
   securitySchemes:
     internship_api_security_scheme:
@@ -550,3 +718,29 @@ components:
           surname:
             type: string
             description: The surname to filter by
+    #Client data objects
+    ClientDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+        image:
+          type: string
+          format: byte
+        user:
+          $ref: '#/components/schemas/UserDTO'
+    ClientSearchObject:
+      type: object
+      properties:
+        pageNumber:
+          type: integer
+          description: The page number for pagination
+        pageSize:
+          type: integer
+          description: The page size for pagination
+        name:
+          type: string
+          description: The name to filter by
+        surname:
+          type: string
+          description: The surname to filter by

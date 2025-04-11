@@ -2,11 +2,11 @@ package com.example.internship_api.service.implementations;
 
 
 import com.example.internship_api.data.model.AdminDTO;
-import com.example.internship_api.data.model.ClientDTO;
-import com.example.internship_api.data.request.UserInsertRequest;
-import com.example.internship_api.data.request.UserUpdateRequest;
+import com.example.internship_api.dto.ClientDTO;
+import com.example.internship_api.dto.UserInsertRequest;
+import com.example.internship_api.dto.UserUpdateRequest;
 import com.example.internship_api.data.search_object.AdminSearchObject;
-import com.example.internship_api.data.search_object.ClientSearchObject;
+import com.example.internship_api.dto.ClientSearchObject;
 import com.example.internship_api.entity.Admin;
 import com.example.internship_api.entity.Client;
 import com.example.internship_api.entity.User;
@@ -49,12 +49,12 @@ public class ClientServiceImpl extends BaseCRUDServiceImpl<ClientDTO, ClientSear
 
     @Override
     protected void beforeInsert(UserInsertRequest request, Client entity) {
-        if(!request.password().equals(request.passwordConfirm())){
+        if(!request.getPassword().equals(request.getPasswordConfirm())){
             throw new PasswordNotMatchException();
         }
         User user=modelMapper.map(request,User.class);
         user.setPasswordSalt(PasswordUtils.generateSalt());
-        user.setPasswordHash(PasswordUtils.generateHash(user.getPasswordSalt(),request.password()));
+        user.setPasswordHash(PasswordUtils.generateHash(user.getPasswordSalt(),request.getPassword()));
         user.setRegistrationDate(LocalDateTime.now());
         user.setActive(true);
         userRepository.save(user);
