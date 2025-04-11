@@ -1,12 +1,6 @@
 package com.example.internship_api.service.implementations;
 
-import com.example.internship_api.data.model.RouteDTO;
-import com.example.internship_api.data.model.VehicleDTO;
-import com.example.internship_api.data.request.RouteInsertRequest;
-import com.example.internship_api.data.request.RouteUpdateRequest;
-import com.example.internship_api.data.request.VehicleUpsertRequest;
-import com.example.internship_api.data.search_object.RouteSearchObject;
-import com.example.internship_api.data.search_object.VehicleSearchObject;
+import com.example.internship_api.dto.*;
 import com.example.internship_api.entity.Route;
 import com.example.internship_api.entity.Vehicle;
 import com.example.internship_api.repository.VehicleRepository;
@@ -25,11 +19,7 @@ public class VehicleServiceImpl extends BaseCRUDServiceImpl<VehicleDTO, VehicleS
     }
     @Override
     protected void beforeInsert(VehicleUpsertRequest request, Vehicle vehicle) {
-    if(request.name() == null)
-        throw new IllegalArgumentException("Vehicle name cannot be null");
 
-    if(request.price()<40||request.price()>65)
-        throw new IllegalArgumentException("Price must be between 40 and 65");
     }
 
     @Override

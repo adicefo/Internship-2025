@@ -1071,7 +1071,156 @@ paths:
               application/json:
                 schema:
                   $ref: '#/components/schemas/RouteDTO'
+  #Vehicle paths
+  /vehicle/get:
+    get:
+      tags:
+        - Vehicle
+      summary: Get all vehicles
+      operationId: getVehicles
+      security:
+        - internship_api_security_scheme:
+            - read_access
+      parameters:
+        - name: search
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/VehicleSearchObject'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/List"
+                  - type: object
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/VehicleDTO"
 
+  /vehicle/getById/{id}:
+    get:
+      tags:
+        - Vehicle
+      summary: Get vehicle by ID
+      operationId: getVehicleById
+      security:
+        - internship_api_security_scheme:
+            - read_access
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleDTO'
+        '404':
+          description: The Vehicle with the specified ID does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer
+
+  /vehicle/save:
+    post:
+      tags:
+        - Vehicle
+      summary: Save new vehicle
+      operationId: saveVehicle
+      security:
+        - internship_api_security_scheme:
+            - write_access
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VehicleUpsertRequest'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleDTO'
+
+  /vehicle/update/{id}:
+    put:
+      tags:
+        - Vehicle
+      summary: Update vehicle
+      operationId: updateVehicle
+      security:
+        - internship_api_security_scheme:
+            - write_access
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VehicleUpsertRequest'
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleDTO'
+        '404':
+          description: The Vehicle with the specified ID does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer
+
+  /vehicle/delete/{id}:
+    delete:
+      tags:
+        - Vehicle
+      summary: Delete vehicle
+      operationId: deleteVehicle
+      security:
+        - internship_api_security_scheme:
+            - write_access
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleDTO'
 components:
   securitySchemes:
     internship_api_security_scheme:
@@ -1438,3 +1587,55 @@ components:
         year:
           type: integer
           minimum: 2024
+
+    #Vehicle data objects
+    VehicleDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        available:
+          type: boolean
+        averageFuelConsumption:
+          type: number
+          format: double
+        image:
+          type: string
+          format: byte
+        price:
+          type: number
+          format: double
+    VehicleUpsertRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        available:
+          type: boolean
+        averageFuelConsumption:
+          type: number
+          format: double
+        image:
+          type: string
+          format: byte
+        price:
+          type: number
+          format: double
+      required:
+        - name
+        - available
+        - averageFuelConsumption
+        - price
+    VehicleSearchObject:
+      type: object
+      properties:
+        pageNumber:
+          type: integer
+        pageSize:
+          type: integer
+        name:
+          type: string
+        available:
+          type: boolean

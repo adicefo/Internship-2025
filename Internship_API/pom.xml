@@ -156,9 +156,6 @@
                             <invokerPackage>com.example.internship_api.invoker</invokerPackage>
                             <supportingFilesToGenerate>ApiUtil.java</supportingFilesToGenerate>
 
-
-
-
                             <typeMappings>
                                 <typeMapping>OffsetDateTime=LocalDateTime</typeMapping>
                             </typeMappings>
