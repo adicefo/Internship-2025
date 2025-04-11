@@ -155,6 +155,15 @@
                             <apiPackage>com.example.internship_api.api</apiPackage>
                             <invokerPackage>com.example.internship_api.invoker</invokerPackage>
                             <supportingFilesToGenerate>ApiUtil.java</supportingFilesToGenerate>
+
+
+                            <typeMappings>
+                                <typeMapping>OffsetDateTime=LocalDateTime</typeMapping>
+                            </typeMappings>
+                            <importMappings>
+                                <importMapping>java.time.OffsetDateTime=java.time.LocalDateTime</importMapping>
+                            </importMappings>
+
                             <configOptions>
                                 <title>internship_api</title>
                                 <serializableModel>true</serializableModel>

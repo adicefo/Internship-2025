@@ -1,11 +1,6 @@
 package com.example.internship_api.service.implementations;
 
-import com.example.internship_api.data.model.DriverDTO;
-import com.example.internship_api.data.model.RouteDTO;
-import com.example.internship_api.data.request.GeneralReportRequest;
-import com.example.internship_api.data.request.RouteInsertRequest;
-import com.example.internship_api.data.request.RouteUpdateRequest;
-import com.example.internship_api.data.search_object.RouteSearchObject;
+import com.example.internship_api.dto.*;
 import com.example.internship_api.entity.Client;
 import com.example.internship_api.entity.CompanyPrice;
 import com.example.internship_api.entity.Driver;
@@ -66,8 +61,8 @@ public class RouteServiceImpl extends BaseCRUDServiceImpl<RouteDTO, RouteSearchO
                 .stream()
                 .filter(item->item.getStatus().equals("finished"))
                 .filter(item->item.getEndDate()!=null)
-                .filter(item->item.getEndDate().getMonthValue()==request.month())
-                .filter(item->item.getEndDate().getYear()==request.year())
+                .filter(item->item.getEndDate().getMonthValue()==request.getMonth())
+                .filter(item->item.getEndDate().getYear()==request.getYear())
                 .collect(Collectors.toList());
         var amount=routes.stream().mapToDouble(item->item.getFullPrice()).sum();
         if(amount==0)
@@ -77,13 +72,13 @@ public class RouteServiceImpl extends BaseCRUDServiceImpl<RouteDTO, RouteSearchO
 
     @Override
     protected void beforeInsert(RouteInsertRequest request, Route entity) {
-        if(request.sourcePointLat()==null||request.sourcePointLon()==null||
-                request.destinationPointLat()==null||request.destinationPointLon()==null){
+        if(request.getSourcePointLat()==null||request.getSourcePointLon()==null||
+                request.getDestinationPointLat()==null||request.getDestinationPointLon()==null){
             throw new IllegalArgumentException("Source and destination point must be provided");
         }
-        var client=checkClient(request.client_id());
-        var driver=checkDriver(request.driver_id());
-        var distanceInMeters= DistanceUtils.getDistance(request.sourcePointLon(),request.sourcePointLat(),request.destinationPointLon(),request.destinationPointLat());
+        var client=checkClient(request.getClientId().longValue());
+        var driver=checkDriver(request.getDriverId().longValue());
+        var distanceInMeters= DistanceUtils.getDistance(request.getSourcePointLon(),request.getSourcePointLat(),request.getDestinationPointLon(),request.getDestinationPointLat());
         var lastPrice=companyPriceRepository.findFirstByOrderByIdDesc();
 
         entity.setNumberOfKilometers(distanceInMeters/1000);
@@ -110,10 +105,10 @@ public class RouteServiceImpl extends BaseCRUDServiceImpl<RouteDTO, RouteSearchO
         }
         List<Route> filteredQuery = query.stream()
                 .filter(item-> search.getStatus() == null || item.getStatus().equals(search.getStatus()))
-                .filter(item -> search.getClient_id() == null || item.getClient().getId()==search.getClient_id())
-                .filter(item -> search.getDriver_id() == null || item.getDriver().getId()==search.getDriver_id())
-                .filter(item -> search.getUser_id() == null || (item.getDriver().getUser().getId()==search.getUser_id()||
-                        item.getClient().getUser().getId()==search.getUser_id()))
+                .filter(item -> search.getClientId() == null || item.getClient().getId()==search.getClientId())
+                .filter(item -> search.getDriverId() == null || item.getDriver().getId()==search.getDriverId())
+                .filter(item -> search.getUserId() == null || (item.getDriver().getUser().getId()==search.getUserId()||
+                        item.getClient().getUser().getId()==search.getUserId()))
                 .collect(Collectors.toList());
 
         query.clear();

@@ -27,6 +27,7 @@ public class Vehicle {
     @Column(nullable = false)
     private String name;
 
+    @Lob
     @Column
     private byte[] image;
 

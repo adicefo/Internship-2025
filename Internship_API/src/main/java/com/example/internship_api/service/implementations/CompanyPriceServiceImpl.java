@@ -1,12 +1,12 @@
 package com.example.internship_api.service.implementations;
 
-import com.example.internship_api.data.model.CompanyPriceDTO;
+import com.example.internship_api.dto.CompanyPriceDTO;
 import com.example.internship_api.data.model.RentDTO;
-import com.example.internship_api.data.request.CompanyPriceInsertRequest;
-import com.example.internship_api.data.request.CompanyPriceUpdateRequest;
+import com.example.internship_api.dto.CompanyPriceInsertRequest;
+import com.example.internship_api.dto.CompanyPriceUpdateRequest;
 import com.example.internship_api.data.request.RentInsertRequest;
 import com.example.internship_api.data.request.RentUpdateRequest;
-import com.example.internship_api.data.search_object.CompanyPriceSearchObject;
+import com.example.internship_api.dto.CompanyPriceSearchObject;
 import com.example.internship_api.data.search_object.RentSearchObject;
 import com.example.internship_api.entity.CompanyPrice;
 import com.example.internship_api.entity.Rent;
@@ -52,9 +52,8 @@ public class CompanyPriceServiceImpl extends BaseCRUDServiceImpl<CompanyPriceDTO
             return;
 
         List<CompanyPrice> filteredQuery=query.stream()
-                .filter(item->search.getPricePerKilometer()==null|| search.getPricePerKilometer()==item.getPricePerKilometer())
-                .filter(item->search.getAddingDateGTE()==null||item.getAddingDate().isAfter(search.getAddingDateGTE()))
-                .filter(item->search.getAddingDateLTE()==null||item.getAddingDate().isBefore(search.getAddingDateLTE()))
+                .filter(item->search.getPricePerKilometer()==null|| search.getPricePerKilometer().equals(item.getPricePerKilometer()))
+
                 .collect(Collectors.toList());
         query.clear();
         query.addAll(filteredQuery);

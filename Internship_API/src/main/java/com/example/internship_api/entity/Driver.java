@@ -22,8 +22,8 @@ public class Driver {
     @Column
     private Integer numberOfClientsAmount;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private User user;
 
     @OneToMany(mappedBy = "driver",cascade = CascadeType.ALL)

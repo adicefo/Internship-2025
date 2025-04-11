@@ -720,6 +720,357 @@ paths:
                     type: string
                   statusCode:
                     type: integer
+  #Company price paths
+  /companyPrice/get:
+    get:
+      tags:
+        - CompanyPrice
+      summary: Get all company prices
+      operationId: getCompanyPrices
+      security:
+        - internship_api_security_scheme:
+            - read_access
+      parameters:
+        - name: search
+          in: query
+          description: Filter for company prices
+          required: false
+          schema:
+            $ref: '#/components/schemas/CompanyPriceSearchObject'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/List"
+                  - type: object
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/CompanyPriceDTO"
+
+  /companyPrice/getCurrent:
+      get:
+        tags:
+          - CompanyPrice
+        summary: Get the current price per kilometer
+        operationId: getCurrentCompanyPrice
+        security:
+          - internship_api_security_scheme:
+              - read_access
+        responses:
+          '200':
+            description: Successfully retrieved current price
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/CompanyPriceDTO'
+
+  /companyPrice/getById/{id}:
+      get:
+        tags:
+          - CompanyPrice
+        summary: Get company price by ID
+        operationId: getCompanyPriceById
+        security:
+          - internship_api_security_scheme:
+              - read_access
+        parameters:
+          - name: id
+            in: path
+            required: true
+            schema:
+              type: integer
+        responses:
+          '200':
+            description: Company price retrieved successfully
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/CompanyPriceDTO'
+
+  /companyPrice/save:
+      post:
+        tags:
+          - CompanyPrice
+        summary: Save a new company price
+        operationId: saveCompanyPrice
+        security:
+          - internship_api_security_scheme:
+              - write_access
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanyPriceInsertRequest'
+        responses:
+          '201':
+            description: Company price created successfully
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/CompanyPriceDTO'
+
+  /companyPrice/delete/{id}:
+      delete:
+        tags:
+          - CompanyPrice
+        summary: Delete a company price by ID
+        operationId: deleteCompanyPrice
+        security:
+          - internship_api_security_scheme:
+              - write_access
+        parameters:
+          - name: id
+            in: path
+            required: true
+            schema:
+              type: integer
+        responses:
+          '200':
+            description: Deleted successfully
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/CompanyPriceDTO'
+  #Route paths
+  /route/get:
+    get:
+      tags:
+        - Route
+      summary: Get all routes
+      operationId: getRoutes
+      security:
+        - internship_api_security_scheme:
+            - read_access
+      parameters:
+        - name: search
+          in: query
+          description: Filter for company prices
+          required: false
+          schema:
+            $ref: '#/components/schemas/RouteSearchObject'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/List"
+                  - type: object
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/RouteDTO"
+
+  /route/getById/{id}:
+      get:
+        tags:
+          - Route
+        summary: Get route by ID
+        operationId: getRouteById
+        security:
+          - internship_api_security_scheme:
+              - read_access
+        parameters:
+          - name: id
+            in: path
+            required: true
+            schema:
+              type: integer
+        responses:
+          '200':
+            description: Route retrieved successfully
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/RouteDTO'
+
+  /route/getAmountForReport:
+      post:
+        tags:
+          - Route
+        summary: Get report amount
+        operationId: getAmountForReport
+        security:
+          - internship_api_security_scheme: [ admin ]
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeneralReportRequest'
+        responses:
+          '200':
+            description: Report values
+            content:
+              application/json:
+                schema:
+                  type: object
+                  additionalProperties:
+                    type: number
+                    format: double
+
+  /route/save:
+      post:
+        tags:
+          - Route
+        summary: Save a new route
+        operationId: saveRoute
+        security:
+          - internship_api_security_scheme:
+              - write_access
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RouteInsertRequest'
+        responses:
+          '201':
+            description: Route created successfully
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/RouteDTO'
+
+  /route/update/{id}:
+      put:
+        tags:
+          - Route
+        summary: Update route details by ID
+        operationId: updateRoute
+        security:
+          - internship_api_security_scheme:
+              - write_access
+        parameters:
+          - name: id
+            in: path
+            description: The ID of the route to update
+            required: true
+            schema:
+              type: integer
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RouteUpdateRequest'
+        responses:
+          '200':
+            description: Route updated successfully
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/RouteDTO'
+          '400':
+            description: Bad Request
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                    statusCode:
+                      type: integer
+
+  /route/updateFinish/{id}:
+      put:
+        tags:
+          - Route
+        summary: Update finish route
+        operationId: updateRouteFinish
+        security:
+          - internship_api_security_scheme:
+              - write_access
+        parameters:
+          - in: path
+            name: id
+            required: true
+            schema:
+              type: integer
+        responses:
+          '200':
+            description: Route finished
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/RouteDTO'
+          '404':
+            description: The Route with the specified ID does not exist
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                    statusCode:
+                      type: integer
+
+  /route/updatePayment/{id}:
+      put:
+        tags:
+          - Route
+        summary: Update payment route
+        operationId: updateRoutePayment
+        security:
+          - internship_api_security_scheme:
+              - write_access
+        parameters:
+          - in: path
+            name: id
+            required: true
+            schema:
+              type: integer
+        responses:
+          '200':
+            description: Route payment updated
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/RouteDTO'
+          '404':
+            description: The Route with the specified ID does not exist
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                    statusCode:
+                      type: integer
+
+  /route/delete/{id}:
+      delete:
+        tags:
+          - Route
+        summary: Delete route
+        operationId: deleteRoute
+        security:
+            - internship_api_security_scheme:
+                - write_access
+        parameters:
+          - in: path
+            name: id
+            required: true
+            schema:
+              type: integer
+        responses:
+          '200':
+            description: Route deleted
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/RouteDTO'
 
 components:
   securitySchemes:
@@ -938,3 +1289,152 @@ components:
         surname:
           type: string
           description: The surname to filter by
+    #Company price data objects
+    CompanyPriceDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+        pricePerKilometer:
+          type: number
+          format: double
+        addingDate:
+          type: string
+          format: date-time
+
+    CompanyPriceInsertRequest:
+        type: object
+        properties:
+          pricePerKilometer:
+            type: number
+            format: double
+            minimum: 1
+            maximum: 15
+            description: Price per kilometer must be between 1 and 15
+        required:
+          - pricePerKilometer
+
+    CompanyPriceUpdateRequest:
+        type: object
+        description: Empty object for future updates
+        properties:
+            pricePerKilometer:
+                type: number
+                format: double
+                minimum: 1
+                maximum: 15
+                description: Price per kilometer must be between 1 and 15
+
+    CompanyPriceSearchObject:
+        type: object
+        properties:
+          pageNumber:
+            type: integer
+          pageSize:
+            type: integer
+          pricePerKilometer:
+            type: number
+            format: double
+    #Route data objects
+    RouteDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+        sourcePointLat:
+          type: number
+          format: double
+        sourcePointLon:
+          type: number
+          format: double
+        destinationPointLat:
+          type: number
+          format: double
+        destinationPointLon:
+          type: number
+          format: double
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        duration:
+          type: integer
+          nullable: true
+        numberOfKilometers:
+          type: number
+          format: double
+        fullPrice:
+          type: number
+          format: double
+        paid:
+          type: boolean
+          nullable: true
+        status:
+          type: string
+        client:
+          $ref: '#/components/schemas/ClientDTO'
+        driver:
+          $ref: '#/components/schemas/DriverDTO'
+    RouteInsertRequest:
+      type: object
+      required:
+        - sourcePointLat
+        - sourcePointLon
+        - destinationPointLat
+        - destinationPointLon
+        - client_id
+        - driver_id
+      properties:
+        sourcePointLat:
+          type: number
+          format: double
+        sourcePointLon:
+          type: number
+          format: double
+        destinationPointLat:
+          type: number
+          format: double
+        destinationPointLon:
+          type: number
+          format: double
+        client_id:
+          type: integer
+        driver_id:
+          type: integer
+    RouteUpdateRequest:
+      type: object
+      properties:
+        client_id:
+          type: integer
+        driver_id:
+          type: integer
+    RouteSearchObject:
+      type: object
+      properties:
+        status:
+          type: string
+        client_id:
+          type: integer
+        driver_id:
+          type: integer
+        user_id:
+          type: integer
+        pageNumber:
+          type: integer
+        pageSize:
+          type: integer
+    GeneralReportRequest:
+      type: object
+      required:
+        - month
+        - year
+      properties:
+        month:
+          type: integer
+          minimum: 1
+          maximum: 12
+        year:
+          type: integer
+          minimum: 2024

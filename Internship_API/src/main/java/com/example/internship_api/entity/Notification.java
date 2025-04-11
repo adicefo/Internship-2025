@@ -23,6 +23,7 @@ public class    Notification {
     @Column
     private String content;
 
+    @Lob
     @Column
     private byte[] image;
 

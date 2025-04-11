@@ -48,10 +48,10 @@ public class User {
 
     @Column
     private boolean active;
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    private Set<Admin> admins;
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    private Set<Client> clients;
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    private Set<Driver>drivers;
+    @OneToOne(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true)
+    private Admin admin;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Client client;
+    @OneToOne(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true)
+    private Driver driver;
 }
