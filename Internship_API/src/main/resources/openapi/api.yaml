@@ -2657,7 +2657,6 @@ components:
           format: date-time
         duration:
           type: integer
-          nullable: true
         numberOfKilometers:
           type: number
           format: double
@@ -2666,7 +2665,6 @@ components:
           format: double
         paid:
           type: boolean
-          nullable: true
         status:
           type: string
         client:
