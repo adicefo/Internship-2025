@@ -18,8 +18,10 @@ public class VehicleServiceImpl extends BaseCRUDServiceImpl<VehicleDTO, VehicleS
         super(repository, modelMapper, VehicleDTO.class, Vehicle.class);
     }
     @Override
-    protected void beforeInsert(VehicleUpsertRequest request, Vehicle vehicle) {
-
+    protected void beforeInsert(VehicleUpsertRequest request, Vehicle entity) {
+        if (request.getImage() == null) {
+            entity.setImage(null);
+        }
     }
 
     @Override

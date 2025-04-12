@@ -16,8 +16,7 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Lob
-    @Column
+    @Column(columnDefinition = "bytea")
     private byte[] image;
 
 

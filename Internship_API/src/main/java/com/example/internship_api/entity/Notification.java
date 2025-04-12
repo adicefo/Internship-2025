@@ -23,8 +23,7 @@ public class    Notification {
     @Column
     private String content;
 
-    @Lob
-    @Column
+    @Column(columnDefinition = "bytea")
     private byte[] image;
 
     @Column

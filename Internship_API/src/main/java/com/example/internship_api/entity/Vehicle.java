@@ -27,8 +27,7 @@ public class Vehicle {
     @Column(nullable = false)
     private String name;
 
-    @Lob
-    @Column
+    @Column(columnDefinition = "bytea")
     private byte[] image;
 
     @NonNull
