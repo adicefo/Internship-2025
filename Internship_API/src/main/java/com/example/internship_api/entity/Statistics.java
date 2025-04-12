@@ -25,6 +25,8 @@ public class Statistics {
     @Column
     private Double priceAmount;
 
+
+
     @Column
     private LocalDateTime beginningOfWork;
 

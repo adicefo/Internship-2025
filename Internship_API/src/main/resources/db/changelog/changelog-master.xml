@@ -22,5 +22,8 @@
      <include file="generate_driverNotification_table.xml" relativeToChangelogFile="true"/>
      <include file="generate_driverVehicle_table.xml" relativeToChangelogFile="true"/>
      <include file="changelog_insert_test_data.xml" relativeToChangelogFile="true"/>
+     <include file="update_image_column.xml" relativeToChangelogFile="true"/>
+     <include file="update_image_column2.xml" relativeToChangelogFile="true"/>
+
 
 </databaseChangeLog>
