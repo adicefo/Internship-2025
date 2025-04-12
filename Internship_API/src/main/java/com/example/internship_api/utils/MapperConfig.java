@@ -18,6 +18,8 @@ public class MapperConfig {
                 .setFieldMatchingEnabled(true)
                 .setFieldAccessLevel(org.modelmapper.config.Configuration.AccessLevel.PRIVATE)
                 .setPropertyCondition(Conditions.isNotNull());
+        modelMapper.getConfiguration().setAmbiguityIgnored(true);
+
 
         return modelMapper;
     }

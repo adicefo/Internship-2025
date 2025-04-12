@@ -1,4 +1,4 @@
-package com.example.internship_api;
+package com.example.internship_api.utils;
 
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
