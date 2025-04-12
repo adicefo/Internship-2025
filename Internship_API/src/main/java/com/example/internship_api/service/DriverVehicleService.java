@@ -1,10 +1,6 @@
 package com.example.internship_api.service;
 
-import com.example.internship_api.data.model.DriverVehicleDTO;
-import com.example.internship_api.data.request.DriverVehicleFinishRequest;
-import com.example.internship_api.data.request.DriverVehicleInsertRequest;
-import com.example.internship_api.data.request.DriverVehicleUpdateRequest;
-import com.example.internship_api.data.search_object.DriverVehicleSearchObject;
+import com.example.internship_api.dto.*;
 
 import java.util.Map;
 

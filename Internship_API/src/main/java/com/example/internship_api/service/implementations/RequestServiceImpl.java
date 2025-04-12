@@ -1,13 +1,6 @@
 package com.example.internship_api.service.implementations;
 
-import com.example.internship_api.data.model.RequestDTO;
-import com.example.internship_api.data.model.StatisticsDTO;
-import com.example.internship_api.data.request.RequestInsertRequest;
-import com.example.internship_api.data.request.RequestUpdateRequest;
-import com.example.internship_api.data.request.StatisticsInsertRequest;
-import com.example.internship_api.data.request.StatisticsUpdateRequest;
-import com.example.internship_api.data.search_object.RequestSearchObject;
-import com.example.internship_api.data.search_object.StatisticsSearchObject;
+import com.example.internship_api.dto.*;
 import com.example.internship_api.entity.Driver;
 import com.example.internship_api.entity.Request;
 import com.example.internship_api.entity.Route;
@@ -39,8 +32,8 @@ public class RequestServiceImpl extends BaseCRUDServiceImpl<RequestDTO, RequestS
 
     @Override
     protected void beforeInsert(RequestInsertRequest request, Request entity) {
-        var route=checkRoute(request.route_id());
-        var driver=checkDriver(request.driver_id());
+        var route=checkRoute(request.getRouteId().longValue());
+        var driver=checkDriver(request.getDriverId().longValue());
         entity.setRoute(route);
         entity.setDriver(driver);
     }
@@ -61,12 +54,12 @@ public class RequestServiceImpl extends BaseCRUDServiceImpl<RequestDTO, RequestS
             return;
         }
         List<Request> filteredQuery = query.stream()
-                .filter(item -> search.getDriver_id() == null || item.getDriver().getId()==search.getDriver_id())
-                .filter(item -> search.getRoute_id() == null || item.getRoute().getId()==search.getRoute_id())
+                .filter(item -> search.getDriverId() == null || item.getDriver().getId()==search.getDriverId())
+                .filter(item -> search.getRouteId() == null || item.getRoute().getId()==search.getRouteId())
                         .collect(Collectors.toList());
-        if(search.getAccepted()==null&&search.getRoute_id()==null&&search.getDriver_id()!=null)
+        if(search.getAccepted()==null&&search.getRouteId()==null&&search.getDriverId()!=null)
             filteredQuery=query.stream()
-                    .filter(item -> item.getDriver().getId()==search.getDriver_id()&&item.getAccepted()==null)
+                    .filter(item -> item.getDriver().getId()==search.getDriverId()&&item.getAccepted()==null)
                     .collect(Collectors.toList());
 
 

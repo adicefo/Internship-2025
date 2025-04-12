@@ -1,8 +1,6 @@
 package com.example.internship_api.service.implementations;
 
-import com.example.internship_api.data.model.DriverVehicleDTO;
-import com.example.internship_api.data.request.*;
-import com.example.internship_api.data.search_object.DriverVehicleSearchObject;
+import com.example.internship_api.dto.*;
 import com.example.internship_api.entity.Driver;
 import com.example.internship_api.entity.DriverVehicle;
 import com.example.internship_api.entity.Review;
@@ -50,8 +48,8 @@ public class DriverVehicleServiceImpl extends BaseCRUDServiceImpl<DriverVehicleD
     public DriverVehicleDTO updateFinish(DriverVehicleFinishRequest request) {
        var entity=repository.findAll()
                .stream()
-               .filter(item->item.getDriver().getId()==request.driver_id())
-               .filter(item->item.getDatePick().toLocalDate().equals(request.datePick().toLocalDate()))
+               .filter(item->item.getDriver().getId()==request.getDriverId())
+               .filter(item->item.getDatePick().toLocalDate().equals(request.getDatePick().toLocalDate()))
                .filter(item->item.getDateDrop()==null)
                .findFirst();
        if(!entity.isPresent())
@@ -67,8 +65,8 @@ public class DriverVehicleServiceImpl extends BaseCRUDServiceImpl<DriverVehicleD
 
     @Override
     protected void beforeInsert(DriverVehicleInsertRequest request, DriverVehicle entity) {
-        var driver=checkDriver(request.driver_id());
-        var vehicle=checkVehicle(request.vehicle_id());
+        var driver=checkDriver(request.getDriverId().longValue());
+        var vehicle=checkVehicle(request.getVehicleId().longValue());
 
         vehicle.setAvailable(false);
         vehicleRepository.save(vehicle);
@@ -90,8 +88,8 @@ public class DriverVehicleServiceImpl extends BaseCRUDServiceImpl<DriverVehicleD
             return;
         }
         List<DriverVehicle> filteredQuery = query.stream()
-                .filter(item->search.getDriver_id()==null||item.getDriver().getId()==search.getDriver_id())
-                .filter(item->search.getVehicle_id()==null||item.getVehicle().getId()==search.getVehicle_id())
+                .filter(item->search.getDriverId()==null||item.getDriver().getId()==search.getDriverId())
+                .filter(item->search.getVehicleId()==null||item.getVehicle().getId()==search.getVehicleId())
                 .filter(item->search.getDatePick()==null||item.getDatePick().equals(search.getDatePick()))
                 .collect(Collectors.toList());
 

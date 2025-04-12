@@ -2058,6 +2058,313 @@ paths:
                       type: string
                     statusCode:
                       type: integer
+  #Request path
+  /requests/get:
+    get:
+      tags:
+        - Request
+      summary: Get all requests
+      operationId: getRequests
+      parameters:
+        - name: search
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/RequestSearchObject'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/List'
+                  - type: object
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/RequestDTO'
+
+  /requests/getById/{id}:
+    get:
+      tags:
+        - Request
+      summary: Get request by ID
+      operationId: getRequestById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequestDTO'
+        '404':
+          description: The Request with the specified ID does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer
+
+  /requests/save:
+    post:
+      tags:
+        - Request
+      summary: Save request
+      operationId: saveRequest
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestInsertRequest'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequestDTO'
+
+  /requests/update/{id}:
+    put:
+      tags:
+        - Request
+      summary: Update request
+      operationId: updateRequest
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestUpdateRequest'
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequestDTO'
+        '404':
+          description: The Request with the specified ID does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer
+
+  /requests/delete/{id}:
+    delete:
+      tags:
+        - Request
+      summary: Delete request
+      operationId: deleteRequest
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequestDTO'
+        '404':
+          description: The Request with the specified ID does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer
+  # DriverVehicle paths
+  /driverVehicle/get:
+    get:
+      tags:
+        - DriverVehicle
+      summary: Get all driver-vehicle assignments
+      operationId: getDriverVehicles
+      parameters:
+        - name: search
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/DriverVehicleSearchObject'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/List'
+                  - type: object
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/DriverVehicleDTO'
+
+  /driverVehicle/getById/{id}:
+    get:
+      tags:
+        - DriverVehicle
+      summary: Get driver-vehicle assignment by ID
+      operationId: getDriverVehicleById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DriverVehicleDTO'
+        '404':
+          description: The DriverVehicle with the specified ID does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer
+  /driverVehicle/checkIfAssigned/{driver_id}:
+    get:
+      tags:
+        - DriverVehicle
+      summary: Check if driver is assigned to a vehicle
+      operationId: checkIfDriverAssigned
+      parameters:
+        - name: driver_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: boolean
+
+  /driverVehicle/save:
+    post:
+      tags:
+        - DriverVehicle
+      summary: Save driver-vehicle assignment
+      operationId: saveDriverVehicle
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DriverVehicleInsertRequest'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DriverVehicleDTO'
+
+  /driverVehicle/updateFinish:
+    put:
+      tags:
+        - DriverVehicle
+      summary: Update Finish driver-vehicle assignment
+      operationId: updateFinishDriverVehicle
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DriverVehicleFinishRequest'
+      responses:
+        '200':
+          description: Updated Finish
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DriverVehicleDTO'
+        '404':
+          description: The DriverVehicle with the specified ID does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer
+
+  /driverVehicle/delete/{id}:
+    delete:
+      tags:
+        - DriverVehicle
+      summary: Delete driver-vehicle assignment
+      operationId: deleteDriverVehicle
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DriverVehicleDTO'
+        '404':
+          description: The DriverVehicle with the specified ID does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer
 
 
 
@@ -2720,5 +3027,99 @@ components:
       type: object
       properties:
         endOfWork:
+          type: string
+          format: date-time
+    #Request data objects
+    RequestDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+        accepted:
+          type: boolean
+        route:
+          $ref: '#/components/schemas/RouteDTO'
+        driver:
+          $ref: '#/components/schemas/DriverDTO'
+
+    RequestInsertRequest:
+        type: object
+        properties:
+          driver_id:
+            type: integer
+          route_id:
+            type: integer
+
+    RequestUpdateRequest:
+        type: object
+        properties:
+          accepted:
+            type: boolean
+
+    RequestSearchObject:
+        type: object
+        properties:
+          pageNumber:
+            type: integer
+          pageSize:
+            type: integer
+          driver_id:
+            type: integer
+          route_id:
+            type: integer
+          accepted:
+            type: boolean
+    #DriverVehicle data objects
+    DriverVehicleDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+        datePick:
+          type: string
+          format: date-time
+        dateDrop:
+          type: string
+          format: date-time
+        vehicle:
+          $ref: '#/components/schemas/VehicleDTO'
+        driver:
+          $ref: '#/components/schemas/DriverDTO'
+
+    DriverVehicleInsertRequest:
+        type: object
+        properties:
+          driver_id:
+            type: integer
+          vehicle_id:
+            type: integer
+
+    DriverVehicleUpdateRequest:
+        type: object
+        properties:
+          datePick:
+            type: string
+            format: date-time
+
+    DriverVehicleSearchObject:
+        type: object
+        properties:
+          pageNumber:
+            type: integer
+          pageSize:
+            type: integer
+          driver_id:
+            type: integer
+          vehicle_id:
+            type: integer
+          datePick:
+            type: string
+            format: date-time
+    DriverVehicleFinishRequest:
+      type: object
+      properties:
+        driver_id:
+          type: integer
+        datePick:
           type: string
           format: date-time
