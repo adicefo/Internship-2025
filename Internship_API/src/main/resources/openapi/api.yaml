@@ -1526,6 +1526,540 @@ paths:
                     type: string
                   statusCode:
                     type: integer
+  #Notification paths
+  /notification/get:
+    get:
+      tags:
+        - Notification
+      summary: Get all notifications
+      operationId: getNotifications
+      security:
+        - internship_api_security_scheme:
+            - read_access
+      parameters:
+        - name: search
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/NotificationSearchObject'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/List'
+                  - type: object
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/NotificationDTO'
+
+  /notification/getById/{id}:
+    get:
+      tags:
+        - Notification
+      summary: Get notification by ID
+      operationId: getNotificationById
+      security:
+        - internship_api_security_scheme:
+            - read_access
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationDTO'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer
+
+  /notification/save:
+    post:
+      tags:
+        - Notification
+      summary: Create new notification
+      operationId: saveNotification
+      security:
+        - internship_api_security_scheme:
+            - write_access
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NotificationUpsertRequest'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationDTO'
+
+  /notification/update/{id}:
+    put:
+      tags:
+        - Notification
+      summary: Update notification
+      operationId: updateNotification
+      security:
+        - internship_api_security_scheme:
+            - write_access
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NotificationUpsertRequest'
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationDTO'
+
+  /notification/delete/{id}:
+    delete:
+      tags:
+        - Notification
+      summary: Delete notification
+      operationId: deleteNotification
+      security:
+        - internship_api_security_scheme:
+            - write_access
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationDTO'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer
+  #Review paths
+  /review/get:
+    get:
+      tags:
+        - Review
+      summary: Get all reviews
+      operationId: getReviews
+      security:
+        - internship_api_security_scheme:
+            - read_access
+      parameters:
+        - name: search
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/ReviewSearchObject'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/List'
+                  - type: object
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/ReviewDTO'
+
+  /review/getById/{id}:
+      get:
+        tags:
+          - Review
+        summary: Get review by ID
+        operationId: getReviewById
+        security:
+          - internship_api_security_scheme:
+              - read_access
+        parameters:
+          - name: id
+            in: path
+            required: true
+            schema:
+              type: integer
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ReviewDTO'
+          '404':
+            description: The Review with the specified ID does not exist
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                    statusCode:
+                      type: integer
+
+  /review/getDriversForReport:
+      post:
+        tags:
+          - Review
+        summary: Get drivers for review report
+        operationId: getDriversForReport
+        security:
+          - internship_api_security_scheme:
+              - read_access
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeneralReportRequest'
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    type: object
+                    additionalProperties: true
+
+  /review/save:
+      post:
+        tags:
+          - Review
+        summary: Create new review
+        operationId: saveReview
+        security:
+          - internship_api_security_scheme:
+              - write_access
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReviewInsertRequest'
+        responses:
+          '201':
+            description: Created
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ReviewDTO'
+
+  /review/update/{id}:
+      put:
+        tags:
+          - Review
+        summary: Update review
+        operationId: updateReview
+        security:
+          - internship_api_security_scheme:
+              - write_access
+        parameters:
+          - name: id
+            in: path
+            required: true
+            schema:
+              type: integer
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReviewUpdateRequest'
+        responses:
+          '200':
+            description: Updated
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ReviewDTO'
+          '404':
+            description: The Review with the specified ID does not exist
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                    statusCode:
+                      type: integer
+
+  /review/delete/{id}:
+      delete:
+        tags:
+          - Review
+        summary: Delete review
+        operationId: deleteReview
+        security:
+          - internship_api_security_scheme:
+              - write_access
+        parameters:
+          - name: id
+            in: path
+            required: true
+            schema:
+              type: integer
+        responses:
+          '200':
+            description: Deleted
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ReviewDTO'
+          '404':
+            description: The Review with the specified ID does not exist
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                    statusCode:
+                      type: integer
+  #Statistics paths
+  /statistics/get:
+    get:
+      tags:
+        - Statistics
+      summary: Get all statistics
+      operationId: getStatistics
+      security:
+        - internship_api_security_scheme:
+            - read_access
+      parameters:
+        - name: search
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/StatisticsSearchObject'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/List'
+                  - type: object
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/StatisticsDTO'
+
+  /statistics/getById/{id}:
+      get:
+        tags:
+          - Statistics
+        summary: Get statistics by ID
+        operationId: getStatisticsById
+        security:
+          - internship_api_security_scheme:
+              - read_access
+        parameters:
+          - name: id
+            in: path
+            required: true
+            schema:
+              type: integer
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/StatisticsDTO'
+          '404':
+            description: The Statistics with the specified ID does not exist
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                    statusCode:
+                      type: integer
+
+  /statistics/save:
+      post:
+        tags:
+          - Statistics
+        summary: Save statistics
+        operationId: saveStatistics
+        security:
+          - internship_api_security_scheme:
+              - write_access
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatisticsInsertRequest'
+        responses:
+          '201':
+            description: Created
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/StatisticsDTO'
+
+  /statistics/update/{id}:
+      put:
+        tags:
+          - Statistics
+        summary: Update statistics
+        operationId: updateStatistics
+        security:
+          - internship_api_security_scheme:
+              - write_access
+        parameters:
+          - name: id
+            in: path
+            required: true
+            schema:
+              type: integer
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatisticsUpdateRequest'
+        responses:
+          '200':
+            description: Updated
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/StatisticsDTO'
+          '404':
+            description: The Statistics with the specified ID does not exist
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                    statusCode:
+                      type: integer
+
+  /statistics/updateFinish/{id}:
+      put:
+        tags:
+          - Statistics
+        summary: Finish statistics
+        operationId: updateStatisticsFinish
+        security:
+          - internship_api_security_scheme:
+              - write_access
+        parameters:
+          - name: id
+            in: path
+            required: true
+            schema:
+              type: integer
+        responses:
+          '200':
+            description: Finished
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/StatisticsDTO'
+          '404':
+            description: The Statistics with the specified ID does not exist
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                    statusCode:
+                      type: integer
+
+  /statistics/delete/{id}:
+      delete:
+        tags:
+          - Statistics
+        summary: Delete statistics
+        operationId: deleteStatistics
+        security:
+          - internship_api_security_scheme:
+              - write_access
+        parameters:
+          - name: id
+            in: path
+            required: true
+            schema:
+              type: integer
+        responses:
+          '200':
+            description: Deleted
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/StatisticsDTO'
+          '404':
+            description: The Statistics with the specified ID does not exist
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                    statusCode:
+                      type: integer
+
+
 
 components:
   securitySchemes:
@@ -2031,5 +2565,160 @@ components:
           type: string
           format: date-time
         endDate:
+          type: string
+          format: date-time
+    # Notification data object
+    NotificationDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        content:
+          type: string
+        image:
+          type: string
+          format: byte
+        addingDate:
+          type: string
+          format: date-time
+        forClient:
+          type: boolean
+
+    NotificationUpsertRequest:
+      type: object
+      properties:
+        title:
+          type: string
+        content:
+          type: string
+        image:
+          type: string
+          format: byte
+        forClient:
+          type: boolean
+      required:
+        - title
+        - content
+        - forClient
+
+    NotificationSearchObject:
+      type: object
+      properties:
+        pageNumber:
+          type: integer
+        pageSize:
+          type: integer
+        forClient:
+          type: boolean
+        title:
+          type: string
+    #Review data objects
+    ReviewDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+        value:
+          type: integer
+        description:
+          type: string
+        addingDate:
+          type: string
+          format: date-time
+        client:
+          $ref: '#/components/schemas/ClientDTO'
+        driver:
+          $ref: '#/components/schemas/DriverDTO'
+
+    ReviewSearchObject:
+      type: object
+      properties:
+        pageNumber:
+          type: integer
+        pageSize:
+          type: integer
+        reviewedName:
+          type: string
+        reviewsName:
+          type: string
+
+    ReviewInsertRequest:
+      type: object
+      properties:
+        value:
+          type: integer
+          minimum: 1
+          maximum: 5
+        description:
+          type: string
+        reviewed_id:
+          type: integer
+        reviews_id:
+          type: integer
+      required:
+        - value
+        - description
+        - reviewed_id
+        - reviews_id
+
+    ReviewUpdateRequest:
+      type: object
+      properties:
+        value:
+          type: integer
+          minimum: 1
+          maximum: 5
+        description:
+          type: string
+      required:
+        - value
+        - description
+    #Statistics data objects
+    StatisticsDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+        numberOfHours:
+          type: integer
+        numberOfClients:
+          type: integer
+        priceAmount:
+          type: number
+          format: double
+        beginningOfWork:
+          type: string
+          format: date-time
+        endOfWork:
+          type: string
+          format: date-time
+        driver:
+          $ref: '#/components/schemas/DriverDTO'
+
+    StatisticsSearchObject:
+      type: object
+      properties:
+        pageNumber:
+          type: integer
+        pageSize:
+          type: integer
+        driver_id:
+          type: integer
+        beginningOfWork:
+          type: string
+          format: date-time
+
+    StatisticsInsertRequest:
+      type: object
+      properties:
+        driver_id:
+          type: integer
+
+    StatisticsUpdateRequest:
+      type: object
+      properties:
+        endOfWork:
           type: string
           format: date-time

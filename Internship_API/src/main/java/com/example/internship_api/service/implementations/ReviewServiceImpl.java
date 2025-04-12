@@ -1,10 +1,6 @@
 package com.example.internship_api.service.implementations;
 
-import com.example.internship_api.data.model.ReviewDTO;
-import com.example.internship_api.data.request.GeneralReportRequest;
-import com.example.internship_api.data.request.ReviewInsertRequest;
-import com.example.internship_api.data.request.ReviewUpdateRequest;
-import com.example.internship_api.data.search_object.ReviewSearchObject;
+import com.example.internship_api.dto.*;
 import com.example.internship_api.entity.*;
 import com.example.internship_api.exception.EntityNotFoundException;
 import com.example.internship_api.repository.ClientRepository;
@@ -41,8 +37,8 @@ public class ReviewServiceImpl extends BaseCRUDServiceImpl<ReviewDTO, ReviewSear
         //takes all reviews for the given month and year
         var reviews = repository.findAll().stream()
                 .filter(item -> item.getAddingDate() != null)
-                .filter(item -> item.getAddingDate().getYear() == request.year())
-                .filter(item -> item.getAddingDate().getMonthValue() == request.month())
+                .filter(item -> item.getAddingDate().getYear() == request.getYear())
+                .filter(item -> item.getAddingDate().getMonthValue() == request.getMonth())
                 .collect(Collectors.toList());
 
         //if it is empty returns null
@@ -79,14 +75,14 @@ public class ReviewServiceImpl extends BaseCRUDServiceImpl<ReviewDTO, ReviewSear
         var route=routeRepository.findAll()
                 .stream()
                 .filter(
-                        item->item.getClient().getId()==request.reviews_id()&&item.getDriver().getId()==request.reviewed_id()
+                        item->item.getClient().getId()==request.getReviewsId()&&item.getDriver().getId()==request.getReviewedId()
                 ).findFirst();
         if(route.isPresent())
         {
             var unwrapRoute=route.get();
             entity.setRoute(unwrapRoute);
-            var unwrapClient=checkClient(request.reviews_id());
-            var unwrapDriver=checkDriver(request.reviewed_id());
+            var unwrapClient=checkClient(request.getReviewsId().longValue());
+            var unwrapDriver=checkDriver(request.getReviewedId().longValue());
             entity.setAddingDate(LocalDateTime.now());
             entity.setClient(unwrapClient);
             entity.setDriver(unwrapDriver);
@@ -108,7 +104,7 @@ public class ReviewServiceImpl extends BaseCRUDServiceImpl<ReviewDTO, ReviewSear
         }
         List<Review> filteredQuery = query.stream()
                 .filter(item->search.getReviewedName()==null||item.getDriver().getUser().getName().equals(search.getReviewedName()))
-                .filter(item->search.getReviewesName()==null||item.getClient().getUser().getName().equals(search.getReviewesName()))
+                .filter(item->search.getReviewsName()==null||item.getClient().getUser().getName().equals(search.getReviewsName()))
                 .collect(Collectors.toList());
 
         query.clear();

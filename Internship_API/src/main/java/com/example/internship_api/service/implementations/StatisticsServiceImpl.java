@@ -1,9 +1,6 @@
 package com.example.internship_api.service.implementations;
 
-import com.example.internship_api.data.model.StatisticsDTO;
-import com.example.internship_api.data.request.StatisticsInsertRequest;
-import com.example.internship_api.data.request.StatisticsUpdateRequest;
-import com.example.internship_api.data.search_object.StatisticsSearchObject;
+import com.example.internship_api.dto.*;
 import com.example.internship_api.entity.Driver;
 import com.example.internship_api.entity.Review;
 import com.example.internship_api.entity.Statistics;
@@ -62,7 +59,7 @@ public class StatisticsServiceImpl extends BaseCRUDServiceImpl<StatisticsDTO, St
 
     @Override
     protected void beforeInsert(StatisticsInsertRequest request, Statistics entity) {
-        var driver=checkDriver(request.driver_id());
+        var driver=checkDriver(request.getDriverId().longValue());
         entity.setBeginningOfWork(LocalDateTime.now());
         entity.setNumberOfClients(0);
         entity.setNumberOfHours(0);
@@ -89,7 +86,7 @@ public class StatisticsServiceImpl extends BaseCRUDServiceImpl<StatisticsDTO, St
             return;
         }
         List<Statistics> filteredQuery = query.stream()
-                .filter(item->search.getDriver_id()==null||item.getDriver().getId()==search.getDriver_id())
+                .filter(item->search.getDriverId()==null||item.getDriver().getId()==search.getDriverId())
                 .filter(item->search.getBeginningOfWork()==null||item.getBeginningOfWork().equals(search.getBeginningOfWork()))
                 .collect(Collectors.toList());
 
