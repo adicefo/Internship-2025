@@ -1221,6 +1221,312 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/VehicleDTO'
+  #Rent paths
+  /rent/get:
+    get:
+      tags:
+        - Rent
+      summary: Get all rents
+      operationId: getRents
+      security:
+        - internship_api_security_scheme:
+            - read_access
+      parameters:
+        - name: search
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/RentSearchObject'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/List"
+                  - type: object
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/RentDTO"
+
+  /rent/getById/{id}:
+    get:
+      tags:
+        - Rent
+      summary: Get rent by ID
+      operationId: getRentById
+      security:
+        - internship_api_security_scheme:
+            - read_access
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RentDTO'
+        '404':
+          description: The Rent with the specified ID does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer
+
+  /rent/save:
+    post:
+      tags:
+        - Rent
+      summary: Create new rent
+      operationId: saveRent
+      security:
+        - internship_api_security_scheme:
+            - write_access
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RentInsertRequest'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RentDTO'
+
+  /rent/checkAvailability/{id}:
+    post:
+      tags:
+        - Rent
+      summary: Check rent availability for vehicle
+      operationId: checkRentAvailability
+      security:
+        - internship_api_security_scheme:
+            - read_access
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RentAvailabilityRequest'
+      responses:
+        '200':
+          description: Availability status
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: boolean
+        '404':
+          description: The Rent with the specified ID does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer
+
+  /rent/update/{id}:
+    put:
+      tags:
+        - Rent
+      summary: Update rent
+      operationId: updateRent
+      security:
+        - internship_api_security_scheme:
+            - write_access
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RentUpdateRequest'
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RentDTO'
+        '404':
+          description: The Rent with the specified ID does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer
+
+  /rent/updateActive/{id}:
+    put:
+      tags:
+        - Rent
+      summary: Mark rent as active
+      operationId: updateRentActive
+      security:
+        - internship_api_security_scheme:
+            - write_access
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Updated to active
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RentDTO'
+        '404':
+          description: The Rent with the specified ID does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer
+
+  /rent/updateFinish/{id}:
+    put:
+      tags:
+        - Rent
+      summary: Finish rent
+      operationId: updateRentFinish
+      security:
+        - internship_api_security_scheme:
+            - write_access
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Rent finished
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RentDTO'
+        '404':
+          description: The Rent with the specified ID does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer
+
+  /rent/updatePayment/{id}:
+    put:
+      tags:
+        - Rent
+      summary: Mark rent as paid
+      operationId: updateRentPayment
+      security:
+        - internship_api_security_scheme:
+            - write_access
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Payment updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RentDTO'
+        '404':
+          description: The Rent with the specified ID does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer
+
+  /rent/delete/{id}:
+    delete:
+      tags:
+        - Rent
+      summary: Delete rent
+      operationId: deleteRent
+      security:
+        - internship_api_security_scheme:
+            - write_access
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RentDTO'
+        '404':
+          description: The Rent with the specified ID does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer
+
 components:
   securitySchemes:
     internship_api_security_scheme:
@@ -1639,3 +1945,91 @@ components:
           type: string
         available:
           type: boolean
+    #Rent data objects
+    RentDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+        rentDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        numberOfDays:
+          type: integer
+        fullPrice:
+          type: number
+          format: double
+        paid:
+          type: boolean
+        status:
+          type: string
+        vehicle:
+          $ref: '#/components/schemas/VehicleDTO'
+        client:
+          $ref: '#/components/schemas/ClientDTO'
+
+    RentInsertRequest:
+      type: object
+      properties:
+        rentDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        vehicle_id:
+          type: integer
+        client_id:
+          type: integer
+      required:
+        - rentDate
+        - endDate
+
+    RentUpdateRequest:
+      type: object
+      properties:
+        endDate:
+          type: string
+          format: date-time
+        vehicle_id:
+          type: integer
+
+    RentAvailabilityRequest:
+      type: object
+      properties:
+        vehicle_id:
+          type: integer
+        rentDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+      required:
+        - rentDate
+        - endDate
+
+    RentSearchObject:
+      type: object
+      properties:
+        pageNumber:
+          type: integer
+        pageSize:
+          type: integer
+        status:
+          type: string
+        vehicle_id:
+          type: integer
+        client_id:
+          type: integer
+        user_id:
+          type: integer
+        rentDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time

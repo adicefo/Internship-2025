@@ -1,10 +1,6 @@
 package com.example.internship_api.service;
 
-import com.example.internship_api.data.model.RentDTO;
-import com.example.internship_api.data.model.RouteDTO;
-import com.example.internship_api.data.request.*;
-import com.example.internship_api.data.search_object.RentSearchObject;
-import com.example.internship_api.data.search_object.RouteSearchObject;
+import com.example.internship_api.dto.*;
 
 import java.util.Map;
 

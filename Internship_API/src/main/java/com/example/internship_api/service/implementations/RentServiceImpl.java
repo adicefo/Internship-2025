@@ -1,10 +1,6 @@
 package com.example.internship_api.service.implementations;
 
-import com.example.internship_api.data.model.RentDTO;
-import com.example.internship_api.data.request.RentAvailabilityRequest;
-import com.example.internship_api.data.request.RentInsertRequest;
-import com.example.internship_api.data.request.RentUpdateRequest;
-import com.example.internship_api.data.search_object.RentSearchObject;
+import com.example.internship_api.dto.*;
 import com.example.internship_api.entity.Client;
 import com.example.internship_api.entity.Rent;
 import com.example.internship_api.entity.Route;
@@ -63,32 +59,32 @@ public class RentServiceImpl extends BaseCRUDServiceImpl<RentDTO, RentSearchObje
     @Override
     public Map<String, Boolean> checkAvailability(Long id, RentAvailabilityRequest request) {
         var entity=unwrapEntity(repository.findById(id),id);
-        var vehicle=checkVehicle(request.vehicle_id());
-        if(request.endDate().isBefore(request.rentDate())||request.endDate().isEqual(request.rentDate())
-        ||!request.rentDate().isEqual(entity.getRentDate())||!request.endDate().isEqual(entity.getEndDate()))
+        var vehicle=checkVehicle(request.getVehicleId().longValue());
+        if(request.getEndDate().isBefore(request.getRentDate())||request.getEndDate().isEqual(request.getRentDate())
+        ||!request.getRentDate().isEqual(entity.getRentDate())||!request.getEndDate().isEqual(entity.getEndDate()))
             throw new IllegalArgumentException("Please input valid data");
         Optional<Rent> rent=repository.findAll().stream()
                 .filter(item->item.getVehicle().getId()==vehicle.getId())
                 .filter(item->item.getStatus().equals("active"))
-                .filter(item->request.rentDate().isBefore(item.getEndDate()))
-                .filter(item->request.endDate().isAfter(item.getRentDate())).findAny();
+                .filter(item->request.getRentDate().isBefore(item.getEndDate()))
+                .filter(item->request.getEndDate().isAfter(item.getRentDate())).findAny();
         return Map.of("isAvailable",!rent.isPresent());
     }
 
     @Override
     protected void beforeInsert(RentInsertRequest request, Rent entity) {
-        if (request.rentDate()!=null&&request.endDate()!=null&&request.endDate().isBefore(request.rentDate()))
+        if (request.getRentDate()!=null&&request.getEndDate()!=null&&request.getEndDate().isBefore(request.getRentDate()))
             throw new IllegalArgumentException("End date must be greater than rent date");
-        if(request.rentDate()!=null&&request.endDate()!=null)
+        if(request.getRentDate()!=null&&request.getEndDate()!=null)
         {
-            long numberOfDays = Duration.between(request.rentDate(), request.endDate()).toDays();
+            long numberOfDays = Duration.between(request.getRentDate(), request.getEndDate()).toDays();
             entity.setNumberOfDays((int) numberOfDays);
 
         }
         else
             entity.setNumberOfDays(0);
-        var vehicle=checkVehicle(request.vehicle_id());
-        var client=checkClient(request.client_id());
+        var vehicle=checkVehicle(request.getVehicleId().longValue());
+        var client=checkClient(request.getClientId().longValue());
         var fullPrice=entity.getNumberOfDays()*vehicle.getPrice();
         entity.setStatus("wait");
         entity.setFullPrice(fullPrice);
@@ -98,20 +94,20 @@ public class RentServiceImpl extends BaseCRUDServiceImpl<RentDTO, RentSearchObje
 
     @Override
     protected void beforeUpdate(RentUpdateRequest request, Rent entity) {
-    if(request.endDate()!=null)
+    if(request.getEndDate()!=null)
     {
-        if(request.endDate().isBefore(entity.getRentDate()))
+        if(request.getEndDate().isBefore(entity.getRentDate()))
             throw new IllegalArgumentException("End date must be greater than rent date");
         if(entity.getRentDate()!=null&&entity.getEndDate()!=null)
         {
-            long numberOfDays = Duration.between(entity.getRentDate(), request.endDate()).toDays();
+            long numberOfDays = Duration.between(entity.getRentDate(), request.getEndDate()).toDays();
             entity.setNumberOfDays((int) numberOfDays);
 
         }
         else
             entity.setNumberOfDays(0);
     }
-        var vehicle=checkVehicle(request.vehicle_id());
+        var vehicle=checkVehicle(request.getVehicleId().longValue());
         var fullPrice=entity.getNumberOfDays()*vehicle.getPrice();
         entity.setFullPrice(fullPrice);
         entity.setVehicle(vehicle);
@@ -124,9 +120,9 @@ public class RentServiceImpl extends BaseCRUDServiceImpl<RentDTO, RentSearchObje
         }
         List<Rent> filteredQuery = query.stream()
                 .filter(item-> search.getStatus() == null || item.getStatus().equals(search.getStatus()))
-                .filter(item -> search.getClient_id() == null || item.getClient().getId()==search.getClient_id())
-                .filter(item -> search.getVehicle_id() == null || item.getVehicle().getId()==search.getVehicle_id())
-                .filter(item -> search.getUser_id() == null || item.getClient().getUser().getId()==search.getUser_id())
+                .filter(item -> search.getClientId() == null || item.getClient().getId()==search.getClientId())
+                .filter(item -> search.getVehicleId() == null || item.getVehicle().getId()==search.getVehicleId())
+                .filter(item -> search.getUserId() == null || item.getClient().getUser().getId()==search.getUserId())
                 .filter(item -> search.getRentDate() == null || item.getRentDate().equals(search.getRentDate()))
                 .filter(item -> search.getEndDate() == null || item.getEndDate().equals(search.getEndDate()))
                 .collect(Collectors.toList());
