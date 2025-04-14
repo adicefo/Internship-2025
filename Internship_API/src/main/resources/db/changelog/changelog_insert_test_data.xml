@@ -382,6 +382,8 @@
             <column name="for_client" value="true"/>
         </insert>
 
+
+
         <!-- Sequences reset (can also be done via raw SQL if needed) -->
         <sql>SELECT setval('users_id_seq', (SELECT MAX(id) FROM users) + 1);</sql>
         <sql>SELECT setval('admin_id_seq', (SELECT MAX(id) FROM admin) + 1);</sql>
