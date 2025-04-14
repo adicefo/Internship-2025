@@ -83,6 +83,24 @@ public class UserControllerIntTest {
         assertThat(response.getBody().getEmail()).isEqualTo("johndoe@example.com");
 
     }
+    @Test
+
+    void shouldNotCreateNewUserWhenValidationIsInvalid()
+    {
+        UserInsertRequest newRequest = new UserInsertRequest();
+        newRequest.setName("john");
+        newRequest.setSurname("doe");
+        newRequest.setUsername("johndoe");
+        newRequest.setEmail("johndoe@example.com");
+        newRequest.setPassword("password123");
+        newRequest.setPasswordConfirm("password123");
+        newRequest.setGender(UserInsertRequest.GenderEnum.MALE);
+        newRequest.setIsActive(true);
+
+
+        ResponseEntity<Object> response = restTemplate.postForEntity("/v2/users/register", new HttpEntity<>(newRequest), Object.class);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+    }
 
     @Test
     @Rollback
