@@ -18,6 +18,7 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @EnableWebSecurity
 @EnableMethodSecurity
 @RequiredArgsConstructor
+
 public class SecurityConfig {
 
     private final JWTAuthConverter jwtAuthConverter;
