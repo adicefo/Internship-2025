@@ -36,7 +36,7 @@ public class ReviewDelegateImpl implements ReviewApiDelegate {
     }
 
     @Override
-    public ResponseEntity<List<Map<String, Object>>> getDriversForReport(GeneralReportRequest generalReportRequest) {
+    public ResponseEntity<Map<String, Object>> getDriversForReport(GeneralReportRequest generalReportRequest) {
         return new ResponseEntity<>(service.getDriversForReport(generalReportRequest), HttpStatus.OK);
     }
 

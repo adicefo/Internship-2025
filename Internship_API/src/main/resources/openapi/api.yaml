@@ -1742,30 +1742,29 @@ paths:
                       type: integer
 
   /review/getDriversForReport:
-      post:
-        tags:
-          - Review
-        summary: Get drivers for review report
-        operationId: getDriversForReport
-        security:
-          - internship_api_security_scheme:
-              - read_access
-        requestBody:
-          required: true
+    post:
+      tags:
+        - Review
+      summary: Get drivers for review report
+      operationId: getDriversForReport
+      security:
+        - internship_api_security_scheme:
+            - read_access
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GeneralReportRequest'
+      responses:
+        '200':
+          description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GeneralReportRequest'
-        responses:
-          '200':
-            description: Success
-            content:
-              application/json:
-                schema:
-                  type: array
-                  items:
-                    type: object
-                    additionalProperties: true
+                type: object
+                additionalProperties: true
+
 
   /review/save:
       post:
@@ -2774,12 +2773,16 @@ components:
         averageFuelConsumption:
           type: number
           format: double
+          minimum: 3.3
+          maximum: 15.0
         image:
           type: string
           format: byte
         price:
           type: number
           format: double
+          minimum: 40
+          maximum: 60
       required:
         - name
         - available

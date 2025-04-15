@@ -7,5 +7,5 @@ import java.util.Map;
 
 public interface ReviewService extends BaseCRUDService<ReviewDTO, ReviewSearchObject,
         ReviewInsertRequest, ReviewUpdateRequest>{
-    List<Map<String,Object>> getDriversForReport(GeneralReportRequest request);
+    Map<String,Object> getDriversForReport(GeneralReportRequest request);
 }

@@ -60,8 +60,10 @@ public class RentServiceImpl extends BaseCRUDServiceImpl<RentDTO, RentSearchObje
     public Map<String, Boolean> checkAvailability(Long id, RentAvailabilityRequest request) {
         var entity=unwrapEntity(repository.findById(id),id);
         var vehicle=checkVehicle(request.getVehicleId().longValue());
-        if(request.getEndDate().isBefore(request.getRentDate())||request.getEndDate().isEqual(request.getRentDate())
-        ||!request.getRentDate().isEqual(entity.getRentDate())||!request.getEndDate().isEqual(entity.getEndDate()))
+        if (
+                request.getEndDate().isBefore(request.getRentDate()) ||
+                        request.getEndDate().isEqual(request.getRentDate())
+        )
             throw new IllegalArgumentException("Please input valid data");
         Optional<Rent> rent=repository.findAll().stream()
                 .filter(item->item.getVehicle().getId()==vehicle.getId())

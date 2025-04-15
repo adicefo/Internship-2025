@@ -33,7 +33,7 @@ public class ReviewServiceImpl extends BaseCRUDServiceImpl<ReviewDTO, ReviewSear
         super(repository, modelMapper, ReviewDTO.class, Review.class);
     }
     @Override
-    public List<Map<String, Object>> getDriversForReport(GeneralReportRequest request) {
+    public Map<String,Object> getDriversForReport(GeneralReportRequest request) {
         //takes all reviews for the given month and year
         var reviews = repository.findAll().stream()
                 .filter(item -> item.getAddingDate() != null)
@@ -43,7 +43,7 @@ public class ReviewServiceImpl extends BaseCRUDServiceImpl<ReviewDTO, ReviewSear
 
         //if it is empty returns null
         if (reviews.isEmpty()) {
-            return List.of(Map.of("maxDriver", "null", "minDriver", "null"));
+            return Map.of("maxDriver", "null", "minDriver", "null");
         }
 
         //grouping driver and his average mark for that period
@@ -68,7 +68,7 @@ public class ReviewServiceImpl extends BaseCRUDServiceImpl<ReviewDTO, ReviewSear
                 .min(Comparator.comparingDouble(x -> (Double) x.get("AvgMark")))
                 .orElse(Map.of("DriverName", "null", "AvgMark", 0.0));
 
-        return List.of(Map.of("maxDriver", maxAvgDriver, "minDriver", minAvgDriver));
+        return Map.of("maxDriver", maxAvgDriver, "minDriver", minAvgDriver);
     }
     @Override
     protected void beforeInsert(ReviewInsertRequest request, Review entity) {
