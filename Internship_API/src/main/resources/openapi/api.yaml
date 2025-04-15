@@ -2684,15 +2684,27 @@ components:
         sourcePointLat:
           type: number
           format: double
+          minimum: -90
+          maximum: 90
+          description: "Latitude must be between -90 and 90 degrees"
         sourcePointLon:
           type: number
           format: double
+          minimum: -180
+          maximum: 180
+          description: "Longitude must be between -180 and 180 degrees"
         destinationPointLat:
           type: number
           format: double
+          minimum: -90
+          maximum: 90
+          description: "Latitude must be between -90 and 90 degrees"
         destinationPointLon:
           type: number
           format: double
+          minimum: -180
+          maximum: 180
+          description: "Longitude must be between -180 and 180 degrees"
         client_id:
           type: integer
         driver_id:
