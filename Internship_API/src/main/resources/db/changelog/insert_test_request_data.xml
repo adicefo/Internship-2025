@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <changeSet id="insert-test-request-data" author="adi">
+
+
+        <!-- Insert request -->
+        <insert tableName="request">
+            <column name="id" value="1"/>
+            <column name="accepted" value="true"/>
+            <column name="driver_id" value="1"/>
+            <column name="route_id" value="1"/>
+        </insert>
+
+
+
+
+        <sql>SELECT setval('request_id_seq', (SELECT MAX(id) FROM request) + 1);</sql>
+
+    </changeSet>
+
+</databaseChangeLog>
