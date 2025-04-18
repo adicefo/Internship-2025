@@ -6,6 +6,7 @@ import com.example.internship_api.dto.StatisticsInsertRequest;
 import com.example.internship_api.dto.StatisticsUpdateRequest;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
+import org.openapitools.jackson.nullable.JsonNullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;

@@ -10,7 +10,7 @@
 
         <!-- Insert request -->
         <insert tableName="driver_vehicle">
-          <column name="id" value="1"/>
+          <column name="id" value="2"/>
             <column name="driver_id" value="1"/>
             <column name="vehicle_id" value="2"/>
             <column name="date_pick" valueComputed="NOW() - INTERVAL '5 days'"/>

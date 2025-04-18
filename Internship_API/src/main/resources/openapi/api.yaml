@@ -3035,6 +3035,11 @@ components:
       properties:
         driver_id:
           type: integer
+        beginningOfWork:
+          type: string
+          format: date-time
+      required: [ ]
+
 
     StatisticsUpdateRequest:
       type: object
