@@ -26,6 +26,8 @@
      <include file="update_image_column2.xml" relativeToChangelogFile="true"/>
      <include file="insert_test_request_data.xml" relativeToChangelogFile="true"/>
      <include file="insert_test_driverVehicle_data.xml" relativeToChangelogFile="true"/>
+     <include file="insert_test_statistics_data.xml" relativeToChangelogFile="true"/>
+
 
 
 </databaseChangeLog>
