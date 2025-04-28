@@ -160,9 +160,12 @@
 							<modelPackage>com.example.clientservice.model</modelPackage>
 							<configOptions>
 								<title>client-service</title>
-
 								<useSpringBoot3>true</useSpringBoot3>
 							</configOptions>
+							<additionalProperties>
+								<additionalProperty>oauth2ClientId=internship-rest-api</additionalProperty>
+							</additionalProperties>
+							<templateDirectory>${project.basedir}/src/main/resources/templates</templateDirectory>
 						</configuration>
 					</execution>
 				</executions>

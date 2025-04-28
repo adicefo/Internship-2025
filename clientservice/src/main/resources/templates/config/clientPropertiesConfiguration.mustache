@@ -1,0 +1,22 @@
+package {{configPackage}};
+
+import java.util.Properties;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.ConfigurableEnvironment;
+import org.springframework.core.env.PropertiesPropertySource;
+
+@Configuration(value = "{{configPackage}}.clientPropertiesConfiguration")
+public class ClientPropertiesConfiguration {
+
+    public ClientPropertiesConfiguration( final ConfigurableEnvironment configurableEnvironment ) {
+        final Properties properties = new Properties();
+        properties.put("spring.security.oauth2.client.registration.internshipApiSecuritySchemeImplicit.client-id", "internship-rest-api" );
+        properties.put("spring.security.oauth2.client.registration.internshipApiSecuritySchemeImplicit.scope", "{{oAuth2Scopes}}" );
+        properties.put("spring.security.oauth2.client.registration.internshipApiSecuritySchemeImplicit.authorization-grant-type", "{{#isImplicitFlow}}implicit{{/isImplicitFlow}}{{^isImplicitFlow}}authorization_code{{/isImplicitFlow}}" );
+        properties.put("spring.security.oauth2.client.provider.internshipApiSecuritySchemeImplicit.authorization-uri", "{{{authorizationUri}}}" );
+        {{#hasTokenUrl}}properties.put("spring.security.oauth2.client.provider.internshipApiSecuritySchemeImplicit.token-uri", "{{{tokenUri}}}" );{{/hasTokenUrl}}
+        final PropertiesPropertySource propertiesPropertySource = new PropertiesPropertySource("internshipApiSecuritySchemeImplicit", properties );
+        configurableEnvironment.getPropertySources().addLast( propertiesPropertySource );
+    }
+
+} 

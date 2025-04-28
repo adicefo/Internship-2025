@@ -8,11 +8,13 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtClaimNames;
+import org.springframework.security.oauth2.jwt.JwtException;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -30,6 +32,9 @@ public class JWTAuthConverter implements Converter<Jwt, AbstractAuthenticationTo
 
     @Override
     public AbstractAuthenticationToken convert(@NonNull Jwt jwt) {
+        // Validate the audience claim
+        validateAudience(jwt);
+
         Collection<GrantedAuthority> authorities= Stream.concat(
                 jwtGrantedAuthoritiesConverter.convert(jwt)
                         .stream(),
@@ -43,7 +48,27 @@ public class JWTAuthConverter implements Converter<Jwt, AbstractAuthenticationTo
         );
     }
 
+    /**
+     * Validates the audience claim in the JWT token.
+     * Accepts both "account" and the configured resourceId as valid audiences.
+     */
+    private void validateAudience(Jwt jwt) {
+        // Get the audience claim
+        List<String> audiences = jwt.getClaimAsStringList("aud");
 
+        // If there's no audience claim, throw an exception
+        if (audiences == null || audiences.isEmpty()) {
+            throw new JwtException("Missing audience claim");
+        }
+
+        // Check if "account" or your resource ID is in the audience list
+        boolean validAudience = audiences.contains("account") || audiences.contains(resourceId);
+
+        // If neither "account" nor your resource ID is in the audience list, throw an exception
+        if (!validAudience) {
+            throw new JwtException("Invalid audience: " + audiences);
+        }
+    }
 
     private Collection<? extends GrantedAuthority> extractResourceRoles(Jwt jwt) {
         Map<String,Object> resourceAccess;
@@ -60,9 +85,8 @@ public class JWTAuthConverter implements Converter<Jwt, AbstractAuthenticationTo
         resourceRoles=(Collection<String>)resource.get("roles");
         return resourceRoles
                 .stream()
-                .map(role -> new SimpleGrantedAuthority("ROLE_"+role))
+                .map(role -> new SimpleGrantedAuthority("ROLE_"+role.toUpperCase())) // Add ROLE_ prefix and convert to uppercase
                 .collect(Collectors.toSet());
-
     }
     private String getPrincipleClaimName(Jwt jwt) {
         String claimName= JwtClaimNames.SUB;
