@@ -15,7 +15,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO createUser(UserInsertRequest request) {
-       ResponseEntity<UserDTO> response= usersApiClient.createUser(request);
+       ResponseEntity<UserDTO>response= usersApiClient.createUser(request);
        return response.getBody();
     }
 
@@ -32,9 +32,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public GetUsers200Response getUsers(UserSearchObject searchObject) {
-        ResponseEntity<GetUsers200Response> response = usersApiClient.getUsers(searchObject);
-        return response.getBody();
+    public ResponseEntity<GetUsers200Response> getUsers(UserSearchObject searchObject) {
+      return usersApiClient.getUsers(searchObject);
     }
 
     @Override

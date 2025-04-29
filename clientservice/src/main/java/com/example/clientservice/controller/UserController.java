@@ -1,6 +1,7 @@
 package com.example.clientservice.controller;
 
 import com.example.clientservice.model.*;
+import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.openfeign.SpringQueryMap;
@@ -31,8 +32,8 @@ public class UserController {
     }
 
     @GetMapping("/get")
-    public ResponseEntity<GetUsers200Response> getUsers(@ModelAttribute UserSearchObject searchObject) {
-       return new ResponseEntity<>(service.getUsers(searchObject), HttpStatus.OK);
+    public ResponseEntity<GetUsers200Response> getUsers(UserSearchObject searchObject) {
+       return service.getUsers(searchObject);
     }
 
     @PutMapping("/update/{id}")

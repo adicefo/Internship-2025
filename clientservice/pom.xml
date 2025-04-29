@@ -104,6 +104,12 @@
 			<artifactId>spring-security-oauth2-client</artifactId>
 		</dependency>
 
+		<!-- 405 'GET' TO 'POST' ISSUE -->
+		<dependency>
+			<groupId>io.github.openfeign</groupId>
+			<artifactId>feign-hc5</artifactId>
+		</dependency>
+
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
@@ -158,8 +164,15 @@
 							<library>spring-cloud</library>
 							<apiPackage>com.example.clientservice.api</apiPackage>
 							<modelPackage>com.example.clientservice.model</modelPackage>
+							<typeMappings>
+								<typeMapping>OffsetDateTime=LocalDateTime</typeMapping>
+							</typeMappings>
+							<importMappings>
+								<importMapping>java.time.OffsetDateTime=java.time.LocalDateTime</importMapping>
+							</importMappings>
 							<configOptions>
 								<title>client-service</title>
+								<serializableModel>true</serializableModel>
 								<useSpringBoot3>true</useSpringBoot3>
 							</configOptions>
 							<additionalProperties>
