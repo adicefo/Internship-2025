@@ -3,6 +3,7 @@ package com.example.clientservice.controller;
 import com.example.clientservice.model.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +31,7 @@ public class UserController {
     }
 
     @GetMapping("/get")
-    public ResponseEntity<GetUsers200Response> getUsers(@RequestParam(required = false) UserSearchObject searchObject) {
+    public ResponseEntity<GetUsers200Response> getUsers(@ModelAttribute UserSearchObject searchObject) {
        return new ResponseEntity<>(service.getUsers(searchObject), HttpStatus.OK);
     }
 
