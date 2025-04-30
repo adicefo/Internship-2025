@@ -70,7 +70,7 @@ public class RentServiceImpl extends BaseCRUDServiceImpl<RentDTO, RentSearchObje
                 .filter(item->item.getStatus().equals("active"))
                 .filter(item->request.getRentDate().isBefore(item.getEndDate()))
                 .filter(item->request.getEndDate().isAfter(item.getRentDate())).findAny();
-        return Map.of("isAvailable",!rent.isPresent());
+        return Map.of("isAvailable",rent.isEmpty());
     }
 
     @Override
