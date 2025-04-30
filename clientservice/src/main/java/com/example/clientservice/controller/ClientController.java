@@ -18,6 +18,7 @@ public class ClientController {
     public ResponseEntity<ClientDTO> createClient(@RequestBody @Valid UserInsertRequest userInsertRequest) {
         return new ResponseEntity<>(service.createClient(userInsertRequest), HttpStatus.CREATED);
     }
+
     @PostMapping("/saveBasedOnUser/{userId}")
     public ResponseEntity<ClientDTO> createClientBasedOnUser(@PathVariable Integer userId) {
         return new ResponseEntity<>(service.createClientBasedOnUser(userId), HttpStatus.CREATED);
@@ -34,7 +35,7 @@ public class ClientController {
     }
 
     @GetMapping("/get")
-    public ResponseEntity<GetClient200Response> getClient(@RequestParam(required = false) ClientSearchObject searchObject) {
+    public ResponseEntity<GetClient200Response> getClient( ClientSearchObject searchObject) {
         return new ResponseEntity<>(service.getClient(searchObject), HttpStatus.OK);
     }
 }

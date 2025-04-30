@@ -15,13 +15,13 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public AdminDTO createAdmin(UserInsertRequest request) {
-        ResponseEntity<AdminDTO> response= adminApiClient.createAdmin(request);
+        ResponseEntity<AdminDTO> response = adminApiClient.createAdmin(request);
         return response.getBody();
     }
 
     @Override
     public AdminDTO createAdminBasedOnUser(Integer userId) {
-        ResponseEntity<AdminDTO>response= adminApiClient.createAdminBasedOnUser(userId);
+        ResponseEntity<AdminDTO> response = adminApiClient.createAdminBasedOnUser(userId);
         return response.getBody();
     }
 

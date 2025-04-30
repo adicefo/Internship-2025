@@ -37,7 +37,7 @@ public class DriverController {
     }
 
     @GetMapping("/get")
-    public ResponseEntity<GetDriver200Response> getClient(@RequestParam(required = false) DriverSearchObject searchObject) {
+    public ResponseEntity<GetDriver200Response> getClient(DriverSearchObject searchObject) {
         return new ResponseEntity<>(service.getDriver(searchObject), HttpStatus.OK);
     }
 }

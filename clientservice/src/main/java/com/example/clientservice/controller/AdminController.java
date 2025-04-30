@@ -34,7 +34,7 @@ public class AdminController {
     }
 
     @GetMapping("/get")
-    public ResponseEntity<GetAdmin200Response> getAdmin(@RequestParam(required = false) AdminSearchObject searchObject) {
+    public ResponseEntity<GetAdmin200Response> getAdmin(AdminSearchObject searchObject) {
         return new ResponseEntity<>(service.getAdmin(searchObject), HttpStatus.OK);
     }
 

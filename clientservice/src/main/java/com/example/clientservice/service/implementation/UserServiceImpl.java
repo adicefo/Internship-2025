@@ -1,6 +1,6 @@
 package com.example.clientservice.service.implementation;
 
-import com.example.clientservice.customClients.CustomUserApiClient;
+import com.example.clientservice.api.UsersApiClient;
 import com.example.clientservice.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +10,7 @@ import com.example.clientservice.service.UserService;
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
-    private CustomUserApiClient usersApiClient;
+    private UsersApiClient usersApiClient;
 
 
     @Override
