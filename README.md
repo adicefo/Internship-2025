@@ -9,12 +9,6 @@
 - **Navigate to the path of the `docker-compose.yaml` file in the cloned repo**
 - **Run `docker-compose up --build `**
 
-## Test data 
-**In order to inject test data do following:**
-- **Open your terminal**
-- **Navigate to the `data.sql` script file, usually path is `path_to_cloned_repo/Internship_API/src/main/resources`**
-- **Run the command: `cat data.sql | docker exec -i postgres psql -h localhost -U adi -d internship_db -f-`**
-
 ## Credentials
 
 ### Postgresql database:
