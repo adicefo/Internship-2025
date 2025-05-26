@@ -28,8 +28,20 @@ class BaseService {
    * @returns {Promise} - API response
    */
   getAll(params = {}) {
+    // Filter out any null, undefined, or empty string values
+    const filteredParams = {};
+    for (const key in params) {
+      if (params[key] !== null && 
+          params[key] !== undefined && 
+          params[key] !== '') {
+        filteredParams[key] = params[key];
+      }
+    }
+
     const url = `${this.endpoint}${this.customEndpoints.getAll}`;
-    return apiClient.get(url, { params });
+    console.log('API Request URL:', url, 'with params:', filteredParams);
+    
+    return apiClient.get(url, { params: filteredParams });
   }
 
   /**

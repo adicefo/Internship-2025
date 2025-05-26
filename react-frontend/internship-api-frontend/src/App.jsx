@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import './App.css'
 import LoginPage from './components/LoginPage'
 import Dashboard from './components/Dashboard'
+import DriverPage from './pages/DriverPage'
 import PrivateRoute from './components/PrivateRoute'
 
 function App() {
@@ -59,6 +60,7 @@ function App() {
       <Route path="/" element={<LoginPage />} />
       <Route element={<PrivateRoute />}>
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/drivers" element={<DriverPage />} />
       </Route>
     </Routes>
   );

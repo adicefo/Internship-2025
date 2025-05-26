@@ -18,6 +18,12 @@ apiClient.interceptors.request.use(
     if (keycloak.authenticated && keycloak.token) {
       config.headers.Authorization = `Bearer ${keycloak.token}`;
     }
+    
+    // Log the full URL with query parameters
+    const fullUrl = config.baseURL + config.url + 
+      (config.params ? '?' + new URLSearchParams(config.params).toString() : '');
+    console.log('Full request URL:', fullUrl);
+    
     return config;
   },
   (error) => Promise.reject(error)

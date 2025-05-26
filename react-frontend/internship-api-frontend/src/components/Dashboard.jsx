@@ -1,5 +1,6 @@
 import { useKeycloak } from '@react-keycloak/web';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { 
   FaCar, FaUsers, FaRoute, FaCarAlt, FaBell, 
   FaStar, FaShoppingCart, FaBars, FaSignOutAlt,
@@ -10,6 +11,7 @@ const Dashboard = () => {
   const { keycloak } = useKeycloak();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [currentRoute, setCurrentRoute] = useState('Dashboard');
+  const navigate = useNavigate();
   
   const handleLogout = () => {
     keycloak.logout({
@@ -22,24 +24,27 @@ const Dashboard = () => {
   };
   
   const navItems = [
-    { title: 'Drivers', icon: <FaCar />, route: 'Drivers' },
-    { title: 'Clients', icon: <FaUsers />, route: 'Clients' },
-    { title: 'Routes', icon: <FaRoute />, route: 'Routes' },
-    { title: 'Vehicles', icon: <FaCarAlt />, route: 'Vehicles' },
-    { title: 'Notifications', icon: <FaBell />, route: 'Notifications' },
-    { title: 'Reviews', icon: <FaStar />, route: 'Reviews' },
-    { title: 'Rents', icon: <FaShoppingCart />, route: 'Rents' }
+    { title: 'Drivers', icon: <FaCar />, route: 'Drivers', path: '/drivers' },
+    { title: 'Clients', icon: <FaUsers />, route: 'Clients', path: '/clients' },
+    { title: 'Routes', icon: <FaRoute />, route: 'Routes', path: '/routes' },
+    { title: 'Vehicles', icon: <FaCarAlt />, route: 'Vehicles', path: '/vehicles' },
+    { title: 'Notifications', icon: <FaBell />, route: 'Notifications', path: '/notifications' },
+    { title: 'Reviews', icon: <FaStar />, route: 'Reviews', path: '/reviews' },
+    { title: 'Rents', icon: <FaShoppingCart />, route: 'Rents', path: '/rents' }
   ];
 
   const additionalItems = [
-    { title: 'Admin', icon: <FaCog />, route: 'Admin' },
-    { title: 'Statistics', icon: <FaChartBar />, route: 'Statistics' },
-    { title: 'Company Prices', icon: <FaMoneyBillWave />, route: 'CompanyPrices' },
-    { title: 'Driver Vehicles', icon: <FaCarSide />, route: 'DriverVehicles' }
+    { title: 'Admin', icon: <FaCog />, route: 'Admin', path: '/admin' },
+    { title: 'Statistics', icon: <FaChartBar />, route: 'Statistics', path: '/statistics' },
+    { title: 'Company Prices', icon: <FaMoneyBillWave />, route: 'CompanyPrices', path: '/prices' },
+    { title: 'Driver Vehicles', icon: <FaCarSide />, route: 'DriverVehicles', path: '/driver-vehicles' }
   ];
   
-  const handleNavigation = (route) => {
+  const handleNavigation = (route, path) => {
     setCurrentRoute(route);
+    if (path) {
+      navigate(path);
+    }
   };
   
   return (
@@ -76,7 +81,7 @@ const Dashboard = () => {
             <div 
               key={item.route}
               className={`nav-item ${currentRoute === item.route ? 'active' : ''}`}
-              onClick={() => handleNavigation(item.route)}
+              onClick={() => handleNavigation(item.route, item.path)}
             >
               <div className="nav-icon">{item.icon}</div>
               <div className="nav-title">{item.title}</div>
@@ -96,7 +101,7 @@ const Dashboard = () => {
                 <div 
                   key={item.route}
                   className={`nav-item ${currentRoute === item.route ? 'active' : ''}`}
-                  onClick={() => handleNavigation(item.route)}
+                  onClick={() => handleNavigation(item.route, item.path)}
                 >
                   <div className="nav-icon">{item.icon}</div>
                   <div className="nav-title">{item.title}</div>
