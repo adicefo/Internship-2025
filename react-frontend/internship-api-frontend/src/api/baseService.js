@@ -39,7 +39,6 @@ class BaseService {
     }
 
     const url = `${this.endpoint}${this.customEndpoints.getAll}`;
-    console.log('API Request URL:', url, 'with params:', filteredParams);
     
     return apiClient.get(url, { params: filteredParams });
   }

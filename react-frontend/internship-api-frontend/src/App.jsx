@@ -3,8 +3,8 @@ import { useKeycloak } from '@react-keycloak/web'
 import { useState, useEffect } from 'react'
 import './App.css'
 import LoginPage from './components/LoginPage'
-import Dashboard from './components/Dashboard'
-import DriverPage from './pages/DriverPage'
+import Dashboard from './components/dashboard/Dashboard'
+import DriverPage from './pages/driver/DriverPage'
 import PrivateRoute from './components/PrivateRoute'
 
 function App() {

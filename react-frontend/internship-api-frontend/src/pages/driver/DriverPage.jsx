@@ -5,9 +5,10 @@ import {
   FaCar, FaUsers, FaRoute, FaCarAlt, FaBell, 
   FaStar, FaShoppingCart, FaBars, FaSignOutAlt,
   FaCog, FaChartBar, FaMoneyBillWave, FaCarSide,
-  FaEdit, FaTrash, FaEye, FaSearch
+  FaEdit, FaTrash, FaEye, FaSearch,
+  FaHome
 } from 'react-icons/fa';
-import { driverService } from '../api';
+import { driverService } from '../../api';
 
 const DriverPage = () => {
   const { keycloak } = useKeycloak();
@@ -60,7 +61,8 @@ const DriverPage = () => {
     { title: 'Vehicles', icon: <FaCarAlt />, route: 'Vehicles', path: '/vehicles' },
     { title: 'Notifications', icon: <FaBell />, route: 'Notifications', path: '/notifications' },
     { title: 'Reviews', icon: <FaStar />, route: 'Reviews', path: '/reviews' },
-    { title: 'Rents', icon: <FaShoppingCart />, route: 'Rents', path: '/rents' }
+    { title: 'Rents', icon: <FaShoppingCart />, route: 'Rents', path: '/rents' },
+    
   ];
 
   const additionalItems = [
@@ -102,7 +104,11 @@ const DriverPage = () => {
 
     fetchDrivers(filter);
   };
-  
+
+  const handleDashboard=()=>{
+    handleNavigation("Dashboard","/dashboard");
+  }
+
   return (
     <div className="dashboard">
       {/* Header - Same as Dashboard */}
@@ -166,10 +172,16 @@ const DriverPage = () => {
             </div>
           </div>
           
+        <div className="nav-items dashboard-items">
+        <div className="nav-item dashboard" onClick={handleDashboard} style={{minHeight: '40px'}}>
+            <div className="nav-icon"><FaHome /></div>
+            <div className="nav-title">Dashboard</div>
+          </div>
           <div className="nav-item logout" onClick={handleLogout}>
             <div className="nav-icon"><FaSignOutAlt /></div>
             <div className="nav-title">Log out</div>
           </div>
+        </div>
         </div>
       </div>
       
