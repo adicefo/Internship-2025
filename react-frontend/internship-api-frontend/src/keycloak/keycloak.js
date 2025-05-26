@@ -6,7 +6,7 @@ const keycloakConfig = {
   clientId: 'internship-rest-api'
 };
 
-// Make sure client is public and doesn't need a client secret
+
 const keycloak = new Keycloak(keycloakConfig);
 
 const originalInit = keycloak.init;
@@ -16,7 +16,7 @@ keycloak.init = function(...args) {
     console.log("Keycloak already initialized, skipping redundant init");
     return Promise.resolve(true);
   }
-  initialized = false; // Reset to allow re-initialization
+  initialized = false; 
   return originalInit.apply(this, args)
     .then(auth => {
       console.log("Keycloak initialized successfully", auth);
@@ -25,7 +25,7 @@ keycloak.init = function(...args) {
     })
     .catch(error => {
       console.error("Failed to initialize Keycloak", error);
-      initialized = false; // Allow retry if it failed
+      initialized = false; 
       throw error;
     });
 };

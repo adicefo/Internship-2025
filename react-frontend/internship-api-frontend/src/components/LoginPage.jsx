@@ -8,7 +8,6 @@ const LoginPage = () => {
   const [loginError, setLoginError] = useState(false);
   
   useEffect(() => {
-    // If already authenticated, redirect to 
     if (initialized && keycloak.authenticated) {
       console.log("Access Token:", keycloak.token);
       navigate('/dashboard');
