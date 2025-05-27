@@ -10,7 +10,7 @@ import adminService from './services/adminService';
 import statisticsService from './services/statisticsService';
 import companyPriceService from './services/companyPriceService';
 import driverVehicleService from './services/driverVehicleService';
-
+import userService from './services/userService';
 
 export {
   driverService,
@@ -23,7 +23,8 @@ export {
   adminService,
   statisticsService,
   companyPriceService,
-  driverVehicleService
+  driverVehicleService,
+  userService
 };
 
 

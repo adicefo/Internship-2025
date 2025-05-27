@@ -1,86 +1,69 @@
 import { useKeycloak } from '@react-keycloak/web';
-import { use, useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
   FaCar, FaUsers, FaRoute, FaCarAlt, FaBell, 
-  FaStar, FaShoppingCart, FaBars, FaSignOutAlt,
-  FaCog, FaChartBar, FaMoneyBillWave, FaCarSide,FaHome
+  FaStar, FaShoppingCart, FaCog, FaChartBar, 
+  FaMoneyBillWave, FaCarSide
 } from 'react-icons/fa';
 import './Dashboard.css';
-import { driverService,vehicleService,clientService,routeService,notificationService,
-    reviewService,rentService,adminService,statisticsService,companyPriceService,driverVehicleService
- } from '../../api';
+import { 
+  driverService, vehicleService, clientService, routeService, notificationService,
+  reviewService, rentService, adminService, statisticsService, companyPriceService, driverVehicleService
+} from '../../api';
+import MasterPage from '../layout/MasterPage';
 
 const Dashboard = () => {
   const { keycloak } = useKeycloak();
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [currentRoute, setCurrentRoute] = useState('Dashboard');
-  const [error, setError] = useState(null);
-  const [driverCount,setDriverCount]=useState(0);
-  const [vehicleCount,setVehicleCount]=useState(0);
-  const [clientCount,setClientCount]=useState(0);
-  const [rentCount,setRentCount]=useState(0);
-  const [routeCount,setRouteCount]=useState(0);
-  const [notificationCount,setNotificationCount]=useState(0);
-  const [reviewCount,setReviewCount]=useState(0);
-  const [adminCount,setAdminCount]=useState(0);
-  const [statisticsCount,setStatisticsCount]=useState(0);
-  const [companyPricesCount,setCompanyPricesCount]=useState(0);
-  const [driverVehiclesCount,setDriverVehiclesCount]=useState(0);
-
-
   const navigate = useNavigate();
-
-  useEffect(()=>{
-     const fetchData=async()=>{
-        try {
-            const responseDriver = await driverService.getAll();
-            const responseVehicle = await vehicleService.getAll();
-            const responseClient = await clientService.getAll();
-            const responseRent = await rentService.getAll();
-            const responseRoute = await routeService.getAll();
-            const responseNotification = await notificationService.getAll();
-            const responseReview = await reviewService.getAll();
-            const responseAdmin = await adminService.getAll();
-            const responseStatistics = await statisticsService.getAll();
-            const responseCompanyPrices = await companyPriceService.getAll();
-            const responseDriverVehicles = await driverVehicleService.getAll();
-            
-            setDriverCount(responseDriver.data.count || []);
-            setVehicleCount(responseVehicle.data.count || []);
-            setClientCount(responseClient.data.count || []);
-            setRentCount(responseRent.data.count || []);
-            setRouteCount(responseRoute.data.count || []);
-            setNotificationCount(responseNotification.data.count || []);
-            setReviewCount(responseReview.data.count || []);
-            setAdminCount(responseAdmin.data.count || []);
-            setStatisticsCount(responseStatistics.data.count || []);
-            setCompanyPricesCount(responseCompanyPrices.data.count || []);
-            setDriverVehiclesCount(responseDriverVehicles.data.count || []);
-            setError(null);
-          } catch (err) {
-            console.error('Error fetching data:', err);
-            setError('Failed to load data. Please try again.');
-          } finally {
-            
-          }
-     }
-     fetchData();
-  })
   
-  const handleLogout = () => {
-    keycloak.logout({
-      redirectUri: window.location.origin
-    });
-  };
+  const [error, setError] = useState(null);
+  const [driverCount, setDriverCount] = useState(0);
+  const [vehicleCount, setVehicleCount] = useState(0);
+  const [clientCount, setClientCount] = useState(0);
+  const [rentCount, setRentCount] = useState(0);
+  const [routeCount, setRouteCount] = useState(0);
+  const [notificationCount, setNotificationCount] = useState(0);
+  const [reviewCount, setReviewCount] = useState(0);
+  const [adminCount, setAdminCount] = useState(0);
+  const [statisticsCount, setStatisticsCount] = useState(0);
+  const [companyPricesCount, setCompanyPricesCount] = useState(0);
+  const [driverVehiclesCount, setDriverVehiclesCount] = useState(0);
 
-  const handleDashboard=()=>{
-    handleNavigation("Dashboard","/dashboard");
-  }
-
-  const toggleSidebar = () => {
-    setSidebarOpen(!sidebarOpen);
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const responseDriver = await driverService.getAll();
+        const responseVehicle = await vehicleService.getAll();
+        const responseClient = await clientService.getAll();
+        const responseRent = await rentService.getAll();
+        const responseRoute = await routeService.getAll();
+        const responseNotification = await notificationService.getAll();
+        const responseReview = await reviewService.getAll();
+        const responseAdmin = await adminService.getAll();
+        const responseStatistics = await statisticsService.getAll();
+        const responseCompanyPrices = await companyPriceService.getAll();
+        const responseDriverVehicles = await driverVehicleService.getAll();
+        
+        setDriverCount(responseDriver.data.count || 0);
+        setVehicleCount(responseVehicle.data.count || 0);
+        setClientCount(responseClient.data.count || 0);
+        setRentCount(responseRent.data.count || 0);
+        setRouteCount(responseRoute.data.count || 0);
+        setNotificationCount(responseNotification.data.count || 0);
+        setReviewCount(responseReview.data.count || 0);
+        setAdminCount(responseAdmin.data.count || 0);
+        setStatisticsCount(responseStatistics.data.count || 0);
+        setCompanyPricesCount(responseCompanyPrices.data.count || 0);
+        setDriverVehiclesCount(responseDriverVehicles.data.count || 0);
+        setError(null);
+      } catch (err) {
+        console.error('Error fetching data:', err);
+        setError('Failed to load data. Please try again.');
+      }
+    };
+    fetchData();
+  }, []);
   
   const navItems = [
     { title: 'Drivers', icon: <FaCar />, route: 'Drivers', path: '/drivers' },
@@ -102,18 +85,8 @@ const Dashboard = () => {
   // Combine navItems and additionalItems for the cards
   const allItems = [...navItems, ...additionalItems];
   
-  const handleNavigation = (route, path) => {
-    setCurrentRoute(route);
-    if (path) {
-      navigate(path);
-    }
-  };
-  
-  // Generate random statistics for demonstration
-  const getRandomStats = (item) => {
-    let statValue = Math.floor(Math.random() * 100) + 10;
-    let statLabel = 'Total';
-    
+  // Generate statistics for cards
+  const getStats = (item) => {
     if (item.title === 'Drivers') return { value: driverCount, label: 'Total Active' };
     if (item.title === 'Vehicles') return { value: vehicleCount, label: 'Available' };
     if (item.title === 'Clients') return { value: clientCount, label: 'Registered' };
@@ -121,39 +94,22 @@ const Dashboard = () => {
     
     switch (item.title) {
       case 'Routes':
-        statLabel = 'Active Routes';
-        statValue = routeCount;
-        break;
+        return { value: routeCount, label: 'Active Routes' };
       case 'Notifications':
-        statLabel = 'Unread';
-        statValue = notificationCount;
-        break;
+        return { value: notificationCount, label: 'Unread' };
       case 'Reviews':
-        statLabel = 'New Reviews';
-        statValue = reviewCount;
-        break;
+        return { value: reviewCount, label: 'New Reviews' };
       case 'Admin':
-        statLabel = 'Actions Required';
-        statValue = adminCount;
-        break;
+        return { value: adminCount, label: 'Actions Required' };
       case 'Statistics':
-        statLabel = 'New Reports';
-        statValue = statisticsCount;
-        break;
+        return { value: statisticsCount, label: 'New Reports' };
       case 'Company Prices':
-        statLabel = 'Price Updates';
-        statValue = companyPricesCount;
-        break;
+        return { value: companyPricesCount, label: 'Price Updates' };
       case 'Driver Vehicles':
-        statLabel = 'Assignments';
-        statValue = driverVehiclesCount;
-        break;
+        return { value: driverVehiclesCount, label: 'Assignments' };
       default:
-        statLabel = 'Total';
-        
+        return { value: 0, label: 'Total' };
     }
-    
-    return { value: statValue, label: statLabel };
   };
   
   // Get appropriate CSS class for item icon
@@ -175,147 +131,43 @@ const Dashboard = () => {
     return classes[item.route] || 'default';
   };
   
+  const handleCardClick = (path) => {
+    navigate(path);
+  };
+  
   return (
-    <div className="dashboard">
-      {/* Header */}
-      <header className="dashboard-header">
-        <button className="menu-toggle" onClick={toggleSidebar}>
-          <FaBars />
-        </button>
-        <h1>eCar Management Dashboard</h1>
-        <button onClick={handleLogout} className="logout-button">
-          Logout
-        </button>
-      </header>
-      
-      {/* Sidebar Navigation */}
-      <div className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
-        <div className="sidebar-header">
-          <div className="sidebar-logo">
-            <span>@eCar</span>
+    <MasterPage currentRoute="Dashboard">
+      <div className="dashboard-overview">
+        {error && (
+          <div className="error-message">
+            {error}
           </div>
-          <div className="user-avatar">
-            <div className="avatar-circle">
-              <FaCarAlt />
-            </div>
-          </div>
-          <div className="user-name">
-            {keycloak.tokenParsed?.preferred_username || keycloak.tokenParsed?.name || 'User'}
-          </div>
-        </div>
-        
-        <div className="nav-items">
-          {navItems.map((item) => (
-            <div 
-              key={item.route}
-              className={`nav-item ${currentRoute === item.route ? 'active' : ''}`}
-              onClick={() => handleNavigation(item.route, item.path)}
-            >
-              <div className="nav-icon">{item.icon}</div>
-              <div className="nav-title">{item.title}</div>
-            </div>
-          ))}
-          
-          <div className="nav-divider"></div>
-          
-          <div className="additional-menu">
-            <div className="additional-header">
-              <div className="additional-icon"><FaCog /></div>
-              <div className="additional-title">Additional</div>
-            </div>
-            
-            <div className="additional-items">
-              {additionalItems.map((item) => (
-                <div 
-                  key={item.route}
-                  className={`nav-item ${currentRoute === item.route ? 'active' : ''}`}
-                  onClick={() => handleNavigation(item.route, item.path)}
-                >
-                  <div className="nav-icon">{item.icon}</div>
-                  <div className="nav-title">{item.title}</div>
+        )}
+        <div className="stats-container">
+          {allItems.map(item => {
+            const stats = getStats(item);
+            return (
+              <div 
+                key={item.route} 
+                className="stat-card"
+                onClick={() => handleCardClick(item.path)}
+              >
+                <div className={`stat-icon ${getIconClass(item)}`}>
+                  {item.icon}
                 </div>
-              ))}
-            </div>
-          </div>
-          
-          <div className="nav-items dashboard-items">
-        <div className="nav-item dashboard" onClick={handleDashboard} style={{minHeight: '40px'}}>
-            <div className="nav-icon"><FaHome /></div>
-            <div className="nav-title">Dashboard</div>
-          </div>
-          <div className="nav-item logout" onClick={handleLogout}>
-            <div className="nav-icon"><FaSignOutAlt /></div>
-            <div className="nav-title">Log out</div>
-          </div>
-        </div>
+                <div className="stat-details">
+                  <h3>{item.title}</h3>
+                  <p className="stat-value">{stats.value}</p>
+                  <p className="stat-label">{stats.label}</p>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
       
-      {/* Main Content */}
-      <div className={`main-content ${sidebarOpen ? 'shifted' : ''}`}>
-        <div className="dashboard-content">
-          <div className="welcome-banner">
-            <div className="welcome-text">
-              <h2>Welcome, {keycloak.tokenParsed?.preferred_username || keycloak.tokenParsed?.name || 'User'}</h2>
-              <p>Current section: <span className="highlight">{currentRoute}</span></p>
-            </div>
-            <div className="date-display">
-              {new Date().toLocaleDateString('en-US', { 
-                weekday: 'long', 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-              })}
-            </div>
-          </div>
-          
-          {currentRoute === 'Dashboard' && (
-            <div className="dashboard-overview">
-              <div className="stats-container">
-                {allItems.map(item => {
-                  const stats = getRandomStats(item);
-                  return (
-                    <div 
-                      key={item.route} 
-                      className="stat-card"
-                      onClick={() => handleNavigation(item.route, item.path)}
-                    >
-                      <div className={`stat-icon ${getIconClass(item)}`}>
-                        {item.icon}
-                      </div>
-                      <div className="stat-details">
-                        <h3>{item.title}</h3>
-                        <p className="stat-value">{stats.value}</p>
-                        <p className="stat-label">{stats.label}</p>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-          
-          {currentRoute !== 'Dashboard' && (
-            <div className="content-placeholder">
-              <div className="section-icon">
-                {navItems.find(item => item.route === currentRoute)?.icon || 
-                 additionalItems.find(item => item.route === currentRoute)?.icon}
-              </div>
-              <h3>{currentRoute} Section</h3>
-              <p><b>This section is under development. Please check back later.</b></p>
-              <button className="return-button" onClick={() => setCurrentRoute('Dashboard')}>
-                Return to Dashboard
-              </button>
-            </div>
-          )}
-        </div>
-      </div>
-      
-      {/* Overlay for mobile */}
-      {sidebarOpen && (
-        <div className="sidebar-overlay" onClick={toggleSidebar}></div>
-      )}
-    </div>
+     
+    </MasterPage>
   );
 };
 

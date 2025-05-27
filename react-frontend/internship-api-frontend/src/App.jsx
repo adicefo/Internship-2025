@@ -1,10 +1,12 @@
 import { Routes, Route } from 'react-router-dom'
 import { useKeycloak } from '@react-keycloak/web'
 import { useState, useEffect } from 'react'
+import { Toaster } from 'react-hot-toast';
 import './App.css'
 import LoginPage from './components/LoginPage'
 import Dashboard from './components/dashboard/Dashboard'
 import DriverPage from './pages/driver/DriverPage'
+import DriverDetailsPage from './pages/driver/DriverDetailsPage'
 import PrivateRoute from './components/PrivateRoute'
 
 function App() {
@@ -56,13 +58,19 @@ function App() {
   }
 
   return (
-    <Routes>
-      <Route path="/" element={<LoginPage />} />
-      <Route element={<PrivateRoute />}>
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/drivers" element={<DriverPage />} />
-      </Route>
-    </Routes>
+    <>
+      <Toaster position="top-right" reverseOrder={false} />
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route element={<PrivateRoute />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/drivers" element={<DriverPage />} />
+          <Route path="/driver/add" element={<DriverDetailsPage />} />
+          <Route path="/driver/edit" element={<DriverDetailsPage />} />   
+        </Route>
+      </Routes>
+    </>
+    
   );
 }
 
