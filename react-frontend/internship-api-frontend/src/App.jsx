@@ -8,7 +8,8 @@ import Dashboard from './components/dashboard/Dashboard'
 import DriverPage from './pages/driver/DriverPage'
 import DriverDetailsPage from './pages/driver/DriverDetailsPage'
 import PrivateRoute from './components/PrivateRoute'
-
+import VehiclePage from './pages/vehicle/VehiclePage'
+import VehicleDetailsPage from'./pages/vehicle/VehicleDetailsPage'
 function App() {
   const { initialized, keycloak } = useKeycloak();
   const [initializationTimeout, setInitializationTimeout] = useState(false);
@@ -66,7 +67,10 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/drivers" element={<DriverPage />} />
           <Route path="/driver/add" element={<DriverDetailsPage />} />
-          <Route path="/driver/edit" element={<DriverDetailsPage />} />   
+          <Route path="/driver/edit" element={<DriverDetailsPage />} />
+          <Route path="/vehicles" element={<VehiclePage />} />   
+          <Route path="/vehicle/add" element={<VehicleDetailsPage />} />
+          <Route path="/vehicle/edit" element={<VehicleDetailsPage />} />
         </Route>
       </Routes>
     </>
