@@ -10,6 +10,8 @@ import DriverDetailsPage from './pages/driver/DriverDetailsPage'
 import PrivateRoute from './components/PrivateRoute'
 import VehiclePage from './pages/vehicle/VehiclePage'
 import VehicleDetailsPage from'./pages/vehicle/VehicleDetailsPage'
+import ClientPage from './pages/client/ClientPage'
+import ClientDetailsPage from './pages/client/ClientDetailsPage'
 function App() {
   const { initialized, keycloak } = useKeycloak();
   const [initializationTimeout, setInitializationTimeout] = useState(false);
@@ -68,9 +70,13 @@ function App() {
           <Route path="/drivers" element={<DriverPage />} />
           <Route path="/driver/add" element={<DriverDetailsPage />} />
           <Route path="/driver/edit" element={<DriverDetailsPage />} />
+          <Route path="/clients" element={<ClientPage />} />
+          <Route path="/client/add" element={<ClientDetailsPage />} />
+          <Route path="/client/edit" element={<ClientDetailsPage />} />
           <Route path="/vehicles" element={<VehiclePage />} />   
           <Route path="/vehicle/add" element={<VehicleDetailsPage />} />
           <Route path="/vehicle/edit" element={<VehicleDetailsPage />} />
+          <Route path="/vehicle/delete" element={<VehicleDetailsPage />} />
         </Route>
       </Routes>
     </>

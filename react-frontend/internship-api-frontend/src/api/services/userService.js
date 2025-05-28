@@ -14,6 +14,11 @@ class UserService extends BaseService {
     super('/users', customEndpoints);
   }
   
+  async updatePassword(id,request){
+    const url = `${this.endpoint}/updatePassword/${id}`;
+    console.log(url);
+    return apiClient.put(url,request);
+  }
   
 }
 

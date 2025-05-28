@@ -1,17 +1,17 @@
-import { useState, useEffect } from 'react';
-import { useNavigate, useParams, useLocation } from 'react-router-dom';
-import { FaArrowLeft, FaSave, FaTimes } from 'react-icons/fa';
-import { driverService,userService } from '../../api';
-import MasterPage from '../../components/layout/MasterPage';
-import './DriverDetailsPage.css';
-import ConfirmDialog from '../../utils/ConfirmDialog';
-import toast from 'react-hot-toast';
+import MasterPage from "../../components/layout/MasterPage";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { FaArrowLeft, FaSave, FaTimes } from "react-icons/fa";
+import toast from "react-hot-toast";
+import ConfirmDialog from "../../utils/ConfirmDialog";
+import { clientService,userService } from "../../api";
+import "../driver/DriverDetailsPage.css";
 
-const DriverDetailsPage = () => {
+const ClientDetailsPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const driver = location.state?.driver || null;
-  const isAddMode = !driver;
+  const client = location.state?.client || null;
+  const isAddMode = !client;
   const [showDialog, setShowDialog] = useState(false);
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [passwordData, setPasswordData] = useState({
@@ -20,56 +20,56 @@ const DriverDetailsPage = () => {
   });
   const [passwordErrors, setPasswordErrors] = useState({});
   const [formData, setFormData] = useState({
-    name: '',
-    surname: '',
-    username: '',
-    email: '',
-    password: '',
-    passwordConfirm: '',
-    telephoneNumber: '',
-    gender: 'Male',
+    name: "",
+    surname: "",
+    username: "",
+    email: "",
+    password: "",
+    passwordConfirm: "",
+    telephoneNumber: "",
+    gender: "Male",
     registrationDate: new Date().toISOString().substring(0, 10),
-    numberOfClients: '0',
-    numberOfHours: '0'
   });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
-
+  
   useEffect(() => {
     // If editing existing driver, populate form
-    if (driver) {
+    if (client) {
       setFormData({
-        name: driver.user.name || '',
-        surname: driver.user.surname || '',
-        username: driver.user.username || '',
-        email: driver.user.email || '',
-        telephoneNumber: driver.user.telephoneNumber || '',
-        gender: driver.user.gender || 'Male',
-        registrationDate: driver.user.registrationDate?.substring(0, 10) || new Date().toISOString().substring(0, 10),
-        numberOfClients: driver.numberOfClientsAmount?.toString() || '0',
-        numberOfHours: driver.numberOfHoursAmount?.toString() || '0',
-        password: '',
-        passwordConfirm: ''
+        name: client.user.name || "",
+        surname: client.user.surname || "",
+        username: client.user.username || "",
+        email: client.user.email || "",
+        telephoneNumber: client.user.telephoneNumber || "",
+        gender: client.user.gender || "Male",
+        registrationDate:
+          client.user.registrationDate?.substring(0, 10) ||
+          new Date().toISOString().substring(0, 10),
+        password: "",
+        passwordConfirm: "",
       });
     }
-  }, [driver]);
+  }, [client]);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value
-    });
-    
-    // Clear error when field is modified
-    if (errors[name]) {
-      setErrors({
-        ...errors,
-        [name]: null
-      });
+  const confirmEdit=async()=>{
+    setShowDialog(false);
+    try{
+        var request={
+            "name":formData.name,
+            "surname":formData.surname,
+            "username":formData.username,
+            "email":formData.email,
+            "telephoneNumber":formData.telephoneNumber,
+        };
+      await userService.update(client.user.id, request);
+      toast.success('Client updated successfully');
+      navigate('/clients');
+    }catch(error){
+      toast.error('Error updating client');
     }
-  };
-
+  }
+  
   const validateForm = () => {
     const newErrors = {};
     
@@ -123,26 +123,8 @@ const DriverDetailsPage = () => {
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
-
-  const confirmEdit=async()=>{
-    setShowDialog(false);
-    try{
-        var request={
-            "name":formData.name,
-            "surname":formData.surname,
-            "username":formData.username,
-            "email":formData.email,
-            "telephoneNumber":formData.telephoneNumber,
-        };
-      await userService.update(driver.user.id, request);
-      toast.success('Driver updated successfully');
-      navigate('/drivers');
-    }catch(error){
-      toast.error('Error updating driver');
-    }
-  }
-
-  const handleSubmit = async (e) => {
+  
+  const handleSubmit = async(e) => {
     e.preventDefault();
     
     if (!validateForm()) {
@@ -163,13 +145,13 @@ const DriverDetailsPage = () => {
           "password": formData.password,
           "passwordConfirm": formData.passwordConfirm
         };
-        const response = await driverService.create(request);
-        console.log('Driver created:', response);
-        toast.success('Driver created successfully');
-        navigate('/drivers');
+        const response = await clientService.create(request);
+        console.log('Client created:', response);
+        toast.success('Client created successfully');
+        navigate('/clients');
       } catch (error) {
-        console.error('Error saving driver:', error);
-        toast.error('Error saving driver');
+        console.error('Error saving client:', error);
+        toast.error('Error saving client');
       } finally {
         setLoading(false);
       }
@@ -179,6 +161,19 @@ const DriverDetailsPage = () => {
     }
   };
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+
+    // Clear error when field is modified
+    if (errors[name]) {
+      setErrors({
+        ...errors,
+        [name]: null,
+      });
+    }
+  };
+  
   const handlePasswordInputChange = (e) => {
     const { name, value } = e.target;
     setPasswordData({
@@ -218,13 +213,14 @@ const DriverDetailsPage = () => {
       return;
     }
     
+    
     try{
-      setShowPasswordModal(false);
-      await userService.updatePassword(driver.user.id, passwordData);
-      toast.success('Password updated successfully');
-    }catch(error){
-      toast.error('Error updating password');
-    }
+        setShowPasswordModal(false);
+        await userService.updatePassword(client.user.id, passwordData);
+        toast.success('Password updated successfully');
+      }catch(error){
+        toast.error('Error updating password');
+      }
     
     // Reset password fields
     setPasswordData({
@@ -232,18 +228,18 @@ const DriverDetailsPage = () => {
       passwordConfirm: ''
     });
   };
-
+  
   const handleShowPasswordUpdateDialog = () => {
     setShowPasswordModal(true);
   };
 
   return (
-    <MasterPage currentRoute={isAddMode ? "Add Driver" : "Edit Driver"}>
+    <MasterPage currentRoute={isAddMode ? "Add Client" : "Edit Client"}>
       <div className="form-container">
-        <form onSubmit={handleSubmit}>
+        <form action="" onSubmit={handleSubmit}>
           <div className="form-section">
             <h3>Personal Information</h3>
-            
+
             {/* Row 1: Name and Surname */}
             <div className="form-row">
               <div className="form-group">
@@ -256,12 +252,14 @@ const DriverDetailsPage = () => {
                     name="name"
                     value={formData.name}
                     onChange={handleInputChange}
-                    className={errors.name ? 'input-error' : ''}
+                    className={errors.name ? "input-error" : ""}
                   />
                 </div>
-                {errors.name && <div className="error-message">{errors.name}</div>}
+                {errors.name && (
+                  <div className="error-message">{errors.name}</div>
+                )}
               </div>
-              
+
               <div className="form-group">
                 <label htmlFor="surname">Surname</label>
                 <div className="input-icon-wrapper">
@@ -272,13 +270,14 @@ const DriverDetailsPage = () => {
                     name="surname"
                     value={formData.surname}
                     onChange={handleInputChange}
-                    className={errors.surname ? 'input-error' : ''}
+                    className={errors.surname ? "input-error" : ""}
                   />
                 </div>
-                {errors.surname && <div className="error-message">{errors.surname}</div>}
+                {errors.surname && (
+                  <div className="error-message">{errors.surname}</div>
+                )}
               </div>
             </div>
-            
             {/* Row 2: Username and Email */}
             <div className="form-row">
               <div className="form-group">
@@ -291,12 +290,14 @@ const DriverDetailsPage = () => {
                     name="username"
                     value={formData.username}
                     onChange={handleInputChange}
-                    className={errors.username ? 'input-error' : ''}
+                    className={errors.username ? "input-error" : ""}
                   />
                 </div>
-                {errors.username && <div className="error-message">{errors.username}</div>}
+                {errors.username && (
+                  <div className="error-message">{errors.username}</div>
+                )}
               </div>
-              
+
               <div className="form-group">
                 <label htmlFor="email">Email</label>
                 <div className="input-icon-wrapper">
@@ -307,13 +308,14 @@ const DriverDetailsPage = () => {
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    className={errors.email ? 'input-error' : ''}
+                    className={errors.email ? "input-error" : ""}
                   />
                 </div>
-                {errors.email && <div className="error-message">{errors.email}</div>}
+                {errors.email && (
+                  <div className="error-message">{errors.email}</div>
+                )}
               </div>
             </div>
-            
             {/* Row 3: Password fields (only in add mode) */}
             {isAddMode && (
               <div className="form-row">
@@ -327,12 +329,14 @@ const DriverDetailsPage = () => {
                       name="password"
                       value={formData.password}
                       onChange={handleInputChange}
-                      className={errors.password ? 'input-error' : ''}
+                      className={errors.password ? "input-error" : ""}
                     />
                   </div>
-                  {errors.password && <div className="error-message">{errors.password}</div>}
+                  {errors.password && (
+                    <div className="error-message">{errors.password}</div>
+                  )}
                 </div>
-                
+
                 <div className="form-group">
                   <label htmlFor="passwordConfirm">Confirm Password</label>
                   <div className="input-icon-wrapper">
@@ -343,14 +347,17 @@ const DriverDetailsPage = () => {
                       name="passwordConfirm"
                       value={formData.passwordConfirm}
                       onChange={handleInputChange}
-                      className={errors.passwordConfirm ? 'input-error' : ''}
+                      className={errors.passwordConfirm ? "input-error" : ""}
                     />
                   </div>
-                  {errors.passwordConfirm && <div className="error-message">{errors.passwordConfirm}</div>}
+                  {errors.passwordConfirm && (
+                    <div className="error-message">
+                      {errors.passwordConfirm}
+                    </div>
+                  )}
                 </div>
               </div>
             )}
-            
             {/* Row 4: Phone and Gender */}
             <div className="form-row">
               <div className="form-group">
@@ -363,13 +370,15 @@ const DriverDetailsPage = () => {
                     name="telephoneNumber"
                     value={formData.telephoneNumber}
                     onChange={handleInputChange}
-                    className={errors.telephoneNumber ? 'input-error' : ''}
+                    className={errors.telephoneNumber ? "input-error" : ""}
                     placeholder="06x-xxx-xxxx"
                   />
                 </div>
-                {errors.telephoneNumber && <div className="error-message">{errors.telephoneNumber}</div>}
+                {errors.telephoneNumber && (
+                  <div className="error-message">{errors.telephoneNumber}</div>
+                )}
               </div>
-              
+
               <div className="form-group">
                 <label htmlFor="gender">Gender</label>
                 <div className="input-icon-wrapper">
@@ -377,7 +386,7 @@ const DriverDetailsPage = () => {
                   <select
                     id="gender"
                     name="gender"
-                    value={formData.gender}
+                    value={formData.gender=="Male"||formData.gender=="male"?"Male":"Female"}
                     onChange={handleInputChange}
                   >
                     <option value="Male">Male</option>
@@ -386,8 +395,6 @@ const DriverDetailsPage = () => {
                 </div>
               </div>
             </div>
-            
-            {/* Additional fields for edit mode */}
             {!isAddMode && (
               <>
                 <div className="form-row">
@@ -404,40 +411,10 @@ const DriverDetailsPage = () => {
                       />
                     </div>
                   </div>
-                  
+
                   <div className="form-group">
-                    <label htmlFor="numberOfClients">Number of Clients</label>
-                    <div className="input-icon-wrapper">
-                      <i className="input-icon">👥</i>
-                      <input
-                        type="text"
-                        id="numberOfClients"
-                        name="numberOfClients"
-                        value={formData.numberOfClients}
-                        disabled
-                      />
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="form-row">
-                  <div className="form-group">
-                    <label htmlFor="numberOfHours">Number of Hours</label>
-                    <div className="input-icon-wrapper">
-                      <i className="input-icon">⏱️</i>
-                      <input
-                        type="text"
-                        id="numberOfHours"
-                        name="numberOfHours"
-                        value={formData.numberOfHours}
-                        disabled
-                      />
-                    </div>
-                  </div>
-                  
-                  <div className="form-group">
-                    <button 
-                      type="button" 
+                    <button
+                      type="button"
                       className="password-update-btn"
                       onClick={handleShowPasswordUpdateDialog}
                     >
@@ -447,26 +424,22 @@ const DriverDetailsPage = () => {
                 </div>
               </>
             )}
+            
           </div>
           
           <div className="form-actions">
-            <button 
-              type="button" 
+            <button
+              type="button"
               className="back-button"
-              onClick={() => navigate('/drivers')}
+              onClick={() => navigate("/clients")}
             >
               <FaArrowLeft /> Back
             </button>
-            
-            <button 
-              type="submit" 
-              className="save-button"
-              disabled={loading}
-            >
-              <FaSave /> {loading ? 'Saving...' : 'Save'}
-             
+
+            <button type="submit" className="save-button" disabled={loading}>
+              <FaSave /> {loading ? "Saving..." : "Save"}
             </button>
-          </div> 
+          </div>
         </form>
       </div>
       
@@ -548,5 +521,4 @@ const DriverDetailsPage = () => {
     </MasterPage>
   );
 };
-
-export default DriverDetailsPage; 
+export default ClientDetailsPage;

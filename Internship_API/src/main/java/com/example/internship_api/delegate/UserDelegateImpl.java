@@ -37,6 +37,10 @@ public class UserDelegateImpl implements UsersApiDelegate {
     public ResponseEntity<UserDTO> updateUser(Integer id, UserUpdateRequest userUpdateRequest) {
         return new ResponseEntity<>(service.updateById(id.longValue(), userUpdateRequest), HttpStatus.OK);
     }
+    @Override
+    public ResponseEntity<UserDTO> updatePassword(Integer id,UserUpdatePasswordRequest request){
+        return new  ResponseEntity<>(service.updatePassword(id.longValue(), request),HttpStatus.OK);
+    }
 
     @Override
     public ResponseEntity<UserDTO> deleteUser(Integer id) {

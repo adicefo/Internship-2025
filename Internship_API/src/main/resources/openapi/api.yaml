@@ -145,6 +145,46 @@ paths:
                     type: string
                   statusCode:
                     type: integer
+  /users/updatePassword/{id}:
+    put:
+      tags:
+        - Users
+      summary: Update user passwor
+      operationId: updatePassword
+      security:
+        - internship_api_security_scheme:
+            - write_access
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the user to update
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpdatePasswordRequest'
+      responses:
+        '200':
+          description: User updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer                  
   /users/delete/{id}:
     delete:
       tags:
@@ -2426,6 +2466,18 @@ components:
         surname:
           type: string
           description: The surname to filter by
+    UserUpdatePasswordRequest:
+      type: object
+      properties:
+        password:
+          type: string
+          description: The password of the user
+        passwordConfirm:
+          type: string
+          description: The password confirmation of the user
+      required:
+        - password
+        - passwordConfirm
     UserInsertRequest:
       type: object
       properties:

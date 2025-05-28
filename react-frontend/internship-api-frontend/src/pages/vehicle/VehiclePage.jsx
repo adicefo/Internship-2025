@@ -138,7 +138,7 @@ const VehiclePage = () => {
         </div>
 
         {loading ? (
-          <div className="loading-indicator">Loading drivers data...</div>
+          <div className="loading-indicator">Loading vehicles data...</div>
         ) : error ? (
           <div className="error-message">{error}</div>
         ) : (

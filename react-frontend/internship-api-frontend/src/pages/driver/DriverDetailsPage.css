@@ -109,3 +109,104 @@
   .password-update-btn:hover {
     background-color: #dbeafe;
   }
+
+  /* Add these styles for the password update modal */
+
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+
+  .password-modal {
+    background-color: white;
+    border-radius: 8px;
+    width: 500px;
+    max-width: 90%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+  }
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid #eee;
+  }
+
+  .modal-header h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+  }
+
+  .close-button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #777;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    border-radius: 4px;
+    transition: all 0.2s;
+  }
+
+  .close-button:hover {
+    background-color: #f0f0f0;
+    color: #333;
+  }
+
+  .modal-body {
+    padding: 20px;
+  }
+
+  .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 16px 20px;
+    border-top: 1px solid #eee;
+  }
+
+  .cancel-button {
+    background-color: #f0f0f0;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .cancel-button:hover {
+    background-color: #e0e0e0;
+  }
+
+  /* Password update button */
+  .password-update-btn {
+    background-color: #f0f0f0;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .password-update-btn:hover {
+    background-color: #e0e0e0;
+  }
