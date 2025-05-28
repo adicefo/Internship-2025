@@ -1,0 +1,15 @@
+.status-available {
+    background-color: #d4edda; 
+    border: 1px solid #155724;
+  }
+  
+  .status-unavailable {
+    border: 1px solid #721c24;
+  }
+  .status-pill {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 12px;
+  }

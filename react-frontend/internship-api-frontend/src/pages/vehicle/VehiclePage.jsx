@@ -29,6 +29,7 @@ import ConfirmDialog from "../../utils/ConfirmDialog";
 import toast from "react-hot-toast";
 import noImagePlaceholder from "../../assets/no_image_placeholder.png";
 import { getImageSrc } from "../../utils/StringHelpers";
+import "./VehiclePage.css";
 const VehiclePage = () => {
   const { keycloak } = useKeycloak();
   const [vehicles, setVehicles] = useState([]);
@@ -157,7 +158,15 @@ const VehiclePage = () => {
               <tbody>
                 {vehicles.map((vehicle) => (
                   <tr key={vehicle.id}>
-                    <td>{vehicle.available ? "Available" : "Unavailable"}</td>
+                    <td>
+  <span
+    className={`status-pill ${
+      vehicle.available ? "status-available" : "status-unavailable"
+    }`}
+  >
+    {vehicle.available ? "Available" : "Unavailable"}
+  </span>
+</td>
                     <td>{vehicle.name}</td>
                     <td>
                       <img
