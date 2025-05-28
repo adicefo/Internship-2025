@@ -35,6 +35,7 @@ const VehiclePage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showDialog, setShowDialog] = useState(false);
+  const [deleteId,setDeleteId]=useState(0);
   const navigate = useNavigate();
 
   // Filter state
@@ -62,7 +63,7 @@ const VehiclePage = () => {
   const confirmDelete = async (id) => {
     setShowDialog(false);
     try {
-      await vehicleService.delete(id);
+      await vehicleService.delete(deleteId);
       toast.success("Vehicle deleted successfully");
       fetchVehicles();
     } catch {
@@ -75,6 +76,7 @@ const VehiclePage = () => {
 
   const handleDeleteVehicle = (id) => {
     setShowDialog(true);
+    setDeleteId(id);
   };
 
   const handleAddVehicle = () => {
@@ -195,7 +197,7 @@ const VehiclePage = () => {
                         <ConfirmDialog
                           title="Delete Confirmation"
                           message="Are you sure you want to delete this item?"
-                          onConfirm={() => confirmDelete(vehicle.id)}
+                          onConfirm={() => confirmDelete()}
                           onCancel={() => setShowDialog(false)}
                         />
                       )}

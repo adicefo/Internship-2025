@@ -21,6 +21,7 @@ const DriverPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showDialog, setShowDialog] = useState(false);
+  const [deleteId,setDeleteId]=useState(0);
   const navigate = useNavigate();
   
   // Filter state
@@ -49,7 +50,7 @@ const DriverPage = () => {
   const confirmDelete=async(id)=>{
     setShowDialog(false);
     try{
-        await driverService.delete(id);
+        await driverService.delete(deleteId);
         toast.success('Driver deleted successfully');
         fetchDrivers();
     }
@@ -65,6 +66,7 @@ const DriverPage = () => {
   const handleDeleteDriver = (id) => {
 
     setShowDialog(true);
+    setDeleteId(id);
   };
   
   const handleAddDriver = () => {
@@ -165,7 +167,7 @@ const DriverPage = () => {
         <ConfirmDialog
           title="Delete Confirmation"
           message="Are you sure you want to delete this item?"
-          onConfirm={()=>confirmDelete(driver.id)}
+          onConfirm={()=>confirmDelete()}
           onCancel={() => setShowDialog(false)}
         />
       )}
