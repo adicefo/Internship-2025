@@ -19,6 +19,8 @@ import com.example.internship_api.service.DriverService;
 import com.example.internship_api.utils.PasswordUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -74,7 +76,11 @@ public class DriverServiceImpl extends BaseCRUDServiceImpl<DriverDTO, DriverSear
                 .filter(item-> search.getName() == null || item.getUser().getName().startsWith(search.getName()))
                 .filter(item -> search.getSurname() == null || item.getUser().getSurname().startsWith(search.getSurname()))
                 .collect(Collectors.toList());
-
+if(search.getPageNumber()!=null&&search.getPageSize()!=null)
+        {
+        Pageable pageable=PageRequest.of(search.getPageNumber(),search.getPageSize());
+        filteredQuery=repository.findAll(pageable).toList();
+        }
         query.clear();
         query.addAll(filteredQuery);
 

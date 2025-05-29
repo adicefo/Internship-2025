@@ -13,8 +13,10 @@ import com.example.internship_api.repository.UserRepository;
 import com.example.internship_api.service.UserService;
 import com.example.internship_api.utils.PasswordUtils;
 import org.modelmapper.ModelMapper;
-import org.springframework.stereotype.Service;
-
+import org.springframework.stereotype.Service;import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -78,6 +80,11 @@ public class UserServiceImpl
                 .filter(user -> search.getName() == null || user.getName().startsWith(search.getName()))
                 .filter(user -> search.getSurname() == null || user.getSurname().startsWith(search.getSurname()))
                 .collect(Collectors.toList());
+        if(search.getPageNumber()!=null&&search.getPageSize()!=null)
+        {
+        Pageable pageable=PageRequest.of(search.getPageNumber(),search.getPageSize());
+        filteredQuery=repository.findAll(pageable).toList();
+        }
 
         query.clear();
         query.addAll(filteredQuery);

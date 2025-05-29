@@ -7,6 +7,8 @@ import com.example.internship_api.repository.VehicleRepository;
 import com.example.internship_api.service.RouteService;
 import com.example.internship_api.service.VehicleService;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,6 +40,12 @@ public class VehicleServiceImpl extends BaseCRUDServiceImpl<VehicleDTO, VehicleS
                 .filter(item-> search.getAvailable() == null || item.getAvailable()==search.getAvailable())
                 .filter(item -> search.getName() == null || item.getName().equals(search.getName()))
                 .collect(Collectors.toList());
+        if(search.getPageNumber()!=null&&search.getPageSize()!=null)
+        {
+        Pageable pageable=PageRequest.of(search.getPageNumber(),search.getPageSize());
+        filteredQuery=repository.findAll(pageable).toList();
+        }
+            
 
         query.clear();
         query.addAll(filteredQuery);

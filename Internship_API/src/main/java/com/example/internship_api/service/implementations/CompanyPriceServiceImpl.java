@@ -16,6 +16,8 @@ import com.example.internship_api.repository.RentRepository;
 import com.example.internship_api.service.CompanyPriceService;
 import com.example.internship_api.service.RentService;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -55,6 +57,11 @@ public class CompanyPriceServiceImpl extends BaseCRUDServiceImpl<CompanyPriceDTO
                 .filter(item->search.getPricePerKilometer()==null|| search.getPricePerKilometer().equals(item.getPricePerKilometer()))
 
                 .collect(Collectors.toList());
+        if(search.getPageNumber()!=null&&search.getPageSize()!=null)
+        {
+        Pageable pageable=PageRequest.of(search.getPageNumber(),search.getPageSize());
+        filteredQuery=repository.findAll(pageable).toList();
+        }
         query.clear();
         query.addAll(filteredQuery);
     }

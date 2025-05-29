@@ -1,110 +1,59 @@
-import { useKeycloak } from "@react-keycloak/web";
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import {
-  FaCar,
-  FaUsers,
-  FaRoute,
-  FaCarAlt,
-  FaBell,
-  FaStar,
-  FaShoppingCart,
-  FaBars,
-  FaSignOutAlt,
-  FaCog,
-  FaChartBar,
-  FaMoneyBillWave,
-  FaCarSide,
-  FaEdit,
-  FaTrash,
-  FaEye,
-  FaSearch,
-  FaHome,
-  FaAccessibleIcon,
-  FaSearchPlus,
-} from "react-icons/fa";
-import { vehicleService } from "../../api";
 import MasterPage from "../../components/layout/MasterPage";
-import ConfirmDialog from "../../utils/ConfirmDialog";
 import toast from "react-hot-toast";
-import noImagePlaceholder from "../../assets/no_image_placeholder.png";
-import { getImageSrc } from "../../utils/StringHelpers";
-import "./VehiclePage.css";
-const VehiclePage = () => {
-  const { keycloak } = useKeycloak();
-  const [vehicles, setVehicles] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [showDialog, setShowDialog] = useState(false);
-  const [deleteId,setDeleteId]=useState(0);
-  const navigate = useNavigate();
+import ConfirmDialog from "../../utils/ConfirmDialog";import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-  // Filter state
-  const [availableFilter, setAvailableFilter] = useState("");
+import { FaTrash, FaEye, FaSearch ,FaEdit,FaSearchPlus} from "react-icons/fa";import { routeService } from "../../api";
+const RoutePage=()=>{
+    const navigate = useNavigate();
+    const[routes,setRoutes]=useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [showDialog, setShowDialog] = useState(false);
+    const [deleteId,setDeleteId]=useState(0);
+    const [statusFilter,setStatusFilter]=useState('');
 
-  const fetchVehicles = async (filter = {}) => {
-    try {
-      setLoading(true);
-      const response = await vehicleService.getAll(filter);
-      console.log("API response:", response);
-      setVehicles(response.data.items || []);
-      setError(null);
-    } catch (err) {
-      console.error("Error fetching vehicles:", err);
-      setError("Failed to load vehicles. Please try again.");
-    } finally {
-      setLoading(false);
+
+    const fetchRoutes=async(filter={})=>{
+        try {
+            setLoading(true);
+            const response = await routeService.getAll(filter);
+            console.log("API response:", response);
+            setRoutes(response.data.items || []);
+            setError(null);
+          } catch (err) {
+            console.error("Error fetching routes:", err);
+            setError("Failed to load routes. Please try again.");
+          } finally {
+            setLoading(false);
+          }
     }
-  };
-
-  useEffect(() => {
-    fetchVehicles();
-  }, []);
-
-  const confirmDelete = async (id) => {
-    setShowDialog(false);
-    try {
-      await vehicleService.delete(deleteId);
-      toast.success("Vehicle deleted successfully");
-      fetchVehicles();
-    } catch {
-      toast.error("Error deleting vehcile");
+    useEffect(() => {
+        fetchRoutes();
+      }, []);
+    const handleAddRoute=()=>{
+        navigate('/route/add');
     }
-  };
-  const handleEditVehicle = (vehicle) => {
-    navigate("/vehicle/edit", { state: { vehicle } });
-  };
+    const handleStatusFilter=(e)=>{
+        setStatusFilter(e.target.value);
+    }
+    const handleFilter=()=>{
+        var filter={
+            status:statusFilter
+        };
+        fetchRoutes(filter);
+    }
+    return(
+        <MasterPage currentRoute="Route">
+            <div className="routes-section">
 
-  const handleDeleteVehicle = (id) => {
-    setShowDialog(true);
-    setDeleteId(id);
-  };
-
-  const handleAddVehicle = () => {
-    navigate("/vehicle/add");
-  };
-
-  const handleAvailableFilter = (e) => {
-    setAvailableFilter(e.target.value);
-  };
-
-  const handleFilter = () => {
-    var filter = {
-      available: availableFilter == "Available" ? true : false,
-    };
-    fetchVehicles(filter);
-  };
-
-  return (
-    <MasterPage currentRoute="Vehicles">
-      <div className="drivers-section">
-        <div className="section-header">
-          <h3>Vehicles Management</h3>
-          <button className="add-button" onClick={handleAddVehicle}>
-            Add New Vehicle
+ <div className="section-header">
+          <h3>Routes Management</h3>
+          <button className="add-button" onClick={handleAddRoute}>
+            Add New Route
           </button>
         </div>
-        {/* Filter controls */}
+        {/*Filter controls*/}
         <div className="filter-container">
           <div className="filter-row">
             <div className="filter-group">
@@ -115,17 +64,23 @@ const VehiclePage = () => {
                     <FaSearchPlus />
                   </i>
                   <select
-                    id="availableFilter"
-                    name="availableFilter"
+                    id="statusFilter"
+                    name="stautsFilter"
                     style={{ fontWeight: "bold" }}
-                    value={availableFilter}
-                    onChange={handleAvailableFilter}
+                    value={statusFilter}
+                    onChange={handleStatusFilter}
                   >
-                    <option value="Available" style={{ fontWeight: "bold" }}>
-                      Available
+                    <option value="" style={{ fontWeight: "bold" }}>
+                      All statuses
                     </option>
-                    <option value="Unavailable" style={{ fontWeight: "bold" }}>
-                      Unavailable
+                    <option value="Wait" style={{ fontWeight: "bold" }}>
+                      Wait
+                    </option>
+                    <option value="Active" style={{ fontWeight: "bold" }}>
+                      Active
+                    </option>
+                    <option value="Finished" style={{ fontWeight: "bold" }}>
+                      Finished
                     </option>
                   </select>
                 </div>
@@ -137,14 +92,13 @@ const VehiclePage = () => {
             </button>
           </div>
         </div>
-
         {loading ? (
           <div className="loading-indicator">Loading vehicles data...</div>
         ) : error ? (
           <div className="error-message">{error}</div>
         ) : (
-          <div className="vehicles-table-container">
-            <table className="vehicles-table table table-hover">
+          <div className="routes-table-container">
+            <table className="routes-table table table-hover">
               <thead>
                 <tr>
                   <th style={{ width: "80px" }}>Status</th>
@@ -217,9 +171,8 @@ const VehiclePage = () => {
             </table>
           </div>
         )}
-      </div>
-    </MasterPage>
-  );
-};
-
-export default VehiclePage;
+            </div>
+        </MasterPage>
+    );
+}
+export default RoutePage;

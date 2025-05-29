@@ -15,7 +15,10 @@ import com.example.internship_api.utils.DistanceUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -110,6 +113,11 @@ public class RouteServiceImpl extends BaseCRUDServiceImpl<RouteDTO, RouteSearchO
                 .filter(item -> search.getUserId() == null || (item.getDriver().getUser().getId()==search.getUserId()||
                         item.getClient().getUser().getId()==search.getUserId()))
                 .collect(Collectors.toList());
+     if(search.getPageNumber()!=null&&search.getPageSize()!=null)
+        {
+        Pageable pageable=PageRequest.of(search.getPageNumber(),search.getPageSize());
+        filteredQuery=repository.findAll(pageable).toList();
+        }
 
         query.clear();
         query.addAll(filteredQuery);

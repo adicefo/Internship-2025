@@ -113,8 +113,8 @@ const ClientPage = () => {
         ) : error ? (
           <div className="error-message">{error}</div>
         ) : (
-          <div className="drivers-table-container">
-            <table className="drivers-table table table-hover">
+          <div className="clients-table-container">
+            <table className="clients-table table table-hover">
               <thead>
                 <tr>
                   <th style={{ width: '80px' }}>Name</th>

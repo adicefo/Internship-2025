@@ -11,6 +11,8 @@ import com.example.internship_api.repository.StatisticsRepository;
 import com.example.internship_api.service.StatisticsService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
@@ -89,7 +91,11 @@ public class StatisticsServiceImpl extends BaseCRUDServiceImpl<StatisticsDTO, St
                 .filter(item->search.getDriverId()==null||item.getDriver().getId()==search.getDriverId())
                 .filter(item->search.getBeginningOfWork()==null||item.getBeginningOfWork().equals(search.getBeginningOfWork()))
                 .collect(Collectors.toList());
-
+       if(search.getPageNumber()!=null&&search.getPageSize()!=null)
+        {
+        Pageable pageable=PageRequest.of(search.getPageNumber(),search.getPageSize());
+        filteredQuery=repository.findAll(pageable).toList();
+        }
         query.clear();
         query.addAll(filteredQuery);
     }
