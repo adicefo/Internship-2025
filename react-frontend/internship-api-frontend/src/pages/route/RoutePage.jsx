@@ -140,7 +140,7 @@ const RoutePage = () => {
                     <td>{route.startDate?.toString().substring(0,16)??"-"}</td>
                     <td>{route.endDate?.toString().substring(0,16)??"-"}</td>
                     <td>{route.duration?.toString()+" min"??0}</td>
-                    <td>{route.numberOfKilometers!=0?route.numberOfKilometers+"km":"0"}</td>
+                    <td>{route.numberOfKilometers!=0?route.numberOfKilometers.toFixed(2)+"km":"0"}</td>
                     <td>{route.fullPrice.toFixed(2)+"KM"??"0"}</td>
                     <td className="action-buttons">
                       <button
