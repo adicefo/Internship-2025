@@ -1,22 +1,40 @@
-import { useKeycloak } from '@react-keycloak/web';
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { 
-  FaCar, FaUsers, FaRoute, FaCarAlt, FaBell, 
-  FaStar, FaShoppingCart, FaCog, FaChartBar, 
-  FaMoneyBillWave, FaCarSide
-} from 'react-icons/fa';
-import './Dashboard.css';
-import { 
-  driverService, vehicleService, clientService, routeService, notificationService,
-  reviewService, rentService, adminService, statisticsService, companyPriceService, driverVehicleService
-} from '../../api';
-import MasterPage from '../layout/MasterPage';
+import { useKeycloak } from "@react-keycloak/web";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  FaCar,
+  FaUsers,
+  FaRoute,
+  FaCarAlt,
+  FaBell,
+  FaStar,
+  FaShoppingCart,
+  FaCog,
+  FaChartBar,
+  FaMoneyBillWave,
+  FaCarSide,
+  FaPlus,
+} from "react-icons/fa";
+import "./Dashboard.css";
+import {
+  driverService,
+  vehicleService,
+  clientService,
+  routeService,
+  notificationService,
+  reviewService,
+  rentService,
+  adminService,
+  statisticsService,
+  companyPriceService,
+  driverVehicleService,
+} from "../../api";
+import MasterPage from "../layout/MasterPage";
 
 const Dashboard = () => {
   const { keycloak } = useKeycloak();
   const navigate = useNavigate();
-  
+
   const [error, setError] = useState(null);
   const [driverCount, setDriverCount] = useState(0);
   const [vehicleCount, setVehicleCount] = useState(0);
@@ -44,7 +62,7 @@ const Dashboard = () => {
         const responseStatistics = await statisticsService.getAll();
         const responseCompanyPrices = await companyPriceService.getAll();
         const responseDriverVehicles = await driverVehicleService.getAll();
-        
+
         setDriverCount(responseDriver.data.count || 0);
         setVehicleCount(responseVehicle.data.count || 0);
         setClientCount(responseClient.data.count || 0);
@@ -58,97 +76,193 @@ const Dashboard = () => {
         setDriverVehiclesCount(responseDriverVehicles.data.count || 0);
         setError(null);
       } catch (err) {
-        console.error('Error fetching data:', err);
-        setError('Failed to load data. Please try again.');
+        console.error("Error fetching data:", err);
+        setError("Failed to load data. Please try again.");
       }
     };
     fetchData();
   }, []);
-  
+
   const navItems = [
-    { title: 'Drivers', icon: <FaCar />, route: 'Drivers', path: '/drivers' },
-    { title: 'Clients', icon: <FaUsers />, route: 'Clients', path: '/clients' },
-    { title: 'Routes', icon: <FaRoute />, route: 'Routes', path: '/routes' },
-    { title: 'Vehicles', icon: <FaCarAlt />, route: 'Vehicles', path: '/vehicles' },
-    { title: 'Notifications', icon: <FaBell />, route: 'Notifications', path: '/notifications' },
-    { title: 'Reviews', icon: <FaStar />, route: 'Reviews', path: '/reviews' },
-    { title: 'Rents', icon: <FaShoppingCart />, route: 'Rents', path: '/rents' }
+    { title: "Drivers", icon: <FaCar />, route: "Drivers", path: "/drivers" },
+    { title: "Clients", icon: <FaUsers />, route: "Clients", path: "/clients" },
+    { title: "Routes", icon: <FaRoute />, route: "Routes", path: "/routes" },
+    {
+      title: "Vehicles",
+      icon: <FaCarAlt />,
+      route: "Vehicles",
+      path: "/vehicles",
+    },
+    {
+      title: "Notifications",
+      icon: <FaBell />,
+      route: "Notifications",
+      path: "/notifications",
+    },
+    { title: "Reviews", icon: <FaStar />, route: "Reviews", path: "/reviews" },
+    {
+      title: "Rents",
+      icon: <FaShoppingCart />,
+      route: "Rents",
+      path: "/rents",
+    },
   ];
 
   const additionalItems = [
-    { title: 'Admin', icon: <FaCog />, route: 'Admin', path: '/admin' },
-    { title: 'Statistics', icon: <FaChartBar />, route: 'Statistics', path: '/statistics' },
-    { title: 'Company Prices', icon: <FaMoneyBillWave />, route: 'CompanyPrices', path: '/prices' },
-    { title: 'Driver Vehicles', icon: <FaCarSide />, route: 'DriverVehicles', path: '/driver-vehicles' }
+    { title: "Admin", icon: <FaCog />, route: "Admin", path: "/admin" },
+    {
+      title: "Statistics",
+      icon: <FaChartBar />,
+      route: "Statistics",
+      path: "/statistics",
+    },
+    {
+      title: "Company Prices",
+      icon: <FaMoneyBillWave />,
+      route: "CompanyPrices",
+      path: "/prices",
+    },
+    {
+      title: "Driver Vehicles",
+      icon: <FaCarSide />,
+      route: "DriverVehicles",
+      path: "/driver-vehicles",
+    },
   ];
-  
+
+  // Quick action items
+  const quickActionItems = [
+    {
+      title: "Add Route",
+      icon: <FaRoute />,
+      path: "/route/add",
+      color: "#e74c3c",
+      description: "Create a new route",
+    },
+    {
+      title: "Add Vehicle",
+      icon: <FaCarAlt />,
+      path: "/vehicle/add",
+      color: "#2ecc71",
+      description: "Register a new vehicle",
+    },
+    {
+      title: "Add Client",
+      icon: <FaUsers />,
+      path: "/client/add",
+      color: "#9b59b6",
+      description: "Register a new client",
+    },
+    {
+      title: "Add Rent",
+      icon: <FaShoppingCart />,
+      path: "/rent/add",
+      color: "#d35400",
+      description: "Create a new rental",
+    },
+  ];
+
   // Combine navItems and additionalItems for the cards
   const allItems = [...navItems, ...additionalItems];
-  
+
   // Generate statistics for cards
   const getStats = (item) => {
-    if (item.title === 'Drivers') return { value: driverCount, label: 'Total Active' };
-    if (item.title === 'Vehicles') return { value: vehicleCount, label: 'Available' };
-    if (item.title === 'Clients') return { value: clientCount, label: 'Registered' };
-    if (item.title === 'Rents') return { value: rentCount, label: 'Active Rentals' };
-    
+    if (item.title === "Drivers")
+      return { value: driverCount, label: "Total Active" };
+    if (item.title === "Vehicles")
+      return { value: vehicleCount, label: "Available" };
+    if (item.title === "Clients")
+      return { value: clientCount, label: "Registered" };
+    if (item.title === "Rents")
+      return { value: rentCount, label: "Active Rentals" };
+
     switch (item.title) {
-      case 'Routes':
-        return { value: routeCount, label: 'Active Routes' };
-      case 'Notifications':
-        return { value: notificationCount, label: 'Unread' };
-      case 'Reviews':
-        return { value: reviewCount, label: 'New Reviews' };
-      case 'Admin':
-        return { value: adminCount, label: 'Actions Required' };
-      case 'Statistics':
-        return { value: statisticsCount, label: 'New Reports' };
-      case 'Company Prices':
-        return { value: companyPricesCount, label: 'Price Updates' };
-      case 'Driver Vehicles':
-        return { value: driverVehiclesCount, label: 'Assignments' };
+      case "Routes":
+        return { value: routeCount, label: "Active Routes" };
+      case "Notifications":
+        return { value: notificationCount, label: "Unread" };
+      case "Reviews":
+        return { value: reviewCount, label: "New Reviews" };
+      case "Admin":
+        return { value: adminCount, label: "Actions Required" };
+      case "Statistics":
+        return { value: statisticsCount, label: "New Reports" };
+      case "Company Prices":
+        return { value: companyPricesCount, label: "Price Updates" };
+      case "Driver Vehicles":
+        return { value: driverVehiclesCount, label: "Assignments" };
       default:
-        return { value: 0, label: 'Total' };
+        return { value: 0, label: "Total" };
     }
   };
-  
+
   // Get appropriate CSS class for item icon
   const getIconClass = (item) => {
     const classes = {
-      'Drivers': 'drivers',
-      'Vehicles': 'vehicles',
-      'Clients': 'clients',
-      'Rents': 'rents',
-      'Routes': 'routes',
-      'Notifications': 'notifications',
-      'Reviews': 'reviews',
-      'Admin': 'admin',
-      'Statistics': 'statistics',
-      'CompanyPrices': 'prices',
-      'DriverVehicles': 'driver-vehicles'
+      Drivers: "drivers",
+      Vehicles: "vehicles",
+      Clients: "clients",
+      Rents: "rents",
+      Routes: "routes",
+      Notifications: "notifications",
+      Reviews: "reviews",
+      Admin: "admin",
+      Statistics: "statistics",
+      CompanyPrices: "prices",
+      DriverVehicles: "driver-vehicles",
     };
-    
-    return classes[item.route] || 'default';
+
+    return classes[item.route] || "default";
   };
-  
+
   const handleCardClick = (path) => {
     navigate(path);
   };
-  
+
+  const handleQuickActionClick = (path) => {
+    navigate(path);
+  };
+
   return (
     <MasterPage currentRoute="Dashboard">
       <div className="dashboard-overview">
-        {error && (
-          <div className="error-message">
-            {error}
+        {error && <div className="error-message">{error}</div>}
+
+        {/* Quick Actions Section */}
+        <div className="quick-actions-section">
+          <h2 className="section-title">
+            <FaPlus className="section-icon" /> Quick Actions
+          </h2>
+          <div className="quick-actions-container">
+            {quickActionItems.map((item) => (
+              <div
+                key={item.title}
+                className="quick-action-card"
+                onClick={() => handleQuickActionClick(item.path)}
+                style={{ borderColor: item.color }}
+              >
+                <div
+                  className="quick-action-icon"
+                  style={{ backgroundColor: item.color }}
+                >
+                  {item.icon}
+                </div>
+                <div className="quick-action-details">
+                  <h3>{item.title}</h3>
+                  <p>{item.description}</p>
+                </div>
+              </div>
+            ))}
           </div>
-        )}
+        </div>
+
+        <h2 className="section-title">Overview</h2>
         <div className="stats-container">
-          {allItems.map(item => {
+          {allItems.map((item) => {
             const stats = getStats(item);
             return (
-              <div 
-                key={item.route} 
+              <div
+                key={item.route}
                 className="stat-card"
                 onClick={() => handleCardClick(item.path)}
               >
@@ -165,10 +279,8 @@ const Dashboard = () => {
           })}
         </div>
       </div>
-      
-     
     </MasterPage>
   );
 };
 
-export default Dashboard; 
+export default Dashboard;

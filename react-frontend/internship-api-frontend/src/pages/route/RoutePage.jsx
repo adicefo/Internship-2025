@@ -143,13 +143,24 @@ const RoutePage = () => {
                     <td>{route.numberOfKilometers!=0?route.numberOfKilometers.toFixed(2)+"km":"0"}</td>
                     <td>{route.fullPrice.toFixed(2)+"KM"??"0"}</td>
                     <td className="action-buttons">
-                      <button
-                        className="edit-button"
+                      {route.status!=="finished"&&(
+ <button
+ className="edit-button"
+ onClick={() => handleEditRoute(route)}
+ title="Edit route"
+>
+ <FaEdit />
+</button>
+                      )}
+                     {route.status==="finished"&&(
+                        <button
+                        className="edit-button-disabled"
                         onClick={() => handleEditRoute(route)}
-                        title="Edit route"
-                      >
+                        title="Cannot edit finished route"
+                       >
                         <FaEdit />
-                      </button>
+                       </button>
+                     )}
                       <button
                         className="delete-button"
                         onClick={() => handleDeleteRoute(route.id)}
