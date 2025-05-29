@@ -1,5 +1,5 @@
 import BaseService from '../baseService';
-
+import apiClient from '../apiClient';
 class RouteService extends BaseService {
     constructor() {
       // Define custom endpoints for driver entity
@@ -12,7 +12,11 @@ class RouteService extends BaseService {
       };
       super('/route', customEndpoints);
     }
-    
+    async updateFinish(id){
+      const url = `${this.endpoint}/updateFinish/${id}`;
+      console.log(url);
+      return apiClient.put(url);
+    }
     
   }
   

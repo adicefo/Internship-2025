@@ -1,0 +1,20 @@
+.status-pill {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 12px;
+  }
+  .wait{
+    background-color: #ffa14f;
+    border: 1px solid #155724;
+  }
+  .active{
+    background-color: #007bff;
+    border: 1px solid #007bff;
+  }
+  .finished{
+    background-color: #28a745;
+    border: 1px solid #28a745;
+  }
+    

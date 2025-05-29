@@ -1,53 +1,72 @@
 import MasterPage from "../../components/layout/MasterPage";
 import toast from "react-hot-toast";
-import ConfirmDialog from "../../utils/ConfirmDialog";import { useState, useEffect } from "react";
+import ConfirmDialog from "../../utils/ConfirmDialog";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { FaTrash, FaEye, FaSearch ,FaEdit,FaSearchPlus} from "react-icons/fa";import { routeService } from "../../api";
-const RoutePage=()=>{
-    const navigate = useNavigate();
-    const[routes,setRoutes]=useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const [showDialog, setShowDialog] = useState(false);
-    const [deleteId,setDeleteId]=useState(0);
-    const [statusFilter,setStatusFilter]=useState('');
+import { FaTrash, FaEye, FaSearch, FaEdit, FaSearchPlus } from "react-icons/fa";
+import { routeService } from "../../api";
+import "./RoutePage.css";
 
 
-    const fetchRoutes=async(filter={})=>{
-        try {
-            setLoading(true);
-            const response = await routeService.getAll(filter);
-            console.log("API response:", response);
-            setRoutes(response.data.items || []);
-            setError(null);
-          } catch (err) {
-            console.error("Error fetching routes:", err);
-            setError("Failed to load routes. Please try again.");
-          } finally {
-            setLoading(false);
-          }
-    }
-    useEffect(() => {
-        fetchRoutes();
-      }, []);
-    const handleAddRoute=()=>{
-        navigate('/route/add');
-    }
-    const handleStatusFilter=(e)=>{
-        setStatusFilter(e.target.value);
-    }
-    const handleFilter=()=>{
-        var filter={
-            status:statusFilter
-        };
-        fetchRoutes(filter);
-    }
-    return(
-        <MasterPage currentRoute="Route">
-            <div className="routes-section">
+const RoutePage = () => {
+  const navigate = useNavigate();
+  const [routes, setRoutes] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [showDialog, setShowDialog] = useState(false);
+  const [deleteId, setDeleteId] = useState(0);
+  const [statusFilter, setStatusFilter] = useState("");
 
- <div className="section-header">
+  const fetchRoutes = async (filter = {}) => {
+    try {
+      setLoading(true);
+      const response = await routeService.getAll(filter);
+      console.log("API response:", response);
+      setRoutes(response.data.items || []);
+      setError(null);
+    } catch (err) {
+      console.error("Error fetching routes:", err);
+      setError("Failed to load routes. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
+    fetchRoutes();
+  }, []);
+  const handleAddRoute = () => {
+    navigate("/route/add");
+  };
+  const handleEditRoute=(route)=>{
+    navigate('/route/edit',{state:{route}});
+  }
+  const handleDeleteRoute=(id)=>{
+    setDeleteId(id);
+    setShowDialog(true);
+  }
+  const confirmDelete=async()=>{
+    try{
+      await routeService.delete(deleteId);
+      toast.success("Route deleted successfully");
+    }catch(err){
+      console.error("Error deleting route:",err);
+      toast.error("Failed to delete route. Please try again.");
+    }
+  }
+  const handleStatusFilter = (e) => {
+    setStatusFilter(e.target.value);
+  };
+  const handleFilter = () => {
+    var filter = {
+      status: statusFilter,
+    };
+    fetchRoutes(filter);
+  };
+  return (
+    <MasterPage currentRoute="Route">
+      <div className="routes-section">
+        <div className="section-header">
           <h3>Routes Management</h3>
           <button className="add-button" onClick={handleAddRoute}>
             Add New Route
@@ -73,13 +92,13 @@ const RoutePage=()=>{
                     <option value="" style={{ fontWeight: "bold" }}>
                       All statuses
                     </option>
-                    <option value="Wait" style={{ fontWeight: "bold" }}>
+                    <option value="wait" style={{ fontWeight: "bold" }}>
                       Wait
                     </option>
-                    <option value="Active" style={{ fontWeight: "bold" }}>
+                    <option value="active" style={{ fontWeight: "bold" }}>
                       Active
                     </option>
-                    <option value="Finished" style={{ fontWeight: "bold" }}>
+                    <option value="finished" style={{ fontWeight: "bold" }}>
                       Finished
                     </option>
                   </select>
@@ -93,7 +112,7 @@ const RoutePage=()=>{
           </div>
         </div>
         {loading ? (
-          <div className="loading-indicator">Loading vehicles data...</div>
+          <div className="loading-indicator">Loading route data...</div>
         ) : error ? (
           <div className="error-message">{error}</div>
         ) : (
@@ -101,58 +120,40 @@ const RoutePage=()=>{
             <table className="routes-table table table-hover">
               <thead>
                 <tr>
-                  <th style={{ width: "80px" }}>Status</th>
-                  <th style={{ width: "80px" }}>Name</th>
-                  <th style={{ width: "100px" }}>Image</th>
-                  <th style={{ width: "150px" }}>Price</th>
-                  <th style={{ width: "120px" }}>Consumption</th>
+                  <th style={{ width: "80px" }}>Client</th>
+                  <th style={{ width: "80px" }}>Driver</th>
+                  <th style={{ width: "100px" }}>Status</th>
+                  <th style={{ width: "150px" }}>Start Date</th>
+                  <th style={{ width: "120px" }}>End Date</th>
+                  <th style={{ width: "100px" }}>Duration</th>
+                  <th style={{ width: "100px" }}>Distance</th>
+                  <th style={{ width: "100px" }}>Price</th>
                   <th style={{ width: "100px" }}>Actions</th>
                 </tr>
               </thead>
               <tbody>
-                {vehicles.map((vehicle) => (
-                  <tr key={vehicle.id}>
-                    <td>
-  <span
-    className={`status-pill ${
-      vehicle.available ? "status-available" : "status-unavailable"
-    }`}
-  >
-    {vehicle.available ? "Available" : "Unavailable"}
-  </span>
-</td>
-                    <td>{vehicle.name}</td>
-                    <td>
-                      <img
-                        src={getImageSrc(vehicle.image)}
-                        alt="vehicle"
-                        style={{
-                          width: "60px",
-                          height: "40px",
-                          objectFit: "cover",
-                          borderRadius: "6px",
-                        }}
-                        onError={(e) => {
-                          e.target.onerror = null;
-                          e.target.src = noImagePlaceholder;
-                        }}
-                      />
-                    </td>
-
-                    <td>{vehicle.price}</td>
-                    <td>{vehicle.averageFuelConsumption}</td>
+                {routes.map((route) => (
+                  <tr key={route.id}>
+                    <td>{route.client.user.name} {route.client.user.surname}</td>
+                    <td>{route.driver.user.name} {route.driver.user.surname}</td>
+                    <td><span className={`status-pill ${route.status.toLowerCase()}`}>{route.status.toUpperCase()}</span></td>
+                    <td>{route.startDate?.toString().substring(0,16)??"-"}</td>
+                    <td>{route.endDate?.toString().substring(0,16)??"-"}</td>
+                    <td>{route.duration?.toString()+" min"??0}</td>
+                    <td>{route.numberOfKilometers!=0?route.numberOfKilometers+"km":"0"}</td>
+                    <td>{route.fullPrice.toFixed(2)+"KM"??"0"}</td>
                     <td className="action-buttons">
                       <button
                         className="edit-button"
-                        onClick={() => handleEditVehicle(vehicle)}
-                        title="Edit vehicle"
+                        onClick={() => handleEditRoute(route)}
+                        title="Edit route"
                       >
                         <FaEdit />
                       </button>
                       <button
                         className="delete-button"
-                        onClick={() => handleDeleteVehicle(vehicle.id)}
-                        title="Delete vehicle"
+                        onClick={() => handleDeleteRoute(route.id)}
+                        title="Delete route"
                       >
                         <FaTrash />
                       </button>
@@ -171,8 +172,8 @@ const RoutePage=()=>{
             </table>
           </div>
         )}
-            </div>
-        </MasterPage>
-    );
-}
+      </div>
+    </MasterPage>
+  );
+};
 export default RoutePage;
