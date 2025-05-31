@@ -35,10 +35,10 @@ const MasterPage = ({ children, currentRoute }) => {
   ];
 
   const additionalItems = [
-    { title: 'Admin', icon: <FaCog />, route: 'Admin', path: '/admin' },
+   
     { title: 'Statistics', icon: <FaChartBar />, route: 'Statistics', path: '/statistics' },
     { title: 'Company Prices', icon: <FaMoneyBillWave />, route: 'CompanyPrices', path: '/prices' },
-    { title: 'Driver Vehicles', icon: <FaCarSide />, route: 'DriverVehicles', path: '/driver-vehicles' }
+    
   ];
   
   const handleNavigation = (route, path) => {
@@ -60,7 +60,7 @@ const MasterPage = ({ children, currentRoute }) => {
         <button className="menu-toggle" onClick={toggleSidebar}>
           <FaBars />
         </button>
-        <h1>eCar Management Dashboard</h1>
+        <h1>eCar Management System</h1>
         <button onClick={handleLogout} className="logout-button">
           Logout
         </button>

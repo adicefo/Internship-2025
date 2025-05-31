@@ -110,10 +110,7 @@ const VehiclePage = () => {
             <div className="filter-group">
               <div className="form-group">
                 <label htmlFor="availableFilter">Availability</label>
-                <div className="input-icon-wrapper">
-                  <i className="input-icon">
-                    <FaSearchPlus />
-                  </i>
+                
                   <select
                     id="availableFilter"
                     name="availableFilter"
@@ -129,7 +126,7 @@ const VehiclePage = () => {
                     </option>
                   </select>
                 </div>
-              </div>
+             
             </div>
 
             <button className="filter-button" onClick={handleFilter}>

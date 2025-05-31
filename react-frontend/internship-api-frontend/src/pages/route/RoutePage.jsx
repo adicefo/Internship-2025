@@ -77,10 +77,7 @@ const RoutePage = () => {
             <div className="filter-group">
               <div className="form-group">
                 <label htmlFor="availableFilter">Availability</label>
-                <div className="input-icon-wrapper">
-                  <i className="input-icon">
-                    <FaSearchPlus />
-                  </i>
+               
                   <select
                     id="statusFilter"
                     name="stautsFilter"
@@ -101,7 +98,7 @@ const RoutePage = () => {
                       Finished
                     </option>
                   </select>
-                </div>
+                
               </div>
             </div>
 

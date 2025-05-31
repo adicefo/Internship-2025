@@ -59,7 +59,7 @@ const RentPage = () => {
     if (rent.status === "wait") {
       navigate(`/rent/activate`, { state: { rent } });
     } else {
-      alert("Unable operation. Your status is not 'wait'!");
+      toast.error("Unable operation. Your status is not 'wait'!");
     }
   };
 
@@ -67,7 +67,7 @@ const RentPage = () => {
     if (rent.status !== "finished") {
       navigate(`/rent/edit`, { state: { rent } });
     } else {
-      alert("Unable operation. You cannot edit when your status is finished!");
+      toast.error("Unable operation. You cannot edit when your status is finished!");
     }
   };
 
@@ -76,7 +76,7 @@ const RentPage = () => {
       setDeleteId(rentId);
       setShowDialog(true);
     } else {
-      alert("Cannot delete rent when status is active");
+      toast.error("Cannot delete rent when status is active");
     }
   };
 
@@ -105,10 +105,9 @@ const RentPage = () => {
             <div className="filter-group">
               <div className="form-group">
                 <label htmlFor="statusFilter">Status</label>
-                <div className="input-icon-wrapper">
-                  <i className="input-icon">
-                    <FaSearchPlus />
-                  </i>
+                
+                  
+                  
                   <select
                     id="statusFilter"
                     name="stautsFilter"
@@ -130,7 +129,7 @@ const RentPage = () => {
                     </option>
                   </select>
                 </div>
-              </div>
+              
             </div>
 
             <button className="filter-button" onClick={handleFilter}>

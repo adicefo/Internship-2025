@@ -72,11 +72,11 @@ const RentActivePage = () => {
     });
   };
 
-  // Handle rent activation
+
   const handleAcceptRent = async () => {
     try {
       setShowAcceptDialog(false);
-      const response = await rentService.activate(rent.id);
+      const response = await rentService.updateActive(rent.id);
       toast.success("Rent request activated successfully");
       navigate("/rents");
     } catch (error) {
@@ -85,11 +85,11 @@ const RentActivePage = () => {
     }
   };
 
-  // Handle rent rejection
+
   const handleRejectRent = async () => {
     try {
       setShowRejectDialog(false);
-      await rentService.reject(rent.id);
+      await rentService.delete(rent.id);
       toast.success("Rent request rejected");
       navigate("/rents");
     } catch (error) {

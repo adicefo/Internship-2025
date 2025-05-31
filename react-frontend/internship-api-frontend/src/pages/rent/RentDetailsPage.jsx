@@ -46,6 +46,7 @@ const RentDetailsPage = () => {
   const [saving, setSaving] = useState(false);
   const [errors, setErrors] = useState({});
   const [showDialog, setShowDialog] = useState(false);
+  const [showFinishDialog, setShowFinishDialog] = useState(false);
 
   // Fetch vehicles and clients on component mount
   useEffect(() => {
@@ -118,9 +119,9 @@ const RentDetailsPage = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
-    // For date fields, convert to full ISO format with time
+   
     if (name === "rentDate" || name === "endDate") {
-      // Create a new date with the selected date but keep current time
+     
       const date = new Date(value);
       const fullDate = new Date();
       fullDate.setFullYear(date.getFullYear(), date.getMonth(), date.getDate());
@@ -190,13 +191,23 @@ const RentDetailsPage = () => {
     }
   };
 
-  // Mark rent as finished
-  const handleFinishRent = () => {
-    // This will be implemented later as mentioned
-    toast.success("Finish rent functionality will be implemented later");
-  };
+ const confirmFinish= async()=>{
+    setShowFinishDialog(false);
+    try{
+        await rentService.updateFinish(rent.id);
+        toast.success("Rent updated to  finish");
+        navigate("/rents");
+      }catch(error){
+        toast.error("Error finishing rent");
+      }
+          
+ }
 
-  // Handle navigation back to rent list
+  const handleFinishRent = async() => {
+setShowFinishDialog(true);
+  }
+
+
   const handleGoBack = () => {
     navigate("/rents");
   };
@@ -220,6 +231,7 @@ const RentDetailsPage = () => {
                     type="date"
                     id="rentDate"
                     name="rentDate"
+                    min={today.toISOString().split("T")[0]}
                     value={formatDateForDisplay(formData.rentDate)}
                     onChange={handleInputChange}
                     className={errors.rentDate ? "error" : ""}
@@ -235,6 +247,7 @@ const RentDetailsPage = () => {
                     type="date"
                     id="endDate"
                     name="endDate"
+                    min={formData.rentDate}
                     value={formatDateForDisplay(formData.endDate)}
                     onChange={handleInputChange}
                     className={errors.endDate ? "error" : ""}
@@ -275,7 +288,7 @@ const RentDetailsPage = () => {
                     value={formData.client_id}
                     onChange={handleInputChange}
                     className={errors.client_id ? "error" : ""}
-                    disabled={!isAddMode} // Disable in edit mode
+                    disabled={!isAddMode} 
                   >
                     <option value="">Select a client</option>
                     {clients.map((client) => (
@@ -312,6 +325,15 @@ const RentDetailsPage = () => {
                     <FaCheck /> Finish
                   </button>
                 )}
+                {showFinishDialog && (
+                  <ConfirmDialog
+                    title="Finish Confirmation"
+                    message="Are you sure you want to finish this rent?"
+                    onConfirm={confirmFinish}
+                    onCancel={() => setShowFinishDialog(false)}
+                  />
+                )}
+
 
                 <button type="submit" className="save-button" disabled={saving}>
                   <FaSave /> Save
