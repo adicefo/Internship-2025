@@ -2904,6 +2904,9 @@ components:
         endDate:
           type: string
           format: date-time
+        rentDate:
+          type: string
+          format: date-time
         vehicle_id:
           type: integer
 

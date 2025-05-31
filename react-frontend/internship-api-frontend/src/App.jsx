@@ -85,7 +85,7 @@ function App() {
           <Route path="/vehicle/edit" element={<VehicleDetailsPage />} />
           <Route path="/vehicle/delete" element={<VehicleDetailsPage />} />
           <Route path="/rents" element={<RentPage />} />
-          <Route path="/rent/add" element={<RentDetailsPage />} />
+          <Route path="/rent/add" element={<RentDetailsPage />} /><Route path="/rent/edit" element={<RentDetailsPage />} />
         </Route>
       </Routes>
     </>

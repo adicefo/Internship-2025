@@ -1,6 +1,7 @@
 package com.example.internship_api.service.implementations;
 
 import com.example.internship_api.data.search_object.BaseSearchObject;
+import com.example.internship_api.dto.RentUpdateRequest;
 import com.example.internship_api.entity.Rent;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -39,9 +40,15 @@ extends BaseServiceImpl<TModel,TSearch,TDbEntity> {
 
         //added this because of modelMapper bug
         LocalDateTime originalRentDate=LocalDateTime.now();
-        if(dbEntityClass== Rent.class)
-            originalRentDate=((Rent)unwrapEntity).getRentDate();
+        if(dbEntityClass== Rent.class&&((RentUpdateRequest) request).getRentDate()==null)
+            originalRentDate=((Rent) unwrapEntity).getRentDate();
+        else if(dbEntityClass==Rent.class&& ((RentUpdateRequest) request).getRentDate()!=null)
+            originalRentDate=((RentUpdateRequest) request).getRentDate();
 
+        if (dbEntityClass == Rent.class) {
+                modelMapper.typeMap(RentUpdateRequest.class, Rent.class)
+                    .addMappings(mapper -> mapper.skip(Rent::setId));
+            }
         modelMapper.map(request,unwrapEntity);
 
 

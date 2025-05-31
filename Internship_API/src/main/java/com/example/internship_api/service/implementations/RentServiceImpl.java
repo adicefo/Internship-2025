@@ -100,7 +100,7 @@ public class RentServiceImpl extends BaseCRUDServiceImpl<RentDTO, RentSearchObje
     protected void beforeUpdate(RentUpdateRequest request, Rent entity) {
     if(request.getEndDate()!=null)
     {
-        if(request.getEndDate().isBefore(entity.getRentDate()))
+        if(request.getEndDate().isBefore(request.getRentDate()))
             throw new IllegalArgumentException("End date must be greater than rent date");
         if(entity.getRentDate()!=null&&entity.getEndDate()!=null)
         {

@@ -8,7 +8,6 @@ import { FaTrash, FaEye, FaSearch, FaEdit, FaSearchPlus } from "react-icons/fa";
 import { routeService } from "../../api";
 import "./RoutePage.css";
 
-
 const RoutePage = () => {
   const navigate = useNavigate();
   const [routes, setRoutes] = useState([]);
@@ -38,22 +37,22 @@ const RoutePage = () => {
   const handleAddRoute = () => {
     navigate("/route/add");
   };
-  const handleEditRoute=(route)=>{
-    navigate('/route/edit',{state:{route}});
-  }
-  const handleDeleteRoute=(id)=>{
+  const handleEditRoute = (route) => {
+    navigate("/route/edit", { state: { route } });
+  };
+  const handleDeleteRoute = (id) => {
     setDeleteId(id);
     setShowDialog(true);
-  }
-  const confirmDelete=async()=>{
-    try{
+  };
+  const confirmDelete = async () => {
+    try {
       await routeService.delete(deleteId);
       toast.success("Route deleted successfully");
-    }catch(err){
-      console.error("Error deleting route:",err);
+    } catch (err) {
+      console.error("Error deleting route:", err);
       toast.error("Failed to delete route. Please try again.");
     }
-  }
+  };
   const handleStatusFilter = (e) => {
     setStatusFilter(e.target.value);
   };
@@ -134,33 +133,49 @@ const RoutePage = () => {
               <tbody>
                 {routes.map((route) => (
                   <tr key={route.id}>
-                    <td>{route.client.user.name} {route.client.user.surname}</td>
-                    <td>{route.driver.user.name} {route.driver.user.surname}</td>
-                    <td><span className={`status-pill ${route.status.toLowerCase()}`}>{route.status.toUpperCase()}</span></td>
-                    <td>{route.startDate?.toString().substring(0,16)??"-"}</td>
-                    <td>{route.endDate?.toString().substring(0,16)??"-"}</td>
-                    <td>{route.duration?.toString()+" min"??0}</td>
-                    <td>{route.numberOfKilometers!=0?route.numberOfKilometers.toFixed(2)+"km":"0"}</td>
-                    <td>{route.fullPrice.toFixed(2)+"KM"??"0"}</td>
+                    <td>
+                      {route.client.user.name} {route.client.user.surname}
+                    </td>
+                    <td>
+                      {route.driver.user.name} {route.driver.user.surname}
+                    </td>
+                    <td>
+                      <span
+                        className={`status-pill ${route.status.toLowerCase()}`}
+                      >
+                        {route.status.toUpperCase()}
+                      </span>
+                    </td>
+                    <td>
+                      {route.startDate?.toString().substring(0, 16) ?? "-"}
+                    </td>
+                    <td>{route.endDate?.toString().substring(0, 16) ?? "-"}</td>
+                    <td>{route.duration?.toString() + " min" ?? 0}</td>
+                    <td>
+                      {route.numberOfKilometers != 0
+                        ? route.numberOfKilometers.toFixed(2) + "km"
+                        : "0"}
+                    </td>
+                    <td>{route.fullPrice.toFixed(2) + "KM" ?? "0"}</td>
                     <td className="action-buttons">
-                      {route.status!=="finished"&&(
- <button
- className="edit-button"
- onClick={() => handleEditRoute(route)}
- title="Edit route"
->
- <FaEdit />
-</button>
-                      )}
-                     {route.status==="finished"&&(
+                      {route.status !== "finished" && (
                         <button
-                        className="edit-button-disabled"
-                        onClick={() => handleEditRoute(route)}
-                        title="Cannot edit finished route"
-                       >
-                        <FaEdit />
-                       </button>
-                     )}
+                          className="edit-button"
+                          onClick={() => handleEditRoute(route)}
+                          title="Edit route"
+                        >
+                          <FaEdit />
+                        </button>
+                      )}
+                      {route.status === "finished" && (
+                        <button
+                          className="edit-button-disabled"
+                          onClick={() => handleEditRoute(route)}
+                          title="Cannot edit finished route"
+                        >
+                          <FaEdit />
+                        </button>
+                      )}
                       <button
                         className="delete-button"
                         onClick={() => handleDeleteRoute(route.id)}
