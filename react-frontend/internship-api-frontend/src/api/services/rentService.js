@@ -1,4 +1,5 @@
 import BaseService from '../baseService';
+import apiClient from '../apiClient';
 
 class RentService extends BaseService {
     constructor() {
@@ -13,7 +14,11 @@ class RentService extends BaseService {
       super('/rent', customEndpoints);
     }
     
-    
+    async checkAvailability(id,request){
+      const url=`${this.endpoint}/checkAvailability/${id}`;
+      console.log(url);
+      return apiClient.post(url,request);
+    }
   }
   
   // Create a singleton instance

@@ -48,7 +48,8 @@ const RentPage = () => {
   
   const handleFilter = () => {
     console.log("Filtering with status:", statusFilter);
-  };
+    var filter={status:statusFilter};
+    fetchRents(filter);}
 
   const handleStatusFilter = (e) => {
     setStatusFilter(e.target.value);
