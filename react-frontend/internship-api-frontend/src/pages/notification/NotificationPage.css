@@ -3,6 +3,7 @@
     flex-direction: row;
     align-items: center;
     margin-bottom: 10px;
+    width: 100%;
 }
 
 .filter-row {

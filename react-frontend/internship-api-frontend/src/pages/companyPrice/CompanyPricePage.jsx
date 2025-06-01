@@ -15,6 +15,7 @@ const CompanyPricePage = () => {
   const [error, setError] = useState(null);
   const [currentPrice, setCurrentPrice] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const[showAddModal,setShowAddModal]=useState(false);
   const [newPrice, setNewPrice] = useState("");
   const [priceError, setPriceError] = useState("");
 
@@ -96,22 +97,24 @@ const CompanyPricePage = () => {
     setPriceError("");
     return true;
   };
-
-  const handleSavePrice = async () => {
+  const confirmAddPrice=async()=>{
     if (validatePrice(newPrice)) {
-      try {
-        await companyPriceService.create({
-          pricePerKilometer: parseFloat(newPrice),
-        });
-        toast.success("New price added successfully");
-        setShowModal(false);
-        fetchPrices();
-        fetchCurrentPrice();
-      } catch (err) {
-        console.error("Error adding new price:", err);
-        toast.error("Failed to add new price. Please try again.");
+        try {
+          await companyPriceService.create({
+            pricePerKilometer: parseFloat(newPrice),
+          });
+          toast.success("New price added successfully");
+          setShowModal(false);
+          fetchPrices();
+          fetchCurrentPrice();
+        } catch (err) {
+          console.error("Error adding new price:", err);
+          toast.error("Failed to add new price. Please try again.");
+        }
       }
-    }
+  }
+  const handleSavePrice = async () => {
+    setShowAddModal(true);
   };
 
   const handleFilter = () => {
@@ -255,6 +258,17 @@ const CompanyPricePage = () => {
                   <FaSave className="save-icon" />
                   Save
                 </button>
+                {
+                    showAddModal&&(
+                        <ConfirmDialog
+            title="Add Price Confirmation"
+            message="Are you sure you want to add new price?"
+            onConfirm={confirmAddPrice}
+            onCancel={() => setShowDialog(false)}
+          />
+                    )
+                }
+
               </div>
             </div>
           </div>

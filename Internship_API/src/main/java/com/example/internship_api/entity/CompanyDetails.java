@@ -19,6 +19,6 @@ public class CompanyDetails {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "companyPrices_id",referencedColumnName = "id")
+    @JoinColumn(name = "company_price_id",referencedColumnName = "id")
     private CompanyPrice companyPrice;
 }
