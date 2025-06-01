@@ -1,0 +1,89 @@
+.form-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.filter-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.status-pill {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.user {
+    background-color: #007bff;
+    border: 1px solid #007bff;
+    color: white;
+}
+
+.driver {
+    background-color: #28a745;
+    border: 1px solid #28a745;
+    color: white;
+}
+
+.no-image {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.notifiaction-image {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+/* Custom tooltip styles */
+.tooltip-cell {
+    position: relative;
+    cursor: pointer;
+}
+
+.tooltip-cell .tooltip-text {
+    visibility: hidden;
+    width: 250px;
+    background-color: #333;
+    color: #fff;
+    text-align: left;
+    border-radius: 6px;
+    padding: 8px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 0;
+    opacity: 0;
+    transition: opacity 0.3s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    line-height: 1.4;
+    white-space: normal;
+    word-break: break-word;
+}
+
+.tooltip-cell .tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 15px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #333 transparent transparent transparent;
+}
+
+.tooltip-cell:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}

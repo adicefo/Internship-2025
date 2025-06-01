@@ -92,7 +92,7 @@ const RentPage = () => {
 
   return (
     <MasterPage currentRoute="Rent">
-      <div className="routes-section">
+      <div className="rent-section">
         <div className="section-header">
           <h3>Rent Management</h3>
           <button className="add-button" onClick={handleAddRent}>

@@ -17,6 +17,12 @@ import RouteDetailsPage from './pages/route/RouteDetailsPage'
 import RentPage from './pages/rent/RentPage'
 import RentDetailsPage from './pages/rent/RentDetailsPage'
 import RentActivePage from './pages/rent/RentActivePage'
+import NotificationPage from './pages/notification/NotificationPage'
+import NotificationDetailsPage from './pages/notification/NotificationDetailsPage'
+import ReviewPage from './pages/review/ReviewPage'
+import ReviewDetailsPage from './pages/review/ReviewDetailsPage'
+import StatisticsPage from './pages/statistics/StatisticsPage'
+import CompanyPricePage from './pages/companyPrice/CompanyPricePage'
 function App() {
   const { initialized, keycloak } = useKeycloak();
   const [initializationTimeout, setInitializationTimeout] = useState(false);
@@ -85,10 +91,18 @@ function App() {
           <Route path="/vehicle/add" element={<VehicleDetailsPage />} />
           <Route path="/vehicle/edit" element={<VehicleDetailsPage />} />
           <Route path="/vehicle/delete" element={<VehicleDetailsPage />} />
+          <Route path="/notifications" element={<NotificationPage/>}/>
+          <Route path="/notification/add" element={<NotificationDetailsPage/>}/>
+          <Route path="/notification/edit" element={<NotificationDetailsPage/>}/>
+          <Route path="/reviews" element={<ReviewPage/>}/>
+          <Route path="/review/add" element={<ReviewDetailsPage/>}/>
+          <Route path="/review/edit" element={<ReviewDetailsPage/>}/>
           <Route path="/rents" element={<RentPage />} />
           <Route path="/rent/add" element={<RentDetailsPage />} />
           <Route path="/rent/activate" element={<RentActivePage />} />
           <Route path="/rent/edit" element={<RentDetailsPage />} />
+          <Route path="/statistics" element={<StatisticsPage/>}/>
+          <Route path="/prices" element={<CompanyPricePage/>}/>
         </Route>
       </Routes>
     </>

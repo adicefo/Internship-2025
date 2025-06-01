@@ -1,5 +1,5 @@
 import BaseService from '../baseService';
-
+import apiClient from '../apiClient';
 
 class CompanyPriceService extends BaseService {
     constructor() {
@@ -13,7 +13,10 @@ class CompanyPriceService extends BaseService {
       };
       super('/companyPrice', customEndpoints);
     }
-    
+    async getCurrentPrice(){
+      const url=`${this.endpoint}/getCurrent`;
+      return apiClient.get(url);
+    }
     
   }
   

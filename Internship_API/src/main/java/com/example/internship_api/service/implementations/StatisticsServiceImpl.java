@@ -88,7 +88,7 @@ public class StatisticsServiceImpl extends BaseCRUDServiceImpl<StatisticsDTO, St
             return;
         }
         List<Statistics> filteredQuery = query.stream()
-                .filter(item->search.getDriverId()==null||item.getDriver().getId()==search.getDriverId())
+                .filter(item->search.getDriverName()==null||item.getDriver().getUser().getName().startsWith(search.getDriverName()))
                 .filter(item->search.getBeginningOfWork()==null||item.getBeginningOfWork().equals(search.getBeginningOfWork()))
                 .collect(Collectors.toList());
        if(search.getPageNumber()!=null&&search.getPageSize()!=null)
