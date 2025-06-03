@@ -51,47 +51,26 @@ const DriverPage = () => {
   const fetchDrivers = async (filter = {}) => {
     try {
       setLoading(true);
-      // Add pagination parameters to filter
-      const paginatedFilter = {
-        ...filter,
-        pageNumber: currentPage,
-        pageSize: pageSize,
-      };
-      const response = await driverService.getAll(paginatedFilter);
-      console.log("API response:", response);
-
-      // Store current items
-      const currentItems = response.data.items || [];
-      setDrivers(currentItems);
-
-      // Simplified pagination logic
-      let total = 0;
-      if (response.data.count !== undefined) {
-        // If backend provides total items
-        total = response.data.count;
-      }
-
-      setTotalItems(total);
-      // Calculate total pages and ensure we don't navigate to empty pages
-      const calculatedTotalPages = Math.ceil(total / pageSize);
+      const response = await driverService.getAll(filter);
+      const items = response.data.items || [];
+      setDrivers(items);
+      setTotalItems(items.length);
+      const calculatedTotalPages = Math.ceil(items.length / pageSize);
       setTotalPages(calculatedTotalPages);
-
-      // If current page is beyond valid pages, go back to last valid page
       if (currentPage >= calculatedTotalPages && calculatedTotalPages > 0) {
         setCurrentPage(calculatedTotalPages - 1);
       }
-
       setError(null);
     } catch (err) {
-      console.error("Error fetching drivers:", err);
-      setError("Failed to load drivers. Please try again.");
+      console.error("Error fetching rents:", err);
+      setError("Failed to load rents. Please try again.");
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchDrivers();
+    fetchDrivers({name:nameFilter,surname:surnameFilter});
   }, [currentPage]); // Re-fetch when page changes
 
   const confirmDelete = async (id) => {
@@ -133,7 +112,11 @@ const DriverPage = () => {
       setCurrentPage(newPage);
     }
   };
-
+  // Paginated reviews for current page
+  const paginatedDrivers = drivers.slice(
+    currentPage * pageSize,
+    currentPage * pageSize + pageSize
+  );
   return (
     <MasterPage currentRoute="Drivers">
       <div className="drivers-section">
@@ -201,7 +184,7 @@ const DriverPage = () => {
                 </tr>
               </thead>
               <tbody>
-                {drivers.map((driver) => (
+                {paginatedDrivers.map((driver) => (
                   <tr key={driver.id}>
                     <td>{driver.user.name}</td>
                     <td>{driver.user.surname}</td>

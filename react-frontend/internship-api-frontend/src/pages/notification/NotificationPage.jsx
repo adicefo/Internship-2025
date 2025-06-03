@@ -33,36 +33,15 @@ const NotificationPage = () => {
   const fetchNotifications = async (filter = {}) => {
     try {
       setLoading(true);
-      // Add pagination parameters to filter
-      const paginatedFilter = {
-        ...filter,
-        pageNumber: currentPage,
-        pageSize: pageSize,
-      };
-      const response = await notificationService.getAll(paginatedFilter);
-      console.log("API response:", response);
-
-      // Store current items
-      const currentItems = response.data.items || [];
-      setNotifications(currentItems);
-
-      // Simplified pagination logic
-      let total = 0;
-      if (response.data.count !== undefined) {
-        // If backend provides total items
-        total = response.data.count;
-      }
-
-      setTotalItems(total);
-      // Calculate total pages and ensure we don't navigate to empty pages
-      const calculatedTotalPages = Math.ceil(total / pageSize);
+      const response = await notificationService.getAll(filter);
+      const items = response.data.items || [];
+      setNotifications(items);
+      setTotalItems(items.length);
+      const calculatedTotalPages = Math.ceil(items.length / pageSize);
       setTotalPages(calculatedTotalPages);
-
-      // If current page is beyond valid pages, go back to last valid page
       if (currentPage >= calculatedTotalPages && calculatedTotalPages > 0) {
         setCurrentPage(calculatedTotalPages - 1);
       }
-
       setError(null);
     } catch (err) {
       console.error("Error fetching notifications:", err);
@@ -73,7 +52,15 @@ const NotificationPage = () => {
   };
 
   useEffect(() => {
-    fetchNotifications();
+    var filter=notificationTypeFilter !== ""
+    ? {
+        forClient : notificationTypeFilter == "user" ? 1 : 0,
+        title: headingFilter,
+      }
+    : {
+        title: headingFilter,
+      };
+    fetchNotifications(filter);
   }, [currentPage]); // Re-fetch when page changes
 
   const handleAddNotification = () => {
@@ -92,13 +79,13 @@ const NotificationPage = () => {
     // Reset to first page when filtering
     setCurrentPage(0);
     var filter =
-      notificationTypeFilter !== ""
+     notificationTypeFilter !== ""
         ? {
-            forClient: notificationTypeFilter == "user" ? 1 : 0,
-            heading: headingFilter,
+            forClient : notificationTypeFilter == "user" ? 1 : 0,
+            title: headingFilter,
           }
         : {
-            heading: headingFilter,
+            title: headingFilter,
           };
     fetchNotifications(filter);
   };
@@ -118,6 +105,11 @@ const NotificationPage = () => {
       setCurrentPage(newPage);
     }
   };
+    // Paginated reviews for current page
+    const paginatedNotifications = notifications.slice(
+      currentPage * pageSize,
+      currentPage * pageSize + pageSize
+    );
 
   return (
     <MasterPage currentRoute="Notification">
@@ -187,7 +179,7 @@ const NotificationPage = () => {
                 </tr>
               </thead>
               <tbody>
-                {notifications.map((notification) => (
+                {paginatedNotifications.map((notification) => (
                   <tr key={notification.id}>
                     <td className="tooltip-cell">
                       {notification.title != null

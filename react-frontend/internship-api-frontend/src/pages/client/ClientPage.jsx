@@ -33,47 +33,30 @@ const ClientPage = () => {
   const fetchClients = async (filter = {}) => {
     try {
       setLoading(true);
-      // Add pagination parameters to filter
-      const paginatedFilter = {
-        ...filter,
-        pageNumber: currentPage,
-        pageSize: pageSize,
-      };
-      const response = await clientService.getAll(paginatedFilter);
-      console.log("API response:", response);
-
-      // Store current items
-      const currentItems = response.data.items || [];
-      setClients(currentItems);
-
-      // Simplified pagination logic
-      let total = 0;
-      if (response.data.count !== undefined) {
-        // If backend provides total items
-        total = response.data.count;
-      }
-
-      setTotalItems(total);
-      // Calculate total pages and ensure we don't navigate to empty pages
-      const calculatedTotalPages = Math.ceil(total / pageSize);
+      const response = await clientService.getAll(filter);
+      const items = response.data.items || [];
+      setClients(items);
+      setTotalItems(items.length);
+      const calculatedTotalPages = Math.ceil(items.length / pageSize);
       setTotalPages(calculatedTotalPages);
-
-      // If current page is beyond valid pages, go back to last valid page
       if (currentPage >= calculatedTotalPages && calculatedTotalPages > 0) {
         setCurrentPage(calculatedTotalPages - 1);
       }
-
       setError(null);
     } catch (err) {
-      console.error("Error fetching clients:", err);
-      setError("Failed to load clients. Please try again.");
+      console.error("Error fetching rents:", err);
+      setError("Failed to load rents. Please try again.");
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchClients();
+    var filter={
+      name:nameFilter,
+      surname:surnameFilter
+    };
+    fetchClients(filter);
   }, [currentPage]); // Re-fetch when page changes
 
   const handleEditClient = (client) => {
@@ -114,6 +97,11 @@ const ClientPage = () => {
       setCurrentPage(newPage);
     }
   };
+    // Paginated reviews for current page
+    const paginatedClients = clients.slice(
+      currentPage * pageSize,
+      currentPage * pageSize + pageSize
+    );
 
   return (
     <MasterPage currentRoute="Clients">
@@ -173,7 +161,7 @@ const ClientPage = () => {
                 </tr>
               </thead>
               <tbody>
-                {clients.map((client) => (
+                {paginatedClients.map((client) => (
                   <tr key={client.id}>
                     <td>{client.user.name}</td>
                     <td>{client.user.surname}</td>

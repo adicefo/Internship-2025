@@ -34,36 +34,15 @@ const RoutePage = () => {
   const fetchRoutes = async (filter = {}) => {
     try {
       setLoading(true);
-      // Add pagination parameters to filter
-      const paginatedFilter = {
-        ...filter,
-        pageNumber: currentPage,
-        pageSize: pageSize,
-      };
-      const response = await routeService.getAll(paginatedFilter);
-      console.log("API response:", response);
-
-      // Store current items
-      const currentItems = response.data.items || [];
-      setRoutes(currentItems);
-
-      // Simplified pagination logic
-      let total = 0;
-      if (response.data.count !== undefined) {
-        // If backend provides total items
-        total = response.data.count;
-      }
-
-      setTotalItems(total);
-      // Calculate total pages and ensure we don't navigate to empty pages
-      const calculatedTotalPages = Math.ceil(total / pageSize);
+      const response = await routeService.getAll(filter);
+      const items = response.data.items || [];
+      setRoutes(items);
+      setTotalItems(items.length);
+      const calculatedTotalPages = Math.ceil(items.length / pageSize);
       setTotalPages(calculatedTotalPages);
-
-      // If current page is beyond valid pages, go back to last valid page
       if (currentPage >= calculatedTotalPages && calculatedTotalPages > 0) {
         setCurrentPage(calculatedTotalPages - 1);
       }
-
       setError(null);
     } catch (err) {
       console.error("Error fetching routes:", err);
@@ -74,7 +53,10 @@ const RoutePage = () => {
   };
 
   useEffect(() => {
-    fetchRoutes();
+    var filter={
+      status:statusFilter
+    };
+    fetchRoutes(filter);
   }, [currentPage]); // Re-fetch when page changes
 
   const handleAddRoute = () => {
@@ -114,7 +96,11 @@ const RoutePage = () => {
       setCurrentPage(newPage);
     }
   };
-
+  // Paginated reviews for current page
+  const paginatedRoutes = routes.slice(
+    currentPage * pageSize,
+    currentPage * pageSize + pageSize
+  );
   return (
     <MasterPage currentRoute="Route">
       <div className="routes-section">
@@ -180,7 +166,7 @@ const RoutePage = () => {
                 </tr>
               </thead>
               <tbody>
-                {routes.map((route) => (
+                {paginatedRoutes.map((route) => (
                   <tr key={route.id}>
                     <td>
                       {route.client.user.name} {route.client.user.surname}
