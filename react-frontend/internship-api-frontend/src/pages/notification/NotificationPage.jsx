@@ -2,11 +2,18 @@ import { useNavigate } from "react-router-dom";
 import MasterPage from "../../components/layout/MasterPage";
 import { useState, useEffect } from "react";
 import { notificationService } from "../../api";
-import { FaSearch, FaEdit, FaTrash } from "react-icons/fa";
+import {
+  FaSearch,
+  FaEdit,
+  FaTrash,
+  FaChevronLeft,
+  FaChevronRight,
+} from "react-icons/fa";
 import "./NotificationPage.css";
 import noImagePlaceholder from "../../assets/no_image_placeholder.png";
 import { getImageSrc } from "../../utils/StringHelpers";
 import ConfirmDialog from "../../utils/ConfirmDialog";
+
 const NotificationPage = () => {
   const navigate = useNavigate();
   const [notificationTypeFilter, setNotificationTypeFilter] = useState("");
@@ -17,12 +24,45 @@ const NotificationPage = () => {
   const [showDialog, setShowDialog] = useState(false);
   const [deleteId, setDeleteId] = useState(0);
 
-  const fetchNotifications = async (filter) => {
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  const [totalItems, setTotalItems] = useState(0);
+  const pageSize = 3; // 3 items per page as requested
+
+  const fetchNotifications = async (filter = {}) => {
     try {
       setLoading(true);
-      const response = await notificationService.getAll(filter);
+      // Add pagination parameters to filter
+      const paginatedFilter = {
+        ...filter,
+        pageNumber: currentPage,
+        pageSize: pageSize,
+      };
+      const response = await notificationService.getAll(paginatedFilter);
       console.log("API response:", response);
-      setNotifications(response.data.items || []);
+
+      // Store current items
+      const currentItems = response.data.items || [];
+      setNotifications(currentItems);
+
+      // Simplified pagination logic
+      let total = 0;
+      if (response.data.count !== undefined) {
+        // If backend provides total items
+        total = response.data.count;
+      }
+
+      setTotalItems(total);
+      // Calculate total pages and ensure we don't navigate to empty pages
+      const calculatedTotalPages = Math.ceil(total / pageSize);
+      setTotalPages(calculatedTotalPages);
+
+      // If current page is beyond valid pages, go back to last valid page
+      if (currentPage >= calculatedTotalPages && calculatedTotalPages > 0) {
+        setCurrentPage(calculatedTotalPages - 1);
+      }
+
       setError(null);
     } catch (err) {
       console.error("Error fetching notifications:", err);
@@ -31,9 +71,11 @@ const NotificationPage = () => {
       setLoading(false);
     }
   };
+
   useEffect(() => {
     fetchNotifications();
-  }, []);
+  }, [currentPage]); // Re-fetch when page changes
+
   const handleAddNotification = () => {
     navigate("/notification/add");
   };
@@ -47,6 +89,8 @@ const NotificationPage = () => {
     }
   };
   const handleFilter = () => {
+    // Reset to first page when filtering
+    setCurrentPage(0);
     var filter =
       notificationTypeFilter !== ""
         ? {
@@ -66,6 +110,13 @@ const NotificationPage = () => {
   const handleDeleteNotification = (id) => {
     setDeleteId(id);
     setShowDialog(true);
+  };
+
+  const handlePageChange = (newPage) => {
+    // Simple validation to prevent going to invalid pages
+    if (newPage >= 0 && newPage < totalPages) {
+      setCurrentPage(newPage);
+    }
   };
 
   return (
@@ -233,6 +284,52 @@ const NotificationPage = () => {
                 ))}
               </tbody>
             </table>
+
+            {/* Pagination controls */}
+            {notifications.length > 0 && (
+              <div className="pagination-container">
+                <div className="pagination-info">
+                  Page {currentPage + 1} of {totalPages} ({totalItems} total
+                  items)
+                </div>
+                <div className="pagination-controls">
+                  {/* Previous page button - disabled on first page */}
+                  <button
+                    className="pagination-button pagination-arrow"
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 0}
+                    title="Previous page"
+                  >
+                    <FaChevronLeft size={16} />
+                  </button>
+
+                  {/* Page buttons - limited to realistic values */}
+                  {Array.from({ length: totalPages }, (_, i) => i).map(
+                    (page) => (
+                      <button
+                        key={page}
+                        className={`pagination-button ${
+                          currentPage === page ? "active" : ""
+                        }`}
+                        onClick={() => handlePageChange(page)}
+                      >
+                        {page + 1}
+                      </button>
+                    )
+                  )}
+
+                  {/* Next page button - disabled on last page */}
+                  <button
+                    className="pagination-button pagination-arrow"
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage >= totalPages - 1}
+                    title="Next page"
+                  >
+                    <FaChevronRight size={16} />
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         )}
 

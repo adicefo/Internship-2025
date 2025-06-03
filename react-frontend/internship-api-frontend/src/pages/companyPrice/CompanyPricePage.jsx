@@ -1,7 +1,14 @@
 import MasterPage from "../../components/layout/MasterPage";
 import { useState, useEffect } from "react";
 import { companyPriceService } from "../../api";
-import { FaSearch, FaEdit, FaTrash, FaCheckCircle,FaSave,FaArrowLeft } from "react-icons/fa";
+import {
+  FaSearch,
+  FaEdit,
+  FaTrash,
+  FaCheckCircle,
+  FaSave,
+  FaArrowLeft,
+} from "react-icons/fa";
 import { toast } from "react-hot-toast";
 import ConfirmDialog from "../../utils/ConfirmDialog";
 import "./CompanyPricePage.css";
@@ -15,7 +22,7 @@ const CompanyPricePage = () => {
   const [error, setError] = useState(null);
   const [currentPrice, setCurrentPrice] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  const[showAddModal,setShowAddModal]=useState(false);
+  const [showAddModal, setShowAddModal] = useState(false);
   const [newPrice, setNewPrice] = useState("");
   const [priceError, setPriceError] = useState("");
 
@@ -97,22 +104,22 @@ const CompanyPricePage = () => {
     setPriceError("");
     return true;
   };
-  const confirmAddPrice=async()=>{
+  const confirmAddPrice = async () => {
     if (validatePrice(newPrice)) {
-        try {
-          await companyPriceService.create({
-            pricePerKilometer: parseFloat(newPrice),
-          });
-          toast.success("New price added successfully");
-          setShowModal(false);
-          fetchPrices();
-          fetchCurrentPrice();
-        } catch (err) {
-          console.error("Error adding new price:", err);
-          toast.error("Failed to add new price. Please try again.");
-        }
+      try {
+        await companyPriceService.create({
+          pricePerKilometer: parseFloat(newPrice),
+        });
+        toast.success("New price added successfully");
+        setShowModal(false);
+        fetchPrices();
+        fetchCurrentPrice();
+      } catch (err) {
+        console.error("Error adding new price:", err);
+        toast.error("Failed to add new price. Please try again.");
       }
-  }
+    }
+  };
   const handleSavePrice = async () => {
     setShowAddModal(true);
   };
@@ -258,17 +265,14 @@ const CompanyPricePage = () => {
                   <FaSave className="save-icon" />
                   Save
                 </button>
-                {
-                    showAddModal&&(
-                        <ConfirmDialog
-            title="Add Price Confirmation"
-            message="Are you sure you want to add new price?"
-            onConfirm={confirmAddPrice}
-            onCancel={() => setShowDialog(false)}
-          />
-                    )
-                }
-
+                {showAddModal && (
+                  <ConfirmDialog
+                    title="Add Price Confirmation"
+                    message="Are you sure you want to add new price?"
+                    onConfirm={confirmAddPrice}
+                    onCancel={() => setShowDialog(false)}
+                  />
+                )}
               </div>
             </div>
           </div>

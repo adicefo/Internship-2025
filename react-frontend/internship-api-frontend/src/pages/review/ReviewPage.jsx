@@ -1,7 +1,15 @@
 import MasterPage from "../../components/layout/MasterPage";
 import { useState, useEffect } from "react";
 import { reviewService } from "../../api";
-import { FaSearch, FaEdit, FaTrash, FaStar, FaRegStar } from "react-icons/fa";
+import {
+  FaSearch,
+  FaEdit,
+  FaTrash,
+  FaStar,
+  FaRegStar,
+  FaChevronLeft,
+  FaChevronRight,
+} from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import ConfirmDialog from "../../utils/ConfirmDialog";
@@ -35,12 +43,24 @@ const ReviewPage = () => {
   const [showDialog, setShowDialog] = useState(false);
   const [deleteId, setDeleteId] = useState(0);
 
-  const fetchReviews = async (filter) => {
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(0);
+  const pageSize = 3;
+  const [totalPages, setTotalPages] = useState(0);
+  const [totalItems, setTotalItems] = useState(0);
+
+  const fetchReviews = async (filter = {}) => {
     try {
       setLoading(true);
       const response = await reviewService.getAll(filter);
-      console.log("API response:", response);
-      setReviews(response.data.items || []);
+      const items = response.data.items || [];
+      setReviews(items);
+      setTotalItems(items.length);
+      const calculatedTotalPages = Math.ceil(items.length / pageSize);
+      setTotalPages(calculatedTotalPages);
+      if (currentPage >= calculatedTotalPages && calculatedTotalPages > 0) {
+        setCurrentPage(calculatedTotalPages - 1);
+      }
       setError(null);
     } catch (err) {
       console.error("Error fetching reviews:", err);
@@ -49,9 +69,12 @@ const ReviewPage = () => {
       setLoading(false);
     }
   };
+
   useEffect(() => {
-    fetchReviews();
-  }, []);
+    fetchReviews({ reviewedName: driverNameFilter });
+    // eslint-disable-next-line
+  }, [currentPage]);
+
   const handleEditReview = (review) => {
     navigate("/review/edit", { state: { review: review } });
   };
@@ -59,6 +82,7 @@ const ReviewPage = () => {
     try {
       await reviewService.delete(deleteId);
       toast.success("Review deleted successfully");
+      fetchReviews({ reviewedName: driverNameFilter });
     } catch (err) {
       console.error("Error deleting review:", err);
       toast.error("Failed to delete review. Please try again.");
@@ -73,11 +97,22 @@ const ReviewPage = () => {
     navigate("/review/add");
   };
   const handleFilter = () => {
-    var filter = {
-      reviewedName: driverNameFilter,
-    };
-    fetchReviews(filter);
+    setCurrentPage(0);
+    fetchReviews({ reviewedName: driverNameFilter });
   };
+
+  const handlePageChange = (newPage) => {
+    if (newPage >= 0 && newPage < totalPages) {
+      setCurrentPage(newPage);
+    }
+  };
+
+  // Paginated reviews for current page
+  const paginatedReviews = reviews.slice(
+    currentPage * pageSize,
+    currentPage * pageSize + pageSize
+  );
+
   return (
     <MasterPage currentRoute="Review">
       <div className="review-section">
@@ -124,7 +159,7 @@ const ReviewPage = () => {
                 </tr>
               </thead>
               <tbody>
-                {reviews.map((review) => (
+                {paginatedReviews.map((review) => (
                   <tr key={review.id}>
                     <td>
                       {review.driver?.user?.name} {review.driver?.user?.surname}
@@ -160,6 +195,52 @@ const ReviewPage = () => {
                 ))}
               </tbody>
             </table>
+
+            {/* Pagination controls */}
+            {totalItems > 0 && (
+              <div className="pagination-container">
+                <div className="pagination-info">
+                  Page {currentPage + 1} of {totalPages} ({totalItems} total
+                  items)
+                </div>
+                <div className="pagination-controls">
+                  {/* Previous page button - disabled on first page */}
+                  <button
+                    className="pagination-button pagination-arrow"
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 0}
+                    title="Previous page"
+                  >
+                    <FaChevronLeft size={16} />
+                  </button>
+
+                  {/* Page buttons - limited to realistic values */}
+                  {Array.from({ length: totalPages }, (_, i) => i).map(
+                    (page) => (
+                      <button
+                        key={page}
+                        className={`pagination-button ${
+                          currentPage === page ? "active" : ""
+                        }`}
+                        onClick={() => handlePageChange(page)}
+                      >
+                        {page + 1}
+                      </button>
+                    )
+                  )}
+
+                  {/* Next page button - disabled on last page */}
+                  <button
+                    className="pagination-button pagination-arrow"
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage >= totalPages - 1}
+                    title="Next page"
+                  >
+                    <FaChevronRight size={16} />
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         )}
 

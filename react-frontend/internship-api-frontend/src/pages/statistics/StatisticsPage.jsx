@@ -1,7 +1,15 @@
 import MasterPage from "../../components/layout/MasterPage";
 import { useState, useEffect } from "react";
 import { statisticsService, driverService } from "../../api";
-import { FaSearch, FaEdit, FaTrash,FaSave,FaArrowLeft } from "react-icons/fa";
+import {
+  FaSearch,
+  FaEdit,
+  FaTrash,
+  FaSave,
+  FaArrowLeft,
+  FaChevronLeft,
+  FaChevronRight,
+} from "react-icons/fa";
 import { toast } from "react-hot-toast";
 import ConfirmDialog from "../../utils/ConfirmDialog";
 import "./StatisticsPage.css";
@@ -18,11 +26,24 @@ const StatisticsPage = () => {
   const [selectedDriver, setSelectedDriver] = useState("");
   const [driverError, setDriverError] = useState("");
 
-  const fetchStatistics = async (filter) => {
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(0);
+  const pageSize = 3;
+  const [totalPages, setTotalPages] = useState(0);
+  const [totalItems, setTotalItems] = useState(0);
+
+  const fetchStatistics = async (filter = {}) => {
     try {
       setLoading(true);
       const response = await statisticsService.getAll(filter);
-      setStatistics(response.data.items);
+      const items = response.data.items || [];
+      setStatistics(items);
+      setTotalItems(items.length);
+      const calculatedTotalPages = Math.ceil(items.length / pageSize);
+      setTotalPages(calculatedTotalPages);
+      if (currentPage >= calculatedTotalPages && calculatedTotalPages > 0) {
+        setCurrentPage(calculatedTotalPages - 1);
+      }
       setError(null);
     } catch (err) {
       console.error("Error fetching statistics:", err);
@@ -43,9 +64,10 @@ const StatisticsPage = () => {
   };
 
   useEffect(() => {
-    fetchStatistics();
+    fetchStatistics({ driverName: driverNameFilter });
     fetchDrivers();
-  }, []);
+    // eslint-disable-next-line
+  }, [currentPage]);
 
   const handleEditStatistics = () => {
     toast.error(
@@ -106,11 +128,21 @@ const StatisticsPage = () => {
   };
 
   const handleFilter = () => {
-    var filter = {
-      driverName: driverNameFilter,
-    };
-    fetchStatistics(filter);
+    setCurrentPage(0);
+    fetchStatistics({ driverName: driverNameFilter });
   };
+
+  const handlePageChange = (newPage) => {
+    if (newPage >= 0 && newPage < totalPages) {
+      setCurrentPage(newPage);
+    }
+  };
+
+  // Paginated statistics for current page
+  const paginatedStatistics = statistics.slice(
+    currentPage * pageSize,
+    currentPage * pageSize + pageSize
+  );
 
   return (
     <MasterPage currentRoute="Statistics">
@@ -160,7 +192,7 @@ const StatisticsPage = () => {
                 </tr>
               </thead>
               <tbody>
-                {statistics.map((obj) => (
+                {paginatedStatistics.map((obj) => (
                   <tr key={obj.id}>
                     <td>{obj.driver?.user?.name}</td>
                     <td>{obj.driver?.user?.surname}</td>
@@ -191,6 +223,52 @@ const StatisticsPage = () => {
                 ))}
               </tbody>
             </table>
+
+            {/* Pagination controls */}
+            {totalItems > 0 && (
+              <div className="pagination-container">
+                <div className="pagination-info">
+                  Page {currentPage + 1} of {totalPages} ({totalItems} total
+                  items)
+                </div>
+                <div className="pagination-controls">
+                  {/* Previous page button - disabled on first page */}
+                  <button
+                    className="pagination-button pagination-arrow"
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 0}
+                    title="Previous page"
+                  >
+                    <FaChevronLeft size={16} />
+                  </button>
+
+                  {/* Page buttons - limited to realistic values */}
+                  {Array.from({ length: totalPages }, (_, i) => i).map(
+                    (page) => (
+                      <button
+                        key={page}
+                        className={`pagination-button ${
+                          currentPage === page ? "active" : ""
+                        }`}
+                        onClick={() => handlePageChange(page)}
+                      >
+                        {page + 1}
+                      </button>
+                    )
+                  )}
+
+                  {/* Next page button - disabled on last page */}
+                  <button
+                    className="pagination-button pagination-arrow"
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage >= totalPages - 1}
+                    title="Next page"
+                  >
+                    <FaChevronRight size={16} />
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         )}
 

@@ -1,11 +1,17 @@
 import MasterPage from "../../components/layout/MasterPage";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaTrash, FaEye, FaSearch ,FaEdit} from "react-icons/fa";
+import {
+  FaTrash,
+  FaEye,
+  FaSearch,
+  FaEdit,
+  FaChevronLeft,
+  FaChevronRight,
+} from "react-icons/fa";
 import { clientService } from "../../api";
 import toast from "react-hot-toast";
 import ConfirmDialog from "../../utils/ConfirmDialog";
-
 
 const ClientPage = () => {
   const [clients, setClients] = useState([]);
@@ -18,12 +24,45 @@ const ClientPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  const [totalItems, setTotalItems] = useState(0);
+  const pageSize = 3; // 3 items per page as requested
+
   const fetchClients = async (filter = {}) => {
     try {
       setLoading(true);
-      const response = await clientService.getAll(filter);
+      // Add pagination parameters to filter
+      const paginatedFilter = {
+        ...filter,
+        pageNumber: currentPage,
+        pageSize: pageSize,
+      };
+      const response = await clientService.getAll(paginatedFilter);
       console.log("API response:", response);
-      setClients(response.data.items || []);
+
+      // Store current items
+      const currentItems = response.data.items || [];
+      setClients(currentItems);
+
+      // Simplified pagination logic
+      let total = 0;
+      if (response.data.count !== undefined) {
+        // If backend provides total items
+        total = response.data.count;
+      }
+
+      setTotalItems(total);
+      // Calculate total pages and ensure we don't navigate to empty pages
+      const calculatedTotalPages = Math.ceil(total / pageSize);
+      setTotalPages(calculatedTotalPages);
+
+      // If current page is beyond valid pages, go back to last valid page
+      if (currentPage >= calculatedTotalPages && calculatedTotalPages > 0) {
+        setCurrentPage(calculatedTotalPages - 1);
+      }
+
       setError(null);
     } catch (err) {
       console.error("Error fetching clients:", err);
@@ -35,37 +74,45 @@ const ClientPage = () => {
 
   useEffect(() => {
     fetchClients();
-  }, []);
+  }, [currentPage]); // Re-fetch when page changes
 
-  const handleEditClient=(client)=>{
+  const handleEditClient = (client) => {
+    navigate("/client/edit", { state: { client } });
+  };
 
-    navigate('/client/edit', {state:{client}})};
-  
   const handleAddClient = () => {
     navigate("/client/add");
   };
- const confirmDelete=async()=>{
+  const confirmDelete = async () => {
     setShowDialog(false);
-    try{
-        await clientService.delete(deleteId);
-        toast.success('Client deleted successfully');
-        fetchClients();
+    try {
+      await clientService.delete(deleteId);
+      toast.success("Client deleted successfully");
+      fetchClients();
+    } catch {
+      toast.error("Error deleting client");
     }
-    catch{
-      toast.error('Error deleting client');
-    }
- }
+  };
   const handleDeleteClient = (id) => {
     setShowDialog(true);
     setDeleteId(id);
   };
 
   const handleFilter = () => {
+    // Reset to first page when filtering
+    setCurrentPage(0);
     var filter = {
       name: nameFilter,
       surname: surnameFilter,
     };
     fetchClients(filter);
+  };
+
+  const handlePageChange = (newPage) => {
+    // Simple validation to prevent going to invalid pages
+    if (newPage >= 0 && newPage < totalPages) {
+      setCurrentPage(newPage);
+    }
   };
 
   return (
@@ -117,12 +164,12 @@ const ClientPage = () => {
             <table className="clients-table table table-hover">
               <thead>
                 <tr>
-                  <th style={{ width: '80px' }}>Name</th>
-                  <th style={{ width: '80px' }}>Surname</th>
-                  <th style={{ width: '100px' }}>Username</th>
-                  <th style={{ width: '150px' }}>Email</th>
-                  <th style={{ width: '120px' }}>Phone</th>
-                  <th style={{ width: '100px' }}>Actions</th>
+                  <th style={{ width: "80px" }}>Name</th>
+                  <th style={{ width: "80px" }}>Surname</th>
+                  <th style={{ width: "100px" }}>Username</th>
+                  <th style={{ width: "150px" }}>Email</th>
+                  <th style={{ width: "120px" }}>Phone</th>
+                  <th style={{ width: "100px" }}>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -134,33 +181,79 @@ const ClientPage = () => {
                     <td>{client.user.email}</td>
                     <td>{client.user.telephoneNumber}</td>
                     <td className="action-buttons">
-                      <button 
-                        className="edit-button" 
+                      <button
+                        className="edit-button"
                         onClick={() => handleEditClient(client)}
                         title="Edit driver"
                       >
                         <FaEdit />
                       </button>
-                      <button 
-                        className="delete-button" 
+                      <button
+                        className="delete-button"
                         onClick={() => handleDeleteClient(client.id)}
                         title="Delete driver"
                       >
                         <FaTrash />
                       </button>
                       {showDialog && (
-        <ConfirmDialog
-          title="Delete Confirmation"
-          message="Are you sure you want to delete this item?"
-          onConfirm={()=>confirmDelete()}
-          onCancel={() => setShowDialog(false)}
-        />
-      )}
+                        <ConfirmDialog
+                          title="Delete Confirmation"
+                          message="Are you sure you want to delete this item?"
+                          onConfirm={() => confirmDelete()}
+                          onCancel={() => setShowDialog(false)}
+                        />
+                      )}
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
+
+            {/* Pagination controls */}
+            {clients.length > 0 && (
+              <div className="pagination-container">
+                <div className="pagination-info">
+                  Page {currentPage + 1} of {totalPages} ({totalItems} total
+                  items)
+                </div>
+                <div className="pagination-controls">
+                  {/* Previous page button - disabled on first page */}
+                  <button
+                    className="pagination-button pagination-arrow"
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 0}
+                    title="Previous page"
+                  >
+                    <FaChevronLeft size={16} />
+                  </button>
+
+                  {/* Page buttons - limited to realistic values */}
+                  {Array.from({ length: totalPages }, (_, i) => i).map(
+                    (page) => (
+                      <button
+                        key={page}
+                        className={`pagination-button ${
+                          currentPage === page ? "active" : ""
+                        }`}
+                        onClick={() => handlePageChange(page)}
+                      >
+                        {page + 1}
+                      </button>
+                    )
+                  )}
+
+                  {/* Next page button - disabled on last page */}
+                  <button
+                    className="pagination-button pagination-arrow"
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage >= totalPages - 1}
+                    title="Next page"
+                  >
+                    <FaChevronRight size={16} />
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         )}
       </div>

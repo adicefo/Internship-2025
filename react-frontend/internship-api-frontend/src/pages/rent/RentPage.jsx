@@ -1,16 +1,18 @@
 import { useNavigate } from "react-router-dom";
 import MasterPage from "../../components/layout/MasterPage";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   FaSearch,
   FaSearchPlus,
   FaEdit,
   FaTrash,
   FaPlay,
+  FaChevronLeft,
+  FaChevronRight,
 } from "react-icons/fa";
 import "./RentPage.css";
 import { rentService } from "../../api";
-import {toast} from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import ConfirmDialog from "../../utils/ConfirmDialog";
 const RentPage = () => {
   const navigate = useNavigate();
@@ -21,13 +23,24 @@ const RentPage = () => {
   const [deleteId, setDeleteId] = useState(0);
   const [statusFilter, setStatusFilter] = useState("");
 
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(0);
+  const pageSize = 3;
+  const [totalPages, setTotalPages] = useState(0);
+  const [totalItems, setTotalItems] = useState(0);
 
-  const fetchRents= async (filter)=>{
+  const fetchRents = async (filter = {}) => {
     try {
       setLoading(true);
       const response = await rentService.getAll(filter);
-      console.log("API response:", response);
-      setRents(response.data.items || []);
+      const items = response.data.items || [];
+      setRents(items);
+      setTotalItems(items.length);
+      const calculatedTotalPages = Math.ceil(items.length / pageSize);
+      setTotalPages(calculatedTotalPages);
+      if (currentPage >= calculatedTotalPages && calculatedTotalPages > 0) {
+        setCurrentPage(calculatedTotalPages - 1);
+      }
       setError(null);
     } catch (err) {
       console.error("Error fetching rents:", err);
@@ -35,21 +48,21 @@ const RentPage = () => {
     } finally {
       setLoading(false);
     }
-  }
+  };
 
-  useEffect(()=>{
-    fetchRents();
-  },[]);
+  useEffect(() => {
+    fetchRents({ status: statusFilter });
+    // eslint-disable-next-line
+  }, [currentPage]);
 
   const handleAddRent = () => {
     navigate("/rent/add");
   };
-  
-  
+
   const handleFilter = () => {
-    console.log("Filtering with status:", statusFilter);
-    var filter={status:statusFilter};
-    fetchRents(filter);}
+    setCurrentPage(0);
+    fetchRents({ status: statusFilter });
+  };
 
   const handleStatusFilter = (e) => {
     setStatusFilter(e.target.value);
@@ -67,7 +80,9 @@ const RentPage = () => {
     if (rent.status !== "finished") {
       navigate(`/rent/edit`, { state: { rent } });
     } else {
-      toast.error("Unable operation. You cannot edit when your status is finished!");
+      toast.error(
+        "Unable operation. You cannot edit when your status is finished!"
+      );
     }
   };
 
@@ -84,11 +99,24 @@ const RentPage = () => {
     try {
       await rentService.delete(deleteId);
       toast.success("Rent deleted successfully");
+      fetchRents({ status: statusFilter });
     } catch (err) {
       console.error("Error deleting rent:", err);
       toast.error("Failed to delete rent. Please try again.");
     }
   };
+
+  const handlePageChange = (newPage) => {
+    if (newPage >= 0 && newPage < totalPages) {
+      setCurrentPage(newPage);
+    }
+  };
+
+  // Paginated rents for current page
+  const paginatedRents = rents.slice(
+    currentPage * pageSize,
+    currentPage * pageSize + pageSize
+  );
 
   return (
     <MasterPage currentRoute="Rent">
@@ -105,31 +133,28 @@ const RentPage = () => {
             <div className="filter-group">
               <div className="form-group">
                 <label htmlFor="statusFilter">Status</label>
-                
-                  
-                  
-                  <select
-                    id="statusFilter"
-                    name="stautsFilter"
-                    style={{ fontWeight: "bold" }}
-                    value={statusFilter}
-                    onChange={handleStatusFilter}
-                  >
-                    <option value="" style={{ fontWeight: "bold" }}>
-                      All statuses
-                    </option>
-                    <option value="wait" style={{ fontWeight: "bold" }}>
-                      Wait
-                    </option>
-                    <option value="active" style={{ fontWeight: "bold" }}>
-                      Active
-                    </option>
-                    <option value="finished" style={{ fontWeight: "bold" }}>
-                      Finished
-                    </option>
-                  </select>
-                </div>
-              
+
+                <select
+                  id="statusFilter"
+                  name="stautsFilter"
+                  style={{ fontWeight: "bold" }}
+                  value={statusFilter}
+                  onChange={handleStatusFilter}
+                >
+                  <option value="" style={{ fontWeight: "bold" }}>
+                    All statuses
+                  </option>
+                  <option value="wait" style={{ fontWeight: "bold" }}>
+                    Wait
+                  </option>
+                  <option value="active" style={{ fontWeight: "bold" }}>
+                    Active
+                  </option>
+                  <option value="finished" style={{ fontWeight: "bold" }}>
+                    Finished
+                  </option>
+                </select>
+              </div>
             </div>
 
             <button className="filter-button" onClick={handleFilter}>
@@ -157,7 +182,7 @@ const RentPage = () => {
                 </tr>
               </thead>
               <tbody>
-                {rents.map((rent) => (
+                {paginatedRents.map((rent) => (
                   <tr key={rent.id}>
                     <td>{rent.rentDate?.toString().substring(0, 10)}</td>
                     <td>{rent.endDate?.toString().substring(0, 10)}</td>
@@ -236,17 +261,63 @@ const RentPage = () => {
                 ))}
               </tbody>
             </table>
+
+            {/* Pagination controls */}
+            {totalItems > 0 && (
+              <div className="pagination-container">
+                <div className="pagination-info">
+                  Page {currentPage + 1} of {totalPages} ({totalItems} total
+                  items)
+                </div>
+                <div className="pagination-controls">
+                  {/* Previous page button - disabled on first page */}
+                  <button
+                    className="pagination-button pagination-arrow"
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 0}
+                    title="Previous page"
+                  >
+                    <FaChevronLeft size={16} />
+                  </button>
+
+                  {/* Page buttons - limited to realistic values */}
+                  {Array.from({ length: totalPages }, (_, i) => i).map(
+                    (page) => (
+                      <button
+                        key={page}
+                        className={`pagination-button ${
+                          currentPage === page ? "active" : ""
+                        }`}
+                        onClick={() => handlePageChange(page)}
+                      >
+                        {page + 1}
+                      </button>
+                    )
+                  )}
+
+                  {/* Next page button - disabled on last page */}
+                  <button
+                    className="pagination-button pagination-arrow"
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage >= totalPages - 1}
+                    title="Next page"
+                  >
+                    <FaChevronRight size={16} />
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         )}
 
-{showDialog && (
-                        <ConfirmDialog
-                          title="Delete Confirmation"
-                          message="Are you sure you want to delete this item?"
-                          onConfirm={() => confirmDelete()}
-                          onCancel={() => setShowDialog(false)}
-                        />
-                      )}
+        {showDialog && (
+          <ConfirmDialog
+            title="Delete Confirmation"
+            message="Are you sure you want to delete this item?"
+            onConfirm={() => confirmDelete()}
+            onCancel={() => setShowDialog(false)}
+          />
+        )}
       </div>
     </MasterPage>
   );

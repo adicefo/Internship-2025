@@ -4,7 +4,15 @@ import ConfirmDialog from "../../utils/ConfirmDialog";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { FaTrash, FaEye, FaSearch, FaEdit, FaSearchPlus } from "react-icons/fa";
+import {
+  FaTrash,
+  FaEye,
+  FaSearch,
+  FaEdit,
+  FaSearchPlus,
+  FaChevronLeft,
+  FaChevronRight,
+} from "react-icons/fa";
 import { routeService } from "../../api";
 import "./RoutePage.css";
 
@@ -17,12 +25,45 @@ const RoutePage = () => {
   const [deleteId, setDeleteId] = useState(0);
   const [statusFilter, setStatusFilter] = useState("");
 
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  const [totalItems, setTotalItems] = useState(0);
+  const pageSize = 3; // 3 items per page as requested
+
   const fetchRoutes = async (filter = {}) => {
     try {
       setLoading(true);
-      const response = await routeService.getAll(filter);
+      // Add pagination parameters to filter
+      const paginatedFilter = {
+        ...filter,
+        pageNumber: currentPage,
+        pageSize: pageSize,
+      };
+      const response = await routeService.getAll(paginatedFilter);
       console.log("API response:", response);
-      setRoutes(response.data.items || []);
+
+      // Store current items
+      const currentItems = response.data.items || [];
+      setRoutes(currentItems);
+
+      // Simplified pagination logic
+      let total = 0;
+      if (response.data.count !== undefined) {
+        // If backend provides total items
+        total = response.data.count;
+      }
+
+      setTotalItems(total);
+      // Calculate total pages and ensure we don't navigate to empty pages
+      const calculatedTotalPages = Math.ceil(total / pageSize);
+      setTotalPages(calculatedTotalPages);
+
+      // If current page is beyond valid pages, go back to last valid page
+      if (currentPage >= calculatedTotalPages && calculatedTotalPages > 0) {
+        setCurrentPage(calculatedTotalPages - 1);
+      }
+
       setError(null);
     } catch (err) {
       console.error("Error fetching routes:", err);
@@ -31,9 +72,11 @@ const RoutePage = () => {
       setLoading(false);
     }
   };
+
   useEffect(() => {
     fetchRoutes();
-  }, []);
+  }, [currentPage]); // Re-fetch when page changes
+
   const handleAddRoute = () => {
     navigate("/route/add");
   };
@@ -57,11 +100,21 @@ const RoutePage = () => {
     setStatusFilter(e.target.value);
   };
   const handleFilter = () => {
+    // Reset to first page when filtering
+    setCurrentPage(0);
     var filter = {
       status: statusFilter,
     };
     fetchRoutes(filter);
   };
+
+  const handlePageChange = (newPage) => {
+    // Simple validation to prevent going to invalid pages
+    if (newPage >= 0 && newPage < totalPages) {
+      setCurrentPage(newPage);
+    }
+  };
+
   return (
     <MasterPage currentRoute="Route">
       <div className="routes-section">
@@ -77,28 +130,27 @@ const RoutePage = () => {
             <div className="filter-group">
               <div className="form-group">
                 <label htmlFor="availableFilter">Availability</label>
-               
-                  <select
-                    id="statusFilter"
-                    name="stautsFilter"
-                    style={{ fontWeight: "bold" }}
-                    value={statusFilter}
-                    onChange={handleStatusFilter}
-                  >
-                    <option value="" style={{ fontWeight: "bold" }}>
-                      All statuses
-                    </option>
-                    <option value="wait" style={{ fontWeight: "bold" }}>
-                      Wait
-                    </option>
-                    <option value="active" style={{ fontWeight: "bold" }}>
-                      Active
-                    </option>
-                    <option value="finished" style={{ fontWeight: "bold" }}>
-                      Finished
-                    </option>
-                  </select>
-                
+
+                <select
+                  id="statusFilter"
+                  name="stautsFilter"
+                  style={{ fontWeight: "bold" }}
+                  value={statusFilter}
+                  onChange={handleStatusFilter}
+                >
+                  <option value="" style={{ fontWeight: "bold" }}>
+                    All statuses
+                  </option>
+                  <option value="wait" style={{ fontWeight: "bold" }}>
+                    Wait
+                  </option>
+                  <option value="active" style={{ fontWeight: "bold" }}>
+                    Active
+                  </option>
+                  <option value="finished" style={{ fontWeight: "bold" }}>
+                    Finished
+                  </option>
+                </select>
               </div>
             </div>
 
@@ -193,6 +245,52 @@ const RoutePage = () => {
                 ))}
               </tbody>
             </table>
+
+            {/* Pagination controls */}
+            {routes.length > 0 && (
+              <div className="pagination-container">
+                <div className="pagination-info">
+                  Page {currentPage + 1} of {totalPages} ({totalItems} total
+                  items)
+                </div>
+                <div className="pagination-controls">
+                  {/* Previous page button - disabled on first page */}
+                  <button
+                    className="pagination-button pagination-arrow"
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 0}
+                    title="Previous page"
+                  >
+                    <FaChevronLeft size={16} />
+                  </button>
+
+                  {/* Page buttons - limited to realistic values */}
+                  {Array.from({ length: totalPages }, (_, i) => i).map(
+                    (page) => (
+                      <button
+                        key={page}
+                        className={`pagination-button ${
+                          currentPage === page ? "active" : ""
+                        }`}
+                        onClick={() => handlePageChange(page)}
+                      >
+                        {page + 1}
+                      </button>
+                    )
+                  )}
+
+                  {/* Next page button - disabled on last page */}
+                  <button
+                    className="pagination-button pagination-arrow"
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage >= totalPages - 1}
+                    title="Next page"
+                  >
+                    <FaChevronRight size={16} />
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         )}
       </div>
