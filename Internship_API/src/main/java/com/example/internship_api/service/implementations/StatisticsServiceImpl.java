@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -91,11 +92,16 @@ public class StatisticsServiceImpl extends BaseCRUDServiceImpl<StatisticsDTO, St
                 .filter(item->search.getDriverName()==null||item.getDriver().getUser().getName().startsWith(search.getDriverName()))
                 .filter(item->search.getBeginningOfWork()==null||item.getBeginningOfWork().equals(search.getBeginningOfWork()))
                 .collect(Collectors.toList());
-       if(search.getPageNumber()!=null&&search.getPageSize()!=null)
-        {
-        Pageable pageable=PageRequest.of(search.getPageNumber(),search.getPageSize());
-        filteredQuery=repository.findAll(pageable).toList();
+       if (search.getPageNumber() != null && search.getPageSize() != null) {
+        int start = search.getPageNumber() * search.getPageSize();
+        int end = Math.min(start + search.getPageSize(), filteredQuery.size());
+
+        if (start < end) {
+            filteredQuery = filteredQuery.subList(start, end);
+        } else {
+            filteredQuery = new ArrayList<>();
         }
+    }
         query.clear();
         query.addAll(filteredQuery);
     }

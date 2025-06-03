@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 @Service
@@ -61,6 +62,16 @@ public class RequestServiceImpl extends BaseCRUDServiceImpl<RequestDTO, RequestS
             filteredQuery=query.stream()
                     .filter(item -> item.getDriver().getId()==search.getDriverId()&&item.getAccepted()==null)
                     .collect(Collectors.toList());
+        if (search.getPageNumber() != null && search.getPageSize() != null) {
+        int start = search.getPageNumber() * search.getPageSize();
+        int end = Math.min(start + search.getPageSize(), filteredQuery.size());
+
+        if (start < end) {
+            filteredQuery = filteredQuery.subList(start, end);
+        } else {
+            filteredQuery = new ArrayList<>();
+        }
+    }
 
 
         query.clear();

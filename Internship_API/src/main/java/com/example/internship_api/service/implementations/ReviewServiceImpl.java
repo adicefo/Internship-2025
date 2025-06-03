@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -106,6 +107,16 @@ public class ReviewServiceImpl extends BaseCRUDServiceImpl<ReviewDTO, ReviewSear
                 .filter(item->search.getReviewedName()==null||item.getDriver().getUser().getName().equals(search.getReviewedName()))
                 .filter(item->search.getReviewsName()==null||item.getClient().getUser().getName().equals(search.getReviewsName()))
                 .collect(Collectors.toList());
+                if (search.getPageNumber() != null && search.getPageSize() != null) {
+        int start = search.getPageNumber() * search.getPageSize();
+        int end = Math.min(start + search.getPageSize(), filteredQuery.size());
+
+        if (start < end) {
+            filteredQuery = filteredQuery.subList(start, end);
+        } else {
+            filteredQuery = new ArrayList<>();
+        }
+    }
 
         query.clear();
         query.addAll(filteredQuery);

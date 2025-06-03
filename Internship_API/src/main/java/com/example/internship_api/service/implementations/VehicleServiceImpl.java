@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,11 +41,16 @@ public class VehicleServiceImpl extends BaseCRUDServiceImpl<VehicleDTO, VehicleS
                 .filter(item-> search.getAvailable() == null || item.getAvailable()==search.getAvailable())
                 .filter(item -> search.getName() == null || item.getName().equals(search.getName()))
                 .collect(Collectors.toList());
-        if(search.getPageNumber()!=null&&search.getPageSize()!=null)
-        {
-        Pageable pageable=PageRequest.of(search.getPageNumber(),search.getPageSize());
-        filteredQuery=repository.findAll(pageable).toList();
+      if (search.getPageNumber() != null && search.getPageSize() != null) {
+        int start = search.getPageNumber() * search.getPageSize();
+        int end = Math.min(start + search.getPageSize(), filteredQuery.size());
+
+        if (start < end) {
+            filteredQuery = filteredQuery.subList(start, end);
+        } else {
+            filteredQuery = new ArrayList<>();
         }
+    }
             
 
         query.clear();
