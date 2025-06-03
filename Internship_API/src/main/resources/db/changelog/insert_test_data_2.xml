@@ -1,0 +1,837 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <changeSet id="insert-test-data-2" author="adi">
+
+        <!-- Insert users -->
+      
+        <insert tableName="users">
+            <column name="id" valueNumeric="100"/>
+            <column name="name" value="Client100"/>
+            <column name="surname" value="Client100"/>
+            <column name="username" value="client100"/>
+            <column name="email" value="client100@edu.fit.ba"/>
+            <column name="password_hash" value="UbzzxOGag4pPmBhguTkyKnpEZw4="/>
+            <column name="password_salt" value="qYk4OxryQgplthbzFlS0yQ=="/>
+            <column name="telephone_number" value="061-111-222"/>
+            <column name="gender" value="Male"/>
+            <column name="active" valueBoolean="true"/>
+        </insert>
+        <insert tableName="users">
+            <column name="id" valueNumeric="101"/>
+            <column name="name" value="Client101"/>
+            <column name="surname" value="Client101"/>
+            <column name="username" value="Client101"/>
+            <column name="email" value="client101@edu.fit.ba"/>
+            <column name="password_hash" value="UbzzxOGag4pPmBhguTkyKnpEZw4="/>
+            <column name="password_salt" value="qYk4OxryQgplthbzFlS0yQ=="/>
+            <column name="telephone_number" value="062-111-114"/>
+            <column name="gender" value="Female"/>
+            <column name="active" valueBoolean="true"/>
+        </insert>
+        <insert tableName="users">
+            <column name="id" valueNumeric="102"/>
+            <column name="name" value="Client102"/>
+            <column name="surname" value="Client102"/>
+            <column name="username" value="client102"/>
+            <column name="email" value="client102@edu.fit.ba"/>
+            <column name="password_hash" value="UbzzxOGag4pPmBhguTkyKnpEZw4="/>
+            <column name="password_salt" value="qYk4OxryQgplthbzFlS0yQ=="/>
+            <column name="telephone_number" value="061-211-115"/>
+            <column name="gender" value="Male"/>
+            <column name="active" valueBoolean="true"/>
+        </insert>
+         <insert tableName="users">
+            <column name="id" valueNumeric="103"/>
+            <column name="name" value="Client103"/>
+            <column name="surname" value="Client103"/>
+            <column name="username" value="client103"/>
+            <column name="email" value="client103@edu.fit.ba"/>
+            <column name="password_hash" value="UbzzxOGag4pPmBhguTkyKnpEZw4="/>
+            <column name="password_salt" value="qYk4OxryQgplthbzFlS0yQ=="/>
+            <column name="telephone_number" value="061-211-215"/>
+            <column name="gender" value="Male"/>
+            <column name="active" valueBoolean="true"/>
+        </insert>
+         <insert tableName="users">
+            <column name="id" valueNumeric="104"/>
+            <column name="name" value="Client104"/>
+            <column name="surname" value="Client104"/>
+            <column name="username" value="client104"/>
+            <column name="email" value="client104@edu.fit.ba"/>
+            <column name="password_hash" value="UbzzxOGag4pPmBhguTkyKnpEZw4="/>
+            <column name="password_salt" value="qYk4OxryQgplthbzFlS0yQ=="/>
+            <column name="telephone_number" value="061-111-115"/>
+            <column name="gender" value="Male"/>
+            <column name="active" valueBoolean="true"/>
+        </insert>
+         <insert tableName="users">
+            <column name="id" valueNumeric="105"/>
+            <column name="name" value="Client105"/>
+            <column name="surname" value="Client105"/>
+            <column name="username" value="client105"/>
+            <column name="email" value="client105@edu.fit.ba"/>
+            <column name="password_hash" value="UbzzxOGag4pPmBhguTkyKnpEZw4="/>
+            <column name="password_salt" value="qYk4OxryQgplthbzFlS0yQ=="/>
+            <column name="telephone_number" value="061-221-115"/>
+            <column name="gender" value="Female"/>
+            <column name="active" valueBoolean="true"/>
+        </insert>
+         <insert tableName="users">
+            <column name="id" valueNumeric="106"/>
+            <column name="name" value="Client106"/>
+            <column name="surname" value="Client106"/>
+            <column name="username" value="client106"/>
+            <column name="email" value="client106@edu.fit.ba"/>
+            <column name="password_hash" value="UbzzxOGag4pPmBhguTkyKnpEZw4="/>
+            <column name="password_salt" value="qYk4OxryQgplthbzFlS0yQ=="/>
+            <column name="telephone_number" value="062-211-115"/>
+            <column name="gender" value="Female"/>
+            <column name="active" valueBoolean="true"/>
+        </insert>
+         <insert tableName="users">
+            <column name="id" valueNumeric="107"/>
+            <column name="name" value="Client107"/>
+            <column name="surname" value="Client107"/>
+            <column name="username" value="client107"/>
+            <column name="email" value="client107@edu.fit.ba"/>
+            <column name="password_hash" value="UbzzxOGag4pPmBhguTkyKnpEZw4="/>
+            <column name="password_salt" value="qYk4OxryQgplthbzFlS0yQ=="/>
+            <column name="telephone_number" value="062-211-115"/>
+            <column name="gender" value="Male"/>
+            <column name="active" valueBoolean="true"/>
+        </insert>
+
+         <insert tableName="users">
+            <column name="id" valueNumeric="108"/>
+            <column name="name" value="Driver101"/>
+            <column name="surname" value="Driver101"/>
+            <column name="username" value="driver101"/>
+            <column name="email" value="driver101@edu.fit.ba"/>
+            <column name="password_hash" value="UbzzxOGag4pPmBhguTkyKnpEZw4="/>
+            <column name="password_salt" value="qYk4OxryQgplthbzFlS0yQ=="/>
+            <column name="telephone_number" value="063-211-115"/>
+            <column name="gender" value="Male"/>
+            <column name="active" valueBoolean="true"/>
+        </insert>
+         <insert tableName="users">
+            <column name="id" valueNumeric="109"/>
+            <column name="name" value="Driver102"/>
+            <column name="surname" value="Driver102"/>
+            <column name="username" value="driver102"/>
+            <column name="email" value="driver102@edu.fit.ba"/>
+            <column name="password_hash" value="UbzzxOGag4pPmBhguTkyKnpEZw4="/>
+            <column name="password_salt" value="qYk4OxryQgplthbzFlS0yQ=="/>
+            <column name="telephone_number" value="061-211-115"/>
+            <column name="gender" value="Male"/>
+            <column name="active" valueBoolean="true"/>
+        </insert>
+         <insert tableName="users">
+            <column name="id" valueNumeric="110"/>
+            <column name="name" value="Driver103"/>
+            <column name="surname" value="Driver103"/>
+            <column name="username" value="driver103"/>
+            <column name="email" value="driver103@edu.fit.ba"/>
+            <column name="password_hash" value="UbzzxOGag4pPmBhguTkyKnpEZw4="/>
+            <column name="password_salt" value="qYk4OxryQgplthbzFlS0yQ=="/>
+            <column name="telephone_number" value="062-211-115"/>
+            <column name="gender" value="Male"/>
+            <column name="active" valueBoolean="true"/>
+        </insert>
+         <insert tableName="users">
+            <column name="id" valueNumeric="111"/>
+            <column name="name" value="Driver104"/>
+            <column name="surname" value="Driver104"/>
+            <column name="username" value="driver104"/>
+            <column name="email" value="driver104@edu.fit.ba"/>
+            <column name="password_hash" value="UbzzxOGag4pPmBhguTkyKnpEZw4="/>
+            <column name="password_salt" value="qYk4OxryQgplthbzFlS0yQ=="/>
+            <column name="telephone_number" value="062-211-115"/>
+            <column name="gender" value="Female"/>
+            <column name="active" valueBoolean="true"/>
+        </insert>
+         <insert tableName="users">
+            <column name="id" valueNumeric="112"/>
+            <column name="name" value="Driver105"/>
+            <column name="surname" value="Driver105"/>
+            <column name="username" value="driver105"/>
+            <column name="email" value="driver105@edu.fit.ba"/>
+            <column name="password_hash" value="UbzzxOGag4pPmBhguTkyKnpEZw4="/>
+            <column name="password_salt" value="qYk4OxryQgplthbzFlS0yQ=="/>
+            <column name="telephone_number" value="065-211-115"/>
+            <column name="gender" value="Female"/>
+            <column name="active" valueBoolean="true"/>
+        </insert>
+         <insert tableName="users">
+            <column name="id" valueNumeric="113"/>
+            <column name="name" value="Driver106"/>
+            <column name="surname" value="Driver106"/>
+            <column name="username" value="driver106"/>
+            <column name="email" value="driver106@edu.fit.ba"/>
+            <column name="password_hash" value="UbzzxOGag4pPmBhguTkyKnpEZw4="/>
+            <column name="password_salt" value="qYk4OxryQgplthbzFlS0yQ=="/>
+            <column name="telephone_number" value="062-211-315"/>
+            <column name="gender" value="Male"/>
+            <column name="active" valueBoolean="true"/>
+        </insert>
+         <insert tableName="users">
+            <column name="id" valueNumeric="114"/>
+            <column name="name" value="Driver107"/>
+            <column name="surname" value="Driver107"/>
+            <column name="username" value="driver107"/>
+            <column name="email" value="driver107@edu.fit.ba"/>
+            <column name="password_hash" value="UbzzxOGag4pPmBhguTkyKnpEZw4="/>
+            <column name="password_salt" value="qYk4OxryQgplthbzFlS0yQ=="/>
+            <column name="telephone_number" value="060-211-115"/>
+            <column name="gender" value="Male"/>
+            <column name="active" valueBoolean="true"/>
+        </insert>
+         <insert tableName="users">
+            <column name="id" valueNumeric="115"/>
+            <column name="name" value="Driver108"/>
+            <column name="surname" value="Driver108"/>
+            <column name="username" value="driver108"/>
+            <column name="email" value="driver108@edu.fit.ba"/>
+            <column name="password_hash" value="UbzzxOGag4pPmBhguTkyKnpEZw4="/>
+            <column name="password_salt" value="qYk4OxryQgplthbzFlS0yQ=="/>
+            <column name="telephone_number" value="060-211-1125"/>
+            <column name="gender" value="Female"/>
+            <column name="active" valueBoolean="true"/>
+        </insert>
+
+
+
+        <!-- Insert client -->
+        <insert tableName="client">
+            <column name="id" valueNumeric="100"/>
+            <column name="user_id" valueNumeric="100"/>
+        </insert>
+        <insert tableName="client">
+            <column name="id" valueNumeric="101"/>
+            <column name="user_id" valueNumeric="101"/>
+        </insert>
+           <insert tableName="client">
+            <column name="id" valueNumeric="102"/>
+            <column name="user_id" valueNumeric="102"/>
+        </insert>
+           <insert tableName="client">
+            <column name="id" valueNumeric="103"/>
+            <column name="user_id" valueNumeric="103"/>
+        </insert>
+           <insert tableName="client">
+            <column name="id" valueNumeric="104"/>
+            <column name="user_id" valueNumeric="104"/>
+        </insert>
+           <insert tableName="client">
+            <column name="id" valueNumeric="105"/>
+            <column name="user_id" valueNumeric="105"/>
+        </insert>
+           <insert tableName="client">
+            <column name="id" valueNumeric="106"/>
+            <column name="user_id" valueNumeric="106"/>
+        </insert>
+           <insert tableName="client">
+            <column name="id" valueNumeric="107"/>
+            <column name="user_id" valueNumeric="107"/>
+        </insert>
+
+        <!-- Insert driver -->
+        <insert tableName="driver">
+            <column name="id" valueNumeric="101"/>
+            <column name="user_id" valueNumeric="108"/>
+            <column name="number_of_hours_amount" valueNumeric="15"/>
+            <column name="number_of_clients_amount" valueNumeric="25"/>
+        </insert>
+        <insert tableName="driver">
+            <column name="id" valueNumeric="102"/>
+            <column name="user_id" valueNumeric="109"/>
+            <column name="number_of_hours_amount" valueNumeric="13"/>
+            <column name="number_of_clients_amount" valueNumeric="22"/>
+        </insert>
+          <insert tableName="driver">
+            <column name="id" valueNumeric="103"/>
+            <column name="user_id" valueNumeric="110"/>
+            <column name="number_of_hours_amount" valueNumeric="10"/>
+            <column name="number_of_clients_amount" valueNumeric="15"/>
+        </insert>
+          <insert tableName="driver">
+            <column name="id" valueNumeric="104"/>
+            <column name="user_id" valueNumeric="111"/>
+            <column name="number_of_hours_amount" valueNumeric="22"/>
+            <column name="number_of_clients_amount" valueNumeric="33"/>
+        </insert>
+          <insert tableName="driver">
+            <column name="id" valueNumeric="105"/>
+            <column name="user_id" valueNumeric="112"/>
+            <column name="number_of_hours_amount" valueNumeric="37"/>
+            <column name="number_of_clients_amount" valueNumeric="54"/>
+        </insert>
+          <insert tableName="driver">
+            <column name="id" valueNumeric="106"/>
+            <column name="user_id" valueNumeric="113"/>
+            <column name="number_of_hours_amount" valueNumeric="29"/>
+            <column name="number_of_clients_amount" valueNumeric="37"/>
+        </insert>
+          <insert tableName="driver">
+            <column name="id" valueNumeric="107"/>
+            <column name="user_id" valueNumeric="114"/>
+            <column name="number_of_hours_amount" valueNumeric="44"/>
+            <column name="number_of_clients_amount" valueNumeric="65"/>
+        </insert>
+          <insert tableName="driver">
+            <column name="id" valueNumeric="108"/>
+            <column name="user_id" valueNumeric="115"/>
+            <column name="number_of_hours_amount" valueNumeric="40"/>
+            <column name="number_of_clients_amount" valueNumeric="67"/>
+        </insert>
+
+
+        <!-- Insert vehicle -->
+        <insert tableName="vehicle">
+            <column name="id" valueNumeric="100"/>
+            <column name="available" valueBoolean="true"/>
+            <column name="name" value="Passat 3"/>
+            <column name="average_fuel_consumption" valueNumeric="6.8"/>
+            <column name="price" valueNumeric="46.0"/>
+        </insert>
+        <insert tableName="vehicle">
+            <column name="id" valueNumeric="101"/>
+            <column name="available" valueBoolean="true"/>
+            <column name="name" value="Mercedes S"/>
+            <column name="average_fuel_consumption" valueNumeric="10.8"/>
+            <column name="price" valueNumeric="59.5"/>
+        </insert>
+        <insert tableName="vehicle">
+            <column name="id" valueNumeric="102"/>
+            <column name="available" valueBoolean="true"/>
+            <column name="name" value="Mercedes E250"/>
+            <column name="average_fuel_consumption" valueNumeric="9.0"/>
+            <column name="price" valueNumeric="52.0"/>
+        </insert>
+        <insert tableName="vehicle">
+            <column name="id" valueNumeric="103"/>
+            <column name="available" valueBoolean="true"/>
+            <column name="name" value="Golf 7"/>
+            <column name="average_fuel_consumption" valueNumeric="7.7"/>
+            <column name="price" valueNumeric="52.0"/>
+        </insert> <insert tableName="vehicle">
+        <column name="id" valueNumeric="104"/>
+        <column name="available" valueBoolean="true"/>
+        <column name="name" value="BMW X1"/>
+        <column name="average_fuel_consumption" valueNumeric="7.0"/>
+        <column name="price" valueNumeric="49.5"/>
+    </insert>
+<insert tableName="vehicle">
+        <column name="id" valueNumeric="105"/>
+        <column name="available" valueBoolean="true"/>
+        <column name="name" value="BMW X2"/>
+        <column name="average_fuel_consumption" valueNumeric="7.3"/>
+        <column name="price" valueNumeric="51.5"/>
+    </insert>
+    <insert tableName="vehicle">
+        <column name="id" valueNumeric="106"/>
+        <column name="available" valueBoolean="true"/>
+        <column name="name" value="BMW X3"/>
+        <column name="average_fuel_consumption" valueNumeric="8.3"/>
+        <column name="price" valueNumeric="53.5"/>
+    </insert>
+        <insert tableName="vehicle">
+        <column name="id" valueNumeric="107"/>
+        <column name="available" valueBoolean="true"/>
+        <column name="name" value="Audi A3"/>
+        <column name="average_fuel_consumption" valueNumeric="7.1"/>
+        <column name="price" valueNumeric="48.5"/>
+    </insert>
+
+        <!-- Insert company_price -->
+        
+        <insert tableName="company_price">
+            <column name="id" valueNumeric="100"/>
+            <column name="price_per_kilometer" valueNumeric="3.11"/>
+            <column name="adding_date" valueDate="NOW()"/>
+        </insert>
+
+
+        <!-- Insert route -->
+        <insert tableName="route">
+            <column name="id" valueNumeric="100"/>
+            <column name="source_point_lat" valueNumeric="38.592187"/>
+            <column name="source_point_lon" valueNumeric="-121.782024"/>
+            <column name="destination_point_lat" valueNumeric="37.910617"/>
+            <column name="destination_point_lon" valueNumeric="-121.793017"/>
+            <column name="duration" valueNumeric="0"/>
+            <column name="paid" valueBoolean="false"/>
+            <column name="status" value="wait"/>
+            <column name="client_id" valueNumeric="100"/>
+            <column name="company_price_id" valueNumeric="100"/>
+            <column name="driver_id" valueNumeric="101"/>
+            <column name="number_of_kilometers" valueNumeric="75.787"/>
+            <column name="full_price" valueComputed="3.01 * 75.787"/>
+        </insert>
+        <insert tableName="route">
+            <column name="id" valueNumeric="101"/>
+            <column name="source_point_lat" valueNumeric="38.523458"/>
+            <column name="source_point_lon" valueNumeric="-121.463208"/>
+            <column name="destination_point_lat" valueNumeric="37.5195297"/>
+            <column name="destination_point_lon" valueNumeric="-120.935512"/>
+            <column name="duration" valueNumeric="0"/>
+            <column name="paid" valueBoolean="false"/>
+            <column name="status" value="wait"/>
+            <column name="client_id" valueNumeric="101"/>
+            <column name="company_price_id" valueNumeric="100"/>
+            <column name="driver_id" valueNumeric="101"/>
+            <column name="number_of_kilometers" valueNumeric="120.823"/>
+            <column name="full_price" valueComputed="3.045 * 120.823"/>
+        </insert>
+        <insert tableName="route">
+            <column name="id" valueNumeric="102"/>
+            <column name="source_point_lat" valueNumeric="37.893279"/>
+            <column name="source_point_lon" valueNumeric="-121.221347"/>
+            <column name="destination_point_lat" valueNumeric="37.641422"/>
+            <column name="destination_point_lon" valueNumeric="-122.375726"/>
+            <column name="duration" valueNumeric="0"/>
+            <column name="paid" valueBoolean="false"/>
+            <column name="status" value="wait"/>
+            <column name="client_id" valueNumeric="102"/>
+            <column name="company_price_id" valueNumeric="100"/>
+            <column name="driver_id" valueNumeric="102"/>
+            <column name="number_of_kilometers" valueNumeric="105.263"/>
+            <column name="full_price" valueComputed="3.06 * 105.263"/>
+        </insert>
+        <insert tableName="route">
+            <column name="id" valueNumeric="103"/>
+            <column name="source_point_lat" valueNumeric="38.557831"/>
+            <column name="source_point_lon" valueNumeric="-121.485239"/>
+            <column name="destination_point_lat" valueNumeric="36.600094"/>
+            <column name="destination_point_lon" valueNumeric="-119.745856"/>
+            <column name="duration" valueNumeric="0"/>
+            <column name="paid" valueBoolean="false"/>
+            <column name="status" value="wait"/>
+            <column name="client_id" valueNumeric="103"/>
+            <column name="company_price_id" valueNumeric="100"/>
+            <column name="driver_id" valueNumeric="103"/>
+            <column name="number_of_kilometers" valueNumeric="266.227"/>
+            <column name="full_price" valueComputed="3.06 * 266.227"/>
+        </insert>
+        <insert tableName="route">
+            <column name="id" value="104"/>
+            <column name="source_point_lat" value="37.321893"/>
+            <column name="source_point_lon" value="-121.913084"/>
+            <column name="destination_point_lat" value="37.344823"/>
+            <column name="destination_point_lon" value="-122.051879"/>
+            <column name="duration" value="0"/>
+            <column name="paid" value="false"/>
+            <column name="status" value="wait"/>
+            <column name="client_id" value="104"/>
+            <column name="company_price_id" value="100"/>
+            <column name="driver_id" value="104"/>
+            <column name="number_of_kilometers" value="12.533"/>
+            <column name="full_price" valueComputed="3.06 * 12.533"/>
+        </insert><insert tableName="route">
+            <column name="id" value="105"/>
+            <column name="source_point_lat" value="37.321893"/>
+            <column name="source_point_lon" value="-121.913084"/>
+            <column name="destination_point_lat" value="37.344823"/>
+            <column name="destination_point_lon" value="-122.051879"/>
+            <column name="duration" value="0"/>
+            <column name="paid" value="false"/>
+            <column name="status" value="wait"/>
+            <column name="client_id" value="105"/>
+            <column name="company_price_id" value="100"/>
+            <column name="driver_id" value="105"/>
+            <column name="number_of_kilometers" value="12.533"/>
+            <column name="full_price" valueComputed="3.06 * 12.533"/>
+        </insert>
+<insert tableName="route">
+            <column name="id" value="106"/>
+            <column name="source_point_lat" value="37.321893"/>
+            <column name="source_point_lon" value="-121.913084"/>
+            <column name="destination_point_lat" value="37.344823"/>
+            <column name="destination_point_lon" value="-122.051879"/>
+            <column name="duration" value="0"/>
+            <column name="paid" value="false"/>
+            <column name="status" value="wait"/>
+            <column name="client_id" value="106"/>
+            <column name="company_price_id" value="100"/>
+            <column name="driver_id" value="106"/>
+            <column name="number_of_kilometers" value="12.533"/>
+            <column name="full_price" valueComputed="3.06 * 12.533"/>
+        </insert>
+
+        <!-- Insert rent -->
+
+        <insert tableName="rent">
+            <column name="id" valueNumeric="100"/>
+            <column name="rent_date" valueDate="NOW() + INTERVAL '10 days'"/>
+            <column name="end_date" valueDate="NOW() + INTERVAL '13 days'"/>
+            <column name="paid" valueBoolean="false"/>
+            <column name="number_of_days" valueNumeric="3"/>
+            <column name="vehicle_id" valueNumeric="100"/>
+            <column name="client_id" valueNumeric="101"/>
+            <column name="full_price" valueNumeric="120"/>
+            <column name="status" value="wait"/>
+        </insert>
+        <insert tableName="rent">
+            <column name="id" value="101"/>
+            <column name="rent_date" valueComputed="NOW() + INTERVAL '13 days'"/>
+            <column name="end_date" valueComputed="NOW() + INTERVAL '23 days'"/>
+            <column name="paid" value="false"/>
+            <column name="number_of_days" value="10"/>
+            <column name="vehicle_id" value="101"/>
+            <column name="client_id" value="102"/>
+            <column name="full_price" value="550"/>
+            <column name="status" value="wait"/>
+        </insert>
+
+        <insert tableName="rent">
+            <column name="id" value="102"/>
+            <column name="rent_date" valueComputed="NOW() + INTERVAL '10 days'"/>
+            <column name="end_date" valueComputed="NOW() + INTERVAL '15 days'"/>
+            <column name="paid" value="false"/>
+            <column name="number_of_days" value="5"/>
+            <column name="vehicle_id" value="102"/>
+            <column name="client_id" value="103"/>
+            <column name="full_price" value="225"/>
+            <column name="status" value="wait"/>
+        </insert>
+        <insert tableName="rent">
+            <column name="id" value="103"/>
+            <column name="rent_date" valueComputed="NOW() - INTERVAL '13 days'"/>
+            <column name="end_date" valueComputed="NOW() - INTERVAL '7 days'"/>
+            <column name="paid" value="true"/>
+            <column name="number_of_days" value="6"/>
+            <column name="vehicle_id" value="104"/>
+            <column name="client_id" value="106"/>
+            <column name="full_price" value="196"/>
+            <column name="status" value="finished"/>
+        </insert>
+
+        <insert tableName="rent">
+            <column name="id" value="104"/>
+            <column name="rent_date" valueComputed="NOW() - INTERVAL '20 days'"/>
+            <column name="end_date" valueComputed="NOW() - INTERVAL '5 days'"/>
+            <column name="paid" value="false"/>
+            <column name="number_of_days" value="15"/>
+            <column name="vehicle_id" value="104"/>
+            <column name="client_id" value="100"/>
+            <column name="full_price" value="1155.5"/>
+            <column name="status" value="finished"/>
+        </insert>
+
+        <insert tableName="rent">
+            <column name="id" value="105"/>
+            <column name="rent_date" valueComputed="NOW() - INTERVAL '10 days'"/>
+            <column name="end_date" valueComputed="NOW() - INTERVAL '4 days'"/>
+            <column name="paid" value="false"/>
+            <column name="number_of_days" value="6"/>
+            <column name="vehicle_id" value="101"/>
+            <column name="client_id" value="104"/>
+            <column name="full_price" value="1048"/>
+            <column name="status" value="finished"/>
+        </insert>
+
+     
+
+        <!-- Insert review-->
+        <insert tableName="review">
+            <column name="id" value="101"/>
+            <column name="value" value="5"/>
+            <column name="description" value="This is a test review 101"/>
+            <column name="adding_date" valueComputed="NOW() - INTERVAL '15 days'"/>
+            <column name="reviews_id" value="101"/>
+            <column name="reviewed_id" value="101"/>
+            <column name="route_id" value="101"/>
+        </insert>
+
+        <insert tableName="review">
+            <column name="id" value="102"/>
+            <column name="value" value="4"/>
+            <column name="description" value="This is a test review 102"/>
+            <column name="adding_date" valueComputed="NOW() - INTERVAL '5 days'"/>
+            <column name="reviews_id" value="102"/>
+            <column name="reviewed_id" value="102"/>
+            <column name="route_id" value="102"/>
+        </insert>
+
+        <insert tableName="review">
+            <column name="id" value="103"/>
+            <column name="value" value="3"/>
+            <column name="description" value="This is a test review 103"/>
+            <column name="adding_date" valueComputed="NOW() - INTERVAL '1 day'"/>
+            <column name="reviews_id" value="103"/>
+            <column name="reviewed_id" value="103"/>
+            <column name="route_id" value="103"/>
+        </insert>
+  <insert tableName="review">
+            <column name="id" value="104"/>
+            <column name="value" value="3"/>
+            <column name="description" value="This is a test review 104"/>
+            <column name="adding_date" valueComputed="NOW() - INTERVAL '1 day'"/>
+            <column name="reviews_id" value="104"/>
+            <column name="reviewed_id" value="104"/>
+            <column name="route_id" value="104"/>
+        </insert>  <insert tableName="review">
+            <column name="id" value="105"/>
+            <column name="value" value="3"/>
+            <column name="description" value="This is a test review 105"/>
+            <column name="adding_date" valueComputed="NOW() - INTERVAL '1 day'"/>
+            <column name="reviews_id" value="105"/>
+            <column name="reviewed_id" value="105"/>
+            <column name="route_id" value="105"/>
+        </insert>  <insert tableName="review">
+            <column name="id" value="106"/>
+            <column name="value" value="2"/>
+            <column name="description" value="This is a test review 106"/>
+            <column name="adding_date" valueComputed="NOW() - INTERVAL '1 day'"/>
+            <column name="reviews_id" value="106"/>
+            <column name="reviewed_id" value="106"/>
+            <column name="route_id" value="106"/>
+        </insert>
+
+        <insert tableName="review">
+            <column name="id" value="107"/>
+            <column name="value" value="5"/>
+            <column name="description" value="This is a test review 107"/>
+            <column name="adding_date" valueComputed="NOW() - INTERVAL '1 day'"/>
+            <column name="reviews_id" value="101"/>
+            <column name="reviewed_id" value="101"/>
+            <column name="route_id" value="101"/>
+        </insert>
+        <insert tableName="review">
+            <column name="id" value="108"/>
+            <column name="value" value="5"/>
+            <column name="description" value="This is a test review 108"/>
+            <column name="adding_date" valueComputed="NOW() - INTERVAL '1 day'"/>
+            <column name="reviews_id" value="102"/>
+            <column name="reviewed_id" value="102"/>
+            <column name="route_id" value="102"/>
+        </insert>
+        <insert tableName="review">
+            <column name="id" value="109"/>
+            <column name="value" value="4"/>
+            <column name="description" value="This is a test review 109"/>
+            <column name="adding_date" valueComputed="NOW() - INTERVAL '1 day'"/>
+            <column name="reviews_id" value="103"/>
+            <column name="reviewed_id" value="103"/>
+            <column name="route_id" value="103"/>
+        </insert>
+        <insert tableName="review">
+            <column name="id" value="110"/>
+            <column name="value" value="5"/>
+            <column name="description" value="This is a test review 110"/>
+            <column name="adding_date" valueComputed="NOW() - INTERVAL '1 day'"/>
+            <column name="reviews_id" value="104"/>
+            <column name="reviewed_id" value="104"/>
+            <column name="route_id" value="104"/>
+        </insert>
+        <insert tableName="review">
+            <column name="id" value="111"/>
+            <column name="value" value="5"/>
+            <column name="description" value="This is a test review 111"/>
+            <column name="adding_date" valueComputed="NOW() - INTERVAL '1 day'"/>
+            <column name="reviews_id" value="105"/>
+            <column name="reviewed_id" value="105"/>
+            <column name="route_id" value="105"/>
+        </insert>
+        <insert tableName="review">
+            <column name="id" value="112"/>
+            <column name="value" value="5"/>
+            <column name="description" value="This is a test review 112"/>
+            <column name="adding_date" valueComputed="NOW() - INTERVAL '1 day'"/>
+            <column name="reviews_id" value="106"/>
+            <column name="reviewed_id" value="106"/>
+            <column name="route_id" value="106"/>
+        </insert>
+
+        <!-- Insert notification -->
+        <insert tableName="notification">
+            <column name="id" value="100"/>
+            <column name="adding_date" valueComputed="NOW() - INTERVAL '2 days'"/>
+            <column name="title" value="This is a test notification title 100"/>
+            <column name="content" value="This is a test notification content 100."/>
+            <column name="for_client" value="true"/>
+        </insert>
+
+        <insert tableName="notification">
+            <column name="id" value="101"/>
+            <column name="adding_date" valueComputed="NOW() - INTERVAL '5 days'"/>
+            <column name="title" value="This is a test notification title 101."/>
+            <column name="content" value="This is a test notification content 101"/>
+            <column name="for_client" value="true"/>
+        </insert>
+        
+          <insert tableName="notification">
+            <column name="id" value="102"/>
+            <column name="adding_date" valueComputed="NOW() - INTERVAL '5 days'"/>
+            <column name="title" value="This is a test notification title 102."/>
+            <column name="content" value="This is a test notification content 102"/>
+            <column name="for_client" value="false"/>
+        </insert>
+          <insert tableName="notification">
+            <column name="id" value="103"/>
+            <column name="adding_date" valueComputed="NOW() - INTERVAL '5 days'"/>
+            <column name="title" value="This is a test notification title 103."/>
+            <column name="content" value="This is a test notification content 103"/>
+            <column name="for_client" value="false"/>
+        </insert>
+          <insert tableName="notification">
+            <column name="id" value="104"/>
+            <column name="adding_date" valueComputed="NOW() - INTERVAL '5 days'"/>
+            <column name="title" value="This is a test notification title 104."/>
+            <column name="content" value="This is a test notification content 104"/>
+            <column name="for_client" value="false"/>
+        </insert>
+          <insert tableName="notification">
+            <column name="id" value="105"/>
+            <column name="adding_date" valueComputed="NOW() - INTERVAL '5 days'"/>
+            <column name="title" value="This is a test notification title 105."/>
+            <column name="content" value="This is a test notification content 105"/>
+            <column name="for_client" value="true"/>
+        </insert>
+
+    <insert tableName="notification">
+            <column name="id" value="106"/>
+            <column name="adding_date" valueComputed="NOW() - INTERVAL '5 days'"/>
+            <column name="title" value="This is a test notification title 106."/>
+            <column name="content" value="This is a test notification content 106"/>
+            <column name="for_client" value="true"/>
+        </insert>
+   <insert tableName="notification">
+            <column name="id" value="107"/>
+            <column name="adding_date" valueComputed="NOW() - INTERVAL '5 days'"/>
+            <column name="title" value="This is a test notification title 107."/>
+            <column name="content" value="This is a test notification content 107"/>
+            <column name="for_client" value="true"/>
+        </insert> <insert tableName="notification">
+            <column name="id" value="108"/>
+            <column name="adding_date" valueComputed="NOW() - INTERVAL '5 days'"/>
+            <column name="title" value="This is a test notification title 108."/>
+            <column name="content" value="This is a test notification content 108"/>
+            <column name="for_client" value="false"/>
+        </insert>
+          <insert tableName="notification">
+            <column name="id" value="109"/>
+            <column name="adding_date" valueComputed="NOW() - INTERVAL '5 days'"/>
+            <column name="title" value="This is a test notification title 109."/>
+            <column name="content" value="This is a test notification content 109"/>
+            <column name="for_client" value="true"/>
+        </insert>
+ <insert tableName="notification">
+            <column name="id" value="110"/>
+            <column name="adding_date" valueComputed="NOW() - INTERVAL '5 days'"/>
+            <column name="title" value="This is a test notification title 110."/>
+            <column name="content" value="This is a test notification content 110"/>
+            <column name="for_client" value="false"/>
+        </insert>
+
+
+ <!-- Insert statistics -->
+        <insert tableName="statistics">
+            <column name="id" value="100"/>
+            <column name="number_of_hours" valueNumeric="8"/>
+            <column name="number_of_clients" valueNumeric="6"/>
+            <column name="price_amount" valueNumeric="783"/>
+            <column name="beginning_of_work" valueDate="NOW() - INTERVAL '1 month'"/>
+            <column name="end_of_work" valueDate="NOW() - INTERVAL '1 month'"/>
+            <column name="driver_id" valueNumeric="101"/>
+        </insert><insert tableName="statistics">
+            <column name="id" value="101"/>
+            <column name="number_of_hours" valueNumeric="8"/>
+            <column name="number_of_clients" valueNumeric="10"/>
+            <column name="price_amount" valueNumeric="593"/>
+            <column name="beginning_of_work" valueDate="NOW() - INTERVAL '29 days'"/>
+            <column name="end_of_work" valueDate="NOW() - INTERVAL '29 days'"/>
+            <column name="driver_id" valueNumeric="101"/>
+        </insert><insert tableName="statistics">
+            <column name="id" value="102"/>
+            <column name="number_of_hours" valueNumeric="7"/>
+            <column name="number_of_clients" valueNumeric="5"/>
+            <column name="price_amount" valueNumeric="312"/>
+            <column name="beginning_of_work" valueDate="NOW() - INTERVAL '28 days'"/>
+            <column name="end_of_work" valueDate="NOW() - INTERVAL '28 days'"/>
+            <column name="driver_id" valueNumeric="106"/>
+        </insert><insert tableName="statistics">
+            <column name="id" value="103"/>
+            <column name="number_of_hours" valueNumeric="7"/>
+            <column name="number_of_clients" valueNumeric="10"/>
+            <column name="price_amount" valueNumeric="802"/>
+            <column name="beginning_of_work" valueDate="NOW() - INTERVAL '1 month'"/>
+            <column name="end_of_work" valueDate="NOW() - INTERVAL '1 month'"/>
+            <column name="driver_id" valueNumeric="102"/>
+        </insert><insert tableName="statistics">
+            <column name="id" value="104"/>
+            <column name="number_of_hours" valueNumeric="8"/>
+            <column name="number_of_clients" valueNumeric="6"/>
+            <column name="price_amount" valueNumeric="689"/>
+            <column name="beginning_of_work" valueDate="NOW() - INTERVAL '1 month'"/>
+            <column name="end_of_work" valueDate="NOW() - INTERVAL '1 month'"/>
+            <column name="driver_id" valueNumeric="103"/>
+        </insert><insert tableName="statistics">
+            <column name="id" value="105"/>
+            <column name="number_of_hours" valueNumeric="9"/>
+            <column name="number_of_clients" valueNumeric="20"/>
+            <column name="price_amount" valueNumeric="1000"/>
+            <column name="beginning_of_work" valueDate="NOW() - INTERVAL '20 days'"/>
+            <column name="end_of_work" valueDate="NOW() - INTERVAL '20 days'"/>
+            <column name="driver_id" valueNumeric="101"/>
+        </insert><insert tableName="statistics">
+            <column name="id" value="106"/>
+            <column name="number_of_hours" valueNumeric="9"/>
+            <column name="number_of_clients" valueNumeric="19"/>
+            <column name="price_amount" valueNumeric="783"/>
+            <column name="beginning_of_work" valueDate="NOW() - INTERVAL '20 days'"/>
+            <column name="end_of_work" valueDate="NOW() - INTERVAL '20 days'"/>
+            <column name="driver_id" valueNumeric="102"/>
+        </insert><insert tableName="statistics">
+            <column name="id" value="107"/>
+            <column name="number_of_hours" valueNumeric="9"/>
+            <column name="number_of_clients" valueNumeric="26"/>
+            <column name="price_amount" valueNumeric="1145"/>
+            <column name="beginning_of_work" valueDate="NOW() - INTERVAL '20 days'"/>
+            <column name="end_of_work" valueDate="NOW() - INTERVAL '20 days'"/>
+            <column name="driver_id" valueNumeric="103"/>
+        </insert><insert tableName="statistics">
+            <column name="id" value="108"/>
+            <column name="number_of_hours" valueNumeric="9"/>
+            <column name="number_of_clients" valueNumeric="15"/>
+            <column name="price_amount" valueNumeric="851"/>
+            <column name="beginning_of_work" valueDate="NOW() - INTERVAL '19 days'"/>
+            <column name="end_of_work" valueDate="NOW() - INTERVAL '19 days'"/>
+            <column name="driver_id" valueNumeric="104"/>
+        </insert><insert tableName="statistics">
+            <column name="id" value="109"/>
+            <column name="number_of_hours" valueNumeric="8"/>
+            <column name="number_of_clients" valueNumeric="10"/>
+            <column name="price_amount" valueNumeric="800"/>
+            <column name="beginning_of_work" valueDate="NOW() - INTERVAL '10 days'"/>
+            <column name="end_of_work" valueDate="NOW() - INTERVAL '10 days'"/>
+            <column name="driver_id" valueNumeric="105"/>
+        </insert><insert tableName="statistics">
+            <column name="id" value="110"/>
+            <column name="number_of_hours" valueNumeric="8"/>
+            <column name="number_of_clients" valueNumeric="11"/>
+            <column name="price_amount" valueNumeric="819"/>
+            <column name="beginning_of_work" valueDate="NOW() - INTERVAL '10 days'"/>
+            <column name="end_of_work" valueDate="NOW() - INTERVAL '10 days'"/>
+            <column name="driver_id" valueNumeric="102"/>
+        </insert>
+
+        <!-- Sequences reset (can also be done via raw SQL if needed) -->
+        <sql>SELECT setval('users_id_seq', (SELECT MAX(id) FROM users) + 1);</sql>
+        <sql>SELECT setval('admin_id_seq', (SELECT MAX(id) FROM admin) + 1);</sql>
+        <sql>SELECT setval('client_id_seq', (SELECT MAX(id) FROM client) + 1);</sql>
+        <sql>SELECT setval('driver_id_seq', (SELECT MAX(id) FROM driver) + 1);</sql>
+        <sql>SELECT setval('vehicle_id_seq', (SELECT MAX(id) FROM vehicle) + 1);</sql>
+        <sql>SELECT setval('company_price_id_seq', (SELECT MAX(id) FROM company_price) + 1);</sql>
+        <sql>SELECT setval('route_id_seq', (SELECT MAX(id) FROM route) + 1);</sql>
+        <sql>SELECT setval('rent_id_seq', (SELECT MAX(id) FROM rent) + 1);</sql>
+        <sql>SELECT setval('review_id_seq', (SELECT MAX(id) FROM review) + 1);</sql>
+        <sql>SELECT setval('notification_id_seq', (SELECT MAX(id) FROM notification) + 1);</sql>
+
+    </changeSet>
+
+</databaseChangeLog>

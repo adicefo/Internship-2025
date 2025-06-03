@@ -27,6 +27,7 @@
      <include file="insert_test_request_data.xml" relativeToChangelogFile="true"/>
      <include file="insert_test_driverVehicle_data.xml" relativeToChangelogFile="true"/>
      <include file="insert_test_statistics_data.xml" relativeToChangelogFile="true"/>
+     <include file="insert_test_data_2.xml" relativeToChangelogFile="true"/>
 
 
 
