@@ -71,7 +71,7 @@ const DriverPage = () => {
 
   useEffect(() => {
     fetchDrivers({name:nameFilter,surname:surnameFilter});
-  }, [currentPage]); // Re-fetch when page changes
+  }, [currentPage]); 
 
   const confirmDelete = async (id) => {
     setShowDialog(false);

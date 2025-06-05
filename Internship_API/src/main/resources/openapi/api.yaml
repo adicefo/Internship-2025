@@ -23,9 +23,9 @@ paths:
           description: Search parameters for filtering users
           required: false
           schema:
-            $ref: '#/components/schemas/UserSearchObject'
+            $ref: "#/components/schemas/UserSearchObject"
       responses:
-        '200':
+        "200":
           description: Success
           content:
             application/json:
@@ -52,15 +52,15 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UserInsertRequest'
+              $ref: "#/components/schemas/UserInsertRequest"
       responses:
-        '201':
+        "201":
           description: User registered successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserDTO'
-        '400':
+                $ref: "#/components/schemas/UserDTO"
+        "400":
           description: Bad Request
           content:
             application/json:
@@ -88,13 +88,13 @@ paths:
           schema:
             type: integer
       responses:
-        '200':
+        "200":
           description: Successfully retrieved user
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserDTO'
-        '404':
+                $ref: "#/components/schemas/UserDTO"
+        "404":
           description: The User with the specified ID does not exist
           content:
             application/json:
@@ -126,15 +126,15 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UserUpdateRequest'
+              $ref: "#/components/schemas/UserUpdateRequest"
       responses:
-        '200':
+        "200":
           description: User updated successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserDTO'
-        '400':
+                $ref: "#/components/schemas/UserDTO"
+        "400":
           description: Bad Request
           content:
             application/json:
@@ -166,15 +166,15 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UserUpdatePasswordRequest'
+              $ref: "#/components/schemas/UserUpdatePasswordRequest"
       responses:
-        '200':
+        "200":
           description: User updated successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserDTO'
-        '400':
+                $ref: "#/components/schemas/UserDTO"
+        "400":
           description: Bad Request
           content:
             application/json:
@@ -184,7 +184,7 @@ paths:
                   message:
                     type: string
                   statusCode:
-                    type: integer                  
+                    type: integer
   /users/delete/{id}:
     delete:
       tags:
@@ -202,13 +202,13 @@ paths:
           schema:
             type: integer
       responses:
-        '200':
+        "200":
           description: User deleted successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserDTO'
-        '400':
+                $ref: "#/components/schemas/UserDTO"
+        "400":
           description: Bad Request
           content:
             application/json:
@@ -235,9 +235,9 @@ paths:
           description: Search parameters for filtering admin
           required: false
           schema:
-            $ref: '#/components/schemas/AdminSearchObject'
+            $ref: "#/components/schemas/AdminSearchObject"
       responses:
-        '200':
+        "200":
           description: Success
           content:
             application/json:
@@ -265,15 +265,15 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UserInsertRequest'
+              $ref: "#/components/schemas/UserInsertRequest"
       responses:
-        '201':
+        "201":
           description: Admin registered successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AdminDTO'
-        '400':
+                $ref: "#/components/schemas/AdminDTO"
+        "400":
           description: Bad Request
           content:
             application/json:
@@ -301,13 +301,13 @@ paths:
           schema:
             type: integer
       responses:
-        '201':
+        "201":
           description: Admin registered successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AdminDTO'
-        '404':
+                $ref: "#/components/schemas/AdminDTO"
+        "404":
           description: The User with the specified ID does not exist
           content:
             application/json:
@@ -335,13 +335,13 @@ paths:
           schema:
             type: integer
       responses:
-        '200':
+        "200":
           description: Successfully retrieved admin
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AdminDTO'
-        '404':
+                $ref: "#/components/schemas/AdminDTO"
+        "404":
           description: The Admin with the specified ID does not exist
           content:
             application/json:
@@ -373,15 +373,15 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UserUpdateRequest'
+              $ref: "#/components/schemas/UserUpdateRequest"
       responses:
-        '200':
+        "200":
           description: Admin updated successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AdminDTO'
-        '400':
+                $ref: "#/components/schemas/AdminDTO"
+        "400":
           description: Bad Request
           content:
             application/json:
@@ -409,13 +409,13 @@ paths:
           schema:
             type: integer
       responses:
-        '200':
+        "200":
           description: Admin deleted successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AdminDTO'
-        '400':
+                $ref: "#/components/schemas/AdminDTO"
+        "400":
           description: Bad Request
           content:
             application/json:
@@ -442,9 +442,9 @@ paths:
           description: Search parameters for filtering client
           required: false
           schema:
-            $ref: '#/components/schemas/ClientSearchObject'
+            $ref: "#/components/schemas/ClientSearchObject"
       responses:
-        '200':
+        "200":
           description: Success
           content:
             application/json:
@@ -472,15 +472,15 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UserInsertRequest'
+              $ref: "#/components/schemas/UserInsertRequest"
       responses:
-        '201':
+        "201":
           description: Client registered successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ClientDTO'
-        '400':
+                $ref: "#/components/schemas/ClientDTO"
+        "400":
           description: Bad Request
           content:
             application/json:
@@ -508,13 +508,13 @@ paths:
           schema:
             type: integer
       responses:
-        '201':
+        "201":
           description: Client registered successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ClientDTO'
-        '404':
+                $ref: "#/components/schemas/ClientDTO"
+        "404":
           description: The User with the specified ID does not exist
           content:
             application/json:
@@ -542,13 +542,13 @@ paths:
           schema:
             type: integer
       responses:
-        '200':
+        "200":
           description: Successfully retrieved client
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ClientDTO'
-        '404':
+                $ref: "#/components/schemas/ClientDTO"
+        "404":
           description: The Client with the specified ID does not exist
           content:
             application/json:
@@ -576,13 +576,13 @@ paths:
           schema:
             type: integer
       responses:
-        '200':
+        "200":
           description: Client deleted successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ClientDTO'
-        '400':
+                $ref: "#/components/schemas/ClientDTO"
+        "400":
           description: Bad Request
           content:
             application/json:
@@ -609,9 +609,9 @@ paths:
           description: Search parameters for filtering driver
           required: false
           schema:
-            $ref: '#/components/schemas/DriverSearchObject'
+            $ref: "#/components/schemas/DriverSearchObject"
       responses:
-        '200':
+        "200":
           description: Success
           content:
             application/json:
@@ -639,15 +639,15 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UserInsertRequest'
+              $ref: "#/components/schemas/UserInsertRequest"
       responses:
-        '201':
+        "201":
           description: Driver registered successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DriverDTO'
-        '400':
+                $ref: "#/components/schemas/DriverDTO"
+        "400":
           description: Bad Request
           content:
             application/json:
@@ -675,13 +675,13 @@ paths:
           schema:
             type: integer
       responses:
-        '201':
+        "201":
           description: Driver registered successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DriverDTO'
-        '404':
+                $ref: "#/components/schemas/DriverDTO"
+        "404":
           description: The User with the specified ID does not exist
           content:
             application/json:
@@ -709,13 +709,13 @@ paths:
           schema:
             type: integer
       responses:
-        '200':
+        "200":
           description: Successfully retrieved driver
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DriverDTO'
-        '404':
+                $ref: "#/components/schemas/DriverDTO"
+        "404":
           description: The Driver with the specified ID does not exist
           content:
             application/json:
@@ -743,13 +743,13 @@ paths:
           schema:
             type: integer
       responses:
-        '200':
+        "200":
           description: Driver deleted successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DriverDTO'
-        '400':
+                $ref: "#/components/schemas/DriverDTO"
+        "400":
           description: Bad Request
           content:
             application/json:
@@ -776,9 +776,9 @@ paths:
           description: Filter for company prices
           required: false
           schema:
-            $ref: '#/components/schemas/CompanyPriceSearchObject'
+            $ref: "#/components/schemas/CompanyPriceSearchObject"
       responses:
-        '200':
+        "200":
           description: Success
           content:
             application/json:
@@ -793,90 +793,90 @@ paths:
                           $ref: "#/components/schemas/CompanyPriceDTO"
 
   /companyPrice/getCurrent:
-      get:
-        tags:
-          - CompanyPrice
-        summary: Get the current price per kilometer
-        operationId: getCurrentCompanyPrice
-        security:
-          - internship_api_security_scheme:
-              - read_access
-        responses:
-          '200':
-            description: Successfully retrieved current price
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/CompanyPriceDTO'
-
-  /companyPrice/getById/{id}:
-      get:
-        tags:
-          - CompanyPrice
-        summary: Get company price by ID
-        operationId: getCompanyPriceById
-        security:
-          - internship_api_security_scheme:
-              - read_access
-        parameters:
-          - name: id
-            in: path
-            required: true
-            schema:
-              type: integer
-        responses:
-          '200':
-            description: Company price retrieved successfully
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/CompanyPriceDTO'
-
-  /companyPrice/save:
-      post:
-        tags:
-          - CompanyPrice
-        summary: Save a new company price
-        operationId: saveCompanyPrice
-        security:
-          - internship_api_security_scheme:
-              - write_access
-        requestBody:
-          required: true
+    get:
+      tags:
+        - CompanyPrice
+      summary: Get the current price per kilometer
+      operationId: getCurrentCompanyPrice
+      security:
+        - internship_api_security_scheme:
+            - read_access
+      responses:
+        "200":
+          description: Successfully retrieved current price
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CompanyPriceInsertRequest'
-        responses:
-          '201':
-            description: Company price created successfully
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/CompanyPriceDTO'
+                $ref: "#/components/schemas/CompanyPriceDTO"
+
+  /companyPrice/getById/{id}:
+    get:
+      tags:
+        - CompanyPrice
+      summary: Get company price by ID
+      operationId: getCompanyPriceById
+      security:
+        - internship_api_security_scheme:
+            - read_access
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Company price retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CompanyPriceDTO"
+
+  /companyPrice/save:
+    post:
+      tags:
+        - CompanyPrice
+      summary: Save a new company price
+      operationId: saveCompanyPrice
+      security:
+        - internship_api_security_scheme:
+            - write_access
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CompanyPriceInsertRequest"
+      responses:
+        "201":
+          description: Company price created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CompanyPriceDTO"
 
   /companyPrice/delete/{id}:
-      delete:
-        tags:
-          - CompanyPrice
-        summary: Delete a company price by ID
-        operationId: deleteCompanyPrice
-        security:
-          - internship_api_security_scheme:
-              - write_access
-        parameters:
-          - name: id
-            in: path
-            required: true
-            schema:
-              type: integer
-        responses:
-          '200':
-            description: Deleted successfully
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/CompanyPriceDTO'
+    delete:
+      tags:
+        - CompanyPrice
+      summary: Delete a company price by ID
+      operationId: deleteCompanyPrice
+      security:
+        - internship_api_security_scheme:
+            - write_access
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CompanyPriceDTO"
   #Route paths
   /route/get:
     get:
@@ -893,9 +893,9 @@ paths:
           description: Filter for company prices
           required: false
           schema:
-            $ref: '#/components/schemas/RouteSearchObject'
+            $ref: "#/components/schemas/RouteSearchObject"
       responses:
-        '200':
+        "200":
           description: Success
           content:
             application/json:
@@ -910,207 +910,224 @@ paths:
                           $ref: "#/components/schemas/RouteDTO"
 
   /route/getById/{id}:
-      get:
-        tags:
-          - Route
-        summary: Get route by ID
-        operationId: getRouteById
-        security:
-          - internship_api_security_scheme:
-              - read_access
-        parameters:
-          - name: id
-            in: path
-            required: true
-            schema:
-              type: integer
-        responses:
-          '200':
-            description: Route retrieved successfully
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/RouteDTO'
-
-  /route/getAmountForReport:
-      post:
-        tags:
-          - Route
-        summary: Get report amount
-        operationId: getAmountForReport
-        security:
-          - internship_api_security_scheme: [ admin ]
-        requestBody:
+    get:
+      tags:
+        - Route
+      summary: Get route by ID
+      operationId: getRouteById
+      security:
+        - internship_api_security_scheme:
+            - read_access
+      parameters:
+        - name: id
+          in: path
           required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Route retrieved successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GeneralReportRequest'
-        responses:
-          '200':
-            description: Report values
-            content:
-              application/json:
-                schema:
-                  type: object
-                  additionalProperties:
-                    type: number
-                    format: double
+                $ref: "#/components/schemas/RouteDTO"
+  /route/getTopClients:
+    get:
+      tags:
+        - Route
+      summary: Get clients by route count
+      operationId: getTopClients
+      security:
+        - internship_api_security_scheme:
+            - read_access
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/RouteClientCountDTO"
+  /route/getAmountForReport:
+    post:
+      tags:
+        - Route
+      summary: Get report amount
+      operationId: getAmountForReport
+      security:
+        - internship_api_security_scheme: [admin]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GeneralReportRequest"
+      responses:
+        "200":
+          description: Report values
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: number
+                  format: double
 
   /route/save:
-      post:
-        tags:
-          - Route
-        summary: Save a new route
-        operationId: saveRoute
-        security:
-          - internship_api_security_scheme:
-              - write_access
-        requestBody:
-          required: true
+    post:
+      tags:
+        - Route
+      summary: Save a new route
+      operationId: saveRoute
+      security:
+        - internship_api_security_scheme:
+            - write_access
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RouteInsertRequest"
+      responses:
+        "201":
+          description: Route created successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RouteInsertRequest'
-        responses:
-          '201':
-            description: Route created successfully
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/RouteDTO'
+                $ref: "#/components/schemas/RouteDTO"
 
   /route/update/{id}:
-      put:
-        tags:
-          - Route
-        summary: Update route details by ID
-        operationId: updateRoute
-        security:
-          - internship_api_security_scheme:
-              - write_access
-        parameters:
-          - name: id
-            in: path
-            description: The ID of the route to update
-            required: true
-            schema:
-              type: integer
-        requestBody:
+    put:
+      tags:
+        - Route
+      summary: Update route details by ID
+      operationId: updateRoute
+      security:
+        - internship_api_security_scheme:
+            - write_access
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the route to update
           required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RouteUpdateRequest"
+      responses:
+        "200":
+          description: Route updated successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RouteUpdateRequest'
-        responses:
-          '200':
-            description: Route updated successfully
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/RouteDTO'
-          '400':
-            description: Bad Request
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    message:
-                      type: string
-                    statusCode:
-                      type: integer
+                $ref: "#/components/schemas/RouteDTO"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer
 
   /route/updateFinish/{id}:
-      put:
-        tags:
-          - Route
-        summary: Update finish route
-        operationId: updateRouteFinish
-        security:
-          - internship_api_security_scheme:
-              - write_access
-        parameters:
-          - in: path
-            name: id
-            required: true
-            schema:
-              type: integer
-        responses:
-          '200':
-            description: Route finished
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/RouteDTO'
-          '404':
-            description: The Route with the specified ID does not exist
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    message:
-                      type: string
-                    statusCode:
-                      type: integer
+    put:
+      tags:
+        - Route
+      summary: Update finish route
+      operationId: updateRouteFinish
+      security:
+        - internship_api_security_scheme:
+            - write_access
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Route finished
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RouteDTO"
+        "404":
+          description: The Route with the specified ID does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer
 
   /route/updatePayment/{id}:
-      put:
-        tags:
-          - Route
-        summary: Update payment route
-        operationId: updateRoutePayment
-        security:
-          - internship_api_security_scheme:
-              - write_access
-        parameters:
-          - in: path
-            name: id
-            required: true
-            schema:
-              type: integer
-        responses:
-          '200':
-            description: Route payment updated
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/RouteDTO'
-          '404':
-            description: The Route with the specified ID does not exist
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    message:
-                      type: string
-                    statusCode:
-                      type: integer
+    put:
+      tags:
+        - Route
+      summary: Update payment route
+      operationId: updateRoutePayment
+      security:
+        - internship_api_security_scheme:
+            - write_access
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Route payment updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RouteDTO"
+        "404":
+          description: The Route with the specified ID does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer
 
   /route/delete/{id}:
-      delete:
-        tags:
-          - Route
-        summary: Delete route
-        operationId: deleteRoute
-        security:
-            - internship_api_security_scheme:
-                - write_access
-        parameters:
-          - in: path
-            name: id
-            required: true
-            schema:
-              type: integer
-        responses:
-          '200':
-            description: Route deleted
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/RouteDTO'
+    delete:
+      tags:
+        - Route
+      summary: Delete route
+      operationId: deleteRoute
+      security:
+        - internship_api_security_scheme:
+            - write_access
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Route deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RouteDTO"
   #Vehicle paths
   /vehicle/get:
     get:
@@ -1126,9 +1143,9 @@ paths:
           in: query
           required: false
           schema:
-            $ref: '#/components/schemas/VehicleSearchObject'
+            $ref: "#/components/schemas/VehicleSearchObject"
       responses:
-        '200':
+        "200":
           description: Success
           content:
             application/json:
@@ -1158,13 +1175,13 @@ paths:
           schema:
             type: integer
       responses:
-        '200':
+        "200":
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/VehicleDTO'
-        '404':
+                $ref: "#/components/schemas/VehicleDTO"
+        "404":
           description: The Vehicle with the specified ID does not exist
           content:
             application/json:
@@ -1190,14 +1207,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/VehicleUpsertRequest'
+              $ref: "#/components/schemas/VehicleUpsertRequest"
       responses:
-        '201':
+        "201":
           description: Created
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/VehicleDTO'
+                $ref: "#/components/schemas/VehicleDTO"
 
   /vehicle/update/{id}:
     put:
@@ -1219,15 +1236,15 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/VehicleUpsertRequest'
+              $ref: "#/components/schemas/VehicleUpsertRequest"
       responses:
-        '200':
+        "200":
           description: Updated
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/VehicleDTO'
-        '404':
+                $ref: "#/components/schemas/VehicleDTO"
+        "404":
           description: The Vehicle with the specified ID does not exist
           content:
             application/json:
@@ -1255,12 +1272,12 @@ paths:
           schema:
             type: integer
       responses:
-        '200':
+        "200":
           description: Deleted
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/VehicleDTO'
+                $ref: "#/components/schemas/VehicleDTO"
   #Rent paths
   /rent/get:
     get:
@@ -1276,9 +1293,9 @@ paths:
           in: query
           required: false
           schema:
-            $ref: '#/components/schemas/RentSearchObject'
+            $ref: "#/components/schemas/RentSearchObject"
       responses:
-        '200':
+        "200":
           description: Success
           content:
             application/json:
@@ -1291,6 +1308,30 @@ paths:
                         type: array
                         items:
                           $ref: "#/components/schemas/RentDTO"
+  /rent/getAmountForReport:
+    post:
+      tags:
+        - Rent
+      summary: Get report amount
+      operationId: getAmountForReportRent
+      security:
+        - internship_api_security_scheme: [admin]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GeneralReportRequest"
+      responses:
+        "200":
+          description: Report values
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: number
+                  format: double
 
   /rent/getById/{id}:
     get:
@@ -1308,13 +1349,13 @@ paths:
           schema:
             type: integer
       responses:
-        '200':
+        "200":
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RentDTO'
-        '404':
+                $ref: "#/components/schemas/RentDTO"
+        "404":
           description: The Rent with the specified ID does not exist
           content:
             application/json:
@@ -1340,14 +1381,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RentInsertRequest'
+              $ref: "#/components/schemas/RentInsertRequest"
       responses:
-        '201':
+        "201":
           description: Created
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RentDTO'
+                $ref: "#/components/schemas/RentDTO"
 
   /rent/checkAvailability/{id}:
     post:
@@ -1369,9 +1410,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RentAvailabilityRequest'
+              $ref: "#/components/schemas/RentAvailabilityRequest"
       responses:
-        '200':
+        "200":
           description: Availability status
           content:
             application/json:
@@ -1379,7 +1420,7 @@ paths:
                 type: object
                 additionalProperties:
                   type: boolean
-        '404':
+        "404":
           description: The Rent with the specified ID does not exist
           content:
             application/json:
@@ -1411,15 +1452,15 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RentUpdateRequest'
+              $ref: "#/components/schemas/RentUpdateRequest"
       responses:
-        '200':
+        "200":
           description: Updated
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RentDTO'
-        '404':
+                $ref: "#/components/schemas/RentDTO"
+        "404":
           description: The Rent with the specified ID does not exist
           content:
             application/json:
@@ -1447,13 +1488,13 @@ paths:
           schema:
             type: integer
       responses:
-        '200':
+        "200":
           description: Updated to active
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RentDTO'
-        '404':
+                $ref: "#/components/schemas/RentDTO"
+        "404":
           description: The Rent with the specified ID does not exist
           content:
             application/json:
@@ -1481,13 +1522,13 @@ paths:
           schema:
             type: integer
       responses:
-        '200':
+        "200":
           description: Rent finished
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RentDTO'
-        '404':
+                $ref: "#/components/schemas/RentDTO"
+        "404":
           description: The Rent with the specified ID does not exist
           content:
             application/json:
@@ -1515,13 +1556,13 @@ paths:
           schema:
             type: integer
       responses:
-        '200':
+        "200":
           description: Payment updated
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RentDTO'
-        '404':
+                $ref: "#/components/schemas/RentDTO"
+        "404":
           description: The Rent with the specified ID does not exist
           content:
             application/json:
@@ -1549,13 +1590,13 @@ paths:
           schema:
             type: integer
       responses:
-        '200':
+        "200":
           description: Deleted
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RentDTO'
-        '404':
+                $ref: "#/components/schemas/RentDTO"
+        "404":
           description: The Rent with the specified ID does not exist
           content:
             application/json:
@@ -1581,21 +1622,21 @@ paths:
           in: query
           required: false
           schema:
-            $ref: '#/components/schemas/NotificationSearchObject'
+            $ref: "#/components/schemas/NotificationSearchObject"
       responses:
-        '200':
+        "200":
           description: Success
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/List'
+                  - $ref: "#/components/schemas/List"
                   - type: object
                     properties:
                       items:
                         type: array
                         items:
-                          $ref: '#/components/schemas/NotificationDTO'
+                          $ref: "#/components/schemas/NotificationDTO"
 
   /notification/getById/{id}:
     get:
@@ -1613,13 +1654,13 @@ paths:
           schema:
             type: integer
       responses:
-        '200':
+        "200":
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/NotificationDTO'
-        '404':
+                $ref: "#/components/schemas/NotificationDTO"
+        "404":
           description: Not found
           content:
             application/json:
@@ -1645,14 +1686,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/NotificationUpsertRequest'
+              $ref: "#/components/schemas/NotificationUpsertRequest"
       responses:
-        '201':
+        "201":
           description: Created
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/NotificationDTO'
+                $ref: "#/components/schemas/NotificationDTO"
 
   /notification/update/{id}:
     put:
@@ -1674,14 +1715,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/NotificationUpsertRequest'
+              $ref: "#/components/schemas/NotificationUpsertRequest"
       responses:
-        '200':
+        "200":
           description: Updated
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/NotificationDTO'
+                $ref: "#/components/schemas/NotificationDTO"
 
   /notification/delete/{id}:
     delete:
@@ -1699,13 +1740,13 @@ paths:
           schema:
             type: integer
       responses:
-        '200':
+        "200":
           description: Deleted
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/NotificationDTO'
-        '404':
+                $ref: "#/components/schemas/NotificationDTO"
+        "404":
           description: Not found
           content:
             application/json:
@@ -1731,55 +1772,73 @@ paths:
           in: query
           required: false
           schema:
-            $ref: '#/components/schemas/ReviewSearchObject'
+            $ref: "#/components/schemas/ReviewSearchObject"
       responses:
-        '200':
+        "200":
           description: Success
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/List'
+                  - $ref: "#/components/schemas/List"
                   - type: object
                     properties:
                       items:
                         type: array
                         items:
-                          $ref: '#/components/schemas/ReviewDTO'
+                          $ref: "#/components/schemas/ReviewDTO"
+  /review/getAverageReview:
+    get:
+      tags:
+        - Review
+      summary: Get all reviews
+      operationId: getAverageReview
+      security:
+        - internship_api_security_scheme:
+            - read_access
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ClientReviewAverageDTO"
 
   /review/getById/{id}:
-      get:
-        tags:
-          - Review
-        summary: Get review by ID
-        operationId: getReviewById
-        security:
-          - internship_api_security_scheme:
-              - read_access
-        parameters:
-          - name: id
-            in: path
-            required: true
-            schema:
-              type: integer
-        responses:
-          '200':
-            description: Success
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/ReviewDTO'
-          '404':
-            description: The Review with the specified ID does not exist
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    message:
-                      type: string
-                    statusCode:
-                      type: integer
+    get:
+      tags:
+        - Review
+      summary: Get review by ID
+      operationId: getReviewById
+      security:
+        - internship_api_security_scheme:
+            - read_access
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReviewDTO"
+        "404":
+          description: The Review with the specified ID does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer
 
   /review/getDriversForReport:
     post:
@@ -1795,9 +1854,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/GeneralReportRequest'
+              $ref: "#/components/schemas/GeneralReportRequest"
       responses:
-        '200':
+        "200":
           description: Success
           content:
             application/json:
@@ -1805,103 +1864,102 @@ paths:
                 type: object
                 additionalProperties: true
 
-
   /review/save:
-      post:
-        tags:
-          - Review
-        summary: Create new review
-        operationId: saveReview
-        security:
-          - internship_api_security_scheme:
-              - write_access
-        requestBody:
-          required: true
+    post:
+      tags:
+        - Review
+      summary: Create new review
+      operationId: saveReview
+      security:
+        - internship_api_security_scheme:
+            - write_access
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ReviewInsertRequest"
+      responses:
+        "201":
+          description: Created
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ReviewInsertRequest'
-        responses:
-          '201':
-            description: Created
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/ReviewDTO'
+                $ref: "#/components/schemas/ReviewDTO"
 
   /review/update/{id}:
-      put:
-        tags:
-          - Review
-        summary: Update review
-        operationId: updateReview
-        security:
-          - internship_api_security_scheme:
-              - write_access
-        parameters:
-          - name: id
-            in: path
-            required: true
-            schema:
-              type: integer
-        requestBody:
+    put:
+      tags:
+        - Review
+      summary: Update review
+      operationId: updateReview
+      security:
+        - internship_api_security_scheme:
+            - write_access
+      parameters:
+        - name: id
+          in: path
           required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ReviewUpdateRequest"
+      responses:
+        "200":
+          description: Updated
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ReviewUpdateRequest'
-        responses:
-          '200':
-            description: Updated
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/ReviewDTO'
-          '404':
-            description: The Review with the specified ID does not exist
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    message:
-                      type: string
-                    statusCode:
-                      type: integer
+                $ref: "#/components/schemas/ReviewDTO"
+        "404":
+          description: The Review with the specified ID does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer
 
   /review/delete/{id}:
-      delete:
-        tags:
-          - Review
-        summary: Delete review
-        operationId: deleteReview
-        security:
-          - internship_api_security_scheme:
-              - write_access
-        parameters:
-          - name: id
-            in: path
-            required: true
-            schema:
-              type: integer
-        responses:
-          '200':
-            description: Deleted
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/ReviewDTO'
-          '404':
-            description: The Review with the specified ID does not exist
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    message:
-                      type: string
-                    statusCode:
-                      type: integer
+    delete:
+      tags:
+        - Review
+      summary: Delete review
+      operationId: deleteReview
+      security:
+        - internship_api_security_scheme:
+            - write_access
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReviewDTO"
+        "404":
+          description: The Review with the specified ID does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer
   #Statistics paths
   /statistics/get:
     get:
@@ -1917,186 +1975,186 @@ paths:
           in: query
           required: false
           schema:
-            $ref: '#/components/schemas/StatisticsSearchObject'
+            $ref: "#/components/schemas/StatisticsSearchObject"
       responses:
-        '200':
+        "200":
           description: Success
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/List'
+                  - $ref: "#/components/schemas/List"
                   - type: object
                     properties:
                       items:
                         type: array
                         items:
-                          $ref: '#/components/schemas/StatisticsDTO'
+                          $ref: "#/components/schemas/StatisticsDTO"
 
   /statistics/getById/{id}:
-      get:
-        tags:
-          - Statistics
-        summary: Get statistics by ID
-        operationId: getStatisticsById
-        security:
-          - internship_api_security_scheme:
-              - read_access
-        parameters:
-          - name: id
-            in: path
-            required: true
-            schema:
-              type: integer
-        responses:
-          '200':
-            description: Success
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/StatisticsDTO'
-          '404':
-            description: The Statistics with the specified ID does not exist
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    message:
-                      type: string
-                    statusCode:
-                      type: integer
+    get:
+      tags:
+        - Statistics
+      summary: Get statistics by ID
+      operationId: getStatisticsById
+      security:
+        - internship_api_security_scheme:
+            - read_access
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StatisticsDTO"
+        "404":
+          description: The Statistics with the specified ID does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer
 
   /statistics/save:
-      post:
-        tags:
-          - Statistics
-        summary: Save statistics
-        operationId: saveStatistics
-        security:
-          - internship_api_security_scheme:
-              - write_access
-        requestBody:
-          required: true
+    post:
+      tags:
+        - Statistics
+      summary: Save statistics
+      operationId: saveStatistics
+      security:
+        - internship_api_security_scheme:
+            - write_access
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StatisticsInsertRequest"
+      responses:
+        "201":
+          description: Created
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StatisticsInsertRequest'
-        responses:
-          '201':
-            description: Created
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/StatisticsDTO'
+                $ref: "#/components/schemas/StatisticsDTO"
 
   /statistics/update/{id}:
-      put:
-        tags:
-          - Statistics
-        summary: Update statistics
-        operationId: updateStatistics
-        security:
-          - internship_api_security_scheme:
-              - write_access
-        parameters:
-          - name: id
-            in: path
-            required: true
-            schema:
-              type: integer
-        requestBody:
+    put:
+      tags:
+        - Statistics
+      summary: Update statistics
+      operationId: updateStatistics
+      security:
+        - internship_api_security_scheme:
+            - write_access
+      parameters:
+        - name: id
+          in: path
           required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StatisticsUpdateRequest"
+      responses:
+        "200":
+          description: Updated
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StatisticsUpdateRequest'
-        responses:
-          '200':
-            description: Updated
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/StatisticsDTO'
-          '404':
-            description: The Statistics with the specified ID does not exist
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    message:
-                      type: string
-                    statusCode:
-                      type: integer
+                $ref: "#/components/schemas/StatisticsDTO"
+        "404":
+          description: The Statistics with the specified ID does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer
 
   /statistics/updateFinish/{id}:
-      put:
-        tags:
-          - Statistics
-        summary: Finish statistics
-        operationId: updateStatisticsFinish
-        security:
-          - internship_api_security_scheme:
-              - write_access
-        parameters:
-          - name: id
-            in: path
-            required: true
-            schema:
-              type: integer
-        responses:
-          '200':
-            description: Finished
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/StatisticsDTO'
-          '404':
-            description: The Statistics with the specified ID does not exist
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    message:
-                      type: string
-                    statusCode:
-                      type: integer
+    put:
+      tags:
+        - Statistics
+      summary: Finish statistics
+      operationId: updateStatisticsFinish
+      security:
+        - internship_api_security_scheme:
+            - write_access
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Finished
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StatisticsDTO"
+        "404":
+          description: The Statistics with the specified ID does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer
 
   /statistics/delete/{id}:
-      delete:
-        tags:
-          - Statistics
-        summary: Delete statistics
-        operationId: deleteStatistics
-        security:
-          - internship_api_security_scheme:
-              - write_access
-        parameters:
-          - name: id
-            in: path
-            required: true
-            schema:
-              type: integer
-        responses:
-          '200':
-            description: Deleted
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/StatisticsDTO'
-          '404':
-            description: The Statistics with the specified ID does not exist
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    message:
-                      type: string
-                    statusCode:
-                      type: integer
+    delete:
+      tags:
+        - Statistics
+      summary: Delete statistics
+      operationId: deleteStatistics
+      security:
+        - internship_api_security_scheme:
+            - write_access
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StatisticsDTO"
+        "404":
+          description: The Statistics with the specified ID does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer
   #Request path
   /requests/get:
     get:
@@ -2109,21 +2167,21 @@ paths:
           in: query
           required: false
           schema:
-            $ref: '#/components/schemas/RequestSearchObject'
+            $ref: "#/components/schemas/RequestSearchObject"
       responses:
-        '200':
+        "200":
           description: Success
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/List'
+                  - $ref: "#/components/schemas/List"
                   - type: object
                     properties:
                       items:
                         type: array
                         items:
-                          $ref: '#/components/schemas/RequestDTO'
+                          $ref: "#/components/schemas/RequestDTO"
 
   /requests/getById/{id}:
     get:
@@ -2138,13 +2196,13 @@ paths:
           schema:
             type: integer
       responses:
-        '200':
+        "200":
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RequestDTO'
-        '404':
+                $ref: "#/components/schemas/RequestDTO"
+        "404":
           description: The Request with the specified ID does not exist
           content:
             application/json:
@@ -2167,14 +2225,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RequestInsertRequest'
+              $ref: "#/components/schemas/RequestInsertRequest"
       responses:
-        '201':
+        "201":
           description: Created
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RequestDTO'
+                $ref: "#/components/schemas/RequestDTO"
 
   /requests/update/{id}:
     put:
@@ -2193,15 +2251,15 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RequestUpdateRequest'
+              $ref: "#/components/schemas/RequestUpdateRequest"
       responses:
-        '200':
+        "200":
           description: Updated
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RequestDTO'
-        '404':
+                $ref: "#/components/schemas/RequestDTO"
+        "404":
           description: The Request with the specified ID does not exist
           content:
             application/json:
@@ -2226,13 +2284,13 @@ paths:
           schema:
             type: integer
       responses:
-        '200':
+        "200":
           description: Deleted
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RequestDTO'
-        '404':
+                $ref: "#/components/schemas/RequestDTO"
+        "404":
           description: The Request with the specified ID does not exist
           content:
             application/json:
@@ -2255,21 +2313,21 @@ paths:
           in: query
           required: false
           schema:
-            $ref: '#/components/schemas/DriverVehicleSearchObject'
+            $ref: "#/components/schemas/DriverVehicleSearchObject"
       responses:
-        '200':
+        "200":
           description: Success
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/List'
+                  - $ref: "#/components/schemas/List"
                   - type: object
                     properties:
                       items:
                         type: array
                         items:
-                          $ref: '#/components/schemas/DriverVehicleDTO'
+                          $ref: "#/components/schemas/DriverVehicleDTO"
 
   /driverVehicle/getById/{id}:
     get:
@@ -2284,13 +2342,13 @@ paths:
           schema:
             type: integer
       responses:
-        '200':
+        "200":
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DriverVehicleDTO'
-        '404':
+                $ref: "#/components/schemas/DriverVehicleDTO"
+        "404":
           description: The DriverVehicle with the specified ID does not exist
           content:
             application/json:
@@ -2314,7 +2372,7 @@ paths:
           schema:
             type: integer
       responses:
-        '200':
+        "200":
           description: Success
           content:
             application/json:
@@ -2334,14 +2392,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/DriverVehicleInsertRequest'
+              $ref: "#/components/schemas/DriverVehicleInsertRequest"
       responses:
-        '201':
+        "201":
           description: Created
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DriverVehicleDTO'
+                $ref: "#/components/schemas/DriverVehicleDTO"
 
   /driverVehicle/updateFinish:
     put:
@@ -2354,15 +2412,15 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/DriverVehicleFinishRequest'
+              $ref: "#/components/schemas/DriverVehicleFinishRequest"
       responses:
-        '200':
+        "200":
           description: Updated Finish
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DriverVehicleDTO'
-        '404':
+                $ref: "#/components/schemas/DriverVehicleDTO"
+        "404":
           description: The DriverVehicle with the specified ID does not exist
           content:
             application/json:
@@ -2387,13 +2445,13 @@ paths:
           schema:
             type: integer
       responses:
-        '200':
+        "200":
           description: Deleted
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DriverVehicleDTO'
-        '404':
+                $ref: "#/components/schemas/DriverVehicleDTO"
+        "404":
           description: The DriverVehicle with the specified ID does not exist
           content:
             application/json:
@@ -2404,8 +2462,6 @@ paths:
                     type: string
                   statusCode:
                     type: integer
-
-
 
 components:
   securitySchemes:
@@ -2484,23 +2540,23 @@ components:
         name:
           type: string
           description: The name of the user
-          pattern: '^[A-Z][A-Za-z0-9]{1,}$'
-          example: 'Mustafa'
+          pattern: "^[A-Z][A-Za-z0-9]{1,}$"
+          example: "Mustafa"
         surname:
           type: string
           description: The surname of the user
-          pattern: '^[A-Z][A-Za-z0-9]{1,}$'
-          example: 'Kovac'
+          pattern: "^[A-Z][A-Za-z0-9]{1,}$"
+          example: "Kovac"
         username:
-            type: string
-            description: The username of the user
-            minLength: 5
-            maxLength: 20
+          type: string
+          description: The username of the user
+          minLength: 5
+          maxLength: 20
         email:
           type: string
           description: The email of the user
           pattern: '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
-          example: 'name.surname@edu.fit.ba'
+          example: "name.surname@edu.fit.ba"
         password:
           type: string
           description: The password of the user
@@ -2511,10 +2567,10 @@ components:
           type: string
           description: The telephone number of the user
           pattern: '^06\d-\d{3}-\d{3,4}$'
-          example: '06X-XXX-XXXX'
+          example: "06X-XXX-XXXX"
         gender:
           type: string
-          enum: [male,Male,female,Female]
+          enum: [male, Male, female, Female]
           description: The user's gender
         isActive:
           type: boolean
@@ -2530,23 +2586,23 @@ components:
           type: string
           description: The name of the user
           minLength: 2
-          pattern: '^[A-Z][A-Za-z0-9]{1,}$'
-          example: 'Joshua'
+          pattern: "^[A-Z][A-Za-z0-9]{1,}$"
+          example: "Joshua"
         surname:
           type: string
           description: The surname of the user
           minLength: 2
-          pattern: '^[A-Z][A-Za-z0-9]{1,}$'
+          pattern: "^[A-Z][A-Za-z0-9]{1,}$"
         telephoneNumber:
           type: string
           description: The telephone number of the user
           pattern: '^06\d-\d{3}-\d{3,4}$'
-          example: 'Philips'
+          example: "Philips"
         email:
           type: string
           description: The email of the user
           pattern: '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
-          example: 'name.surname(name)@edu.fit.ba'
+          example: "name.surname(name)@edu.fit.ba"
         username:
           type: string
           description: The username of the user
@@ -2559,7 +2615,7 @@ components:
           description: The new password confirmation of the user
         gender:
           type: string
-          enum: [male,Male,female,Female]
+          enum: [male, Male, female, Female]
           description: The user's gender
       required:
         - name
@@ -2571,22 +2627,22 @@ components:
         id:
           type: integer
         user:
-          $ref: '#/components/schemas/UserDTO'
+          $ref: "#/components/schemas/UserDTO"
     AdminSearchObject:
-        type: object
-        properties:
-          pageNumber:
-            type: integer
-            description: The page number for pagination
-          pageSize:
-            type: integer
-            description: The page size for pagination
-          name:
-            type: string
-            description: The name to filter by
-          surname:
-            type: string
-            description: The surname to filter by
+      type: object
+      properties:
+        pageNumber:
+          type: integer
+          description: The page number for pagination
+        pageSize:
+          type: integer
+          description: The page size for pagination
+        name:
+          type: string
+          description: The name to filter by
+        surname:
+          type: string
+          description: The surname to filter by
     #Client data objects
     ClientDTO:
       type: object
@@ -2597,7 +2653,7 @@ components:
           type: string
           format: byte
         user:
-          $ref: '#/components/schemas/UserDTO'
+          $ref: "#/components/schemas/UserDTO"
     ClientSearchObject:
       type: object
       properties:
@@ -2624,7 +2680,7 @@ components:
         numberOfHoursAmount:
           type: integer
         user:
-          $ref: '#/components/schemas/UserDTO'
+          $ref: "#/components/schemas/UserDTO"
     DriverSearchObject:
       type: object
       properties:
@@ -2654,38 +2710,38 @@ components:
           format: date-time
 
     CompanyPriceInsertRequest:
-        type: object
-        properties:
-          pricePerKilometer:
-            type: number
-            format: double
-            minimum: 1
-            maximum: 15
-            description: Price per kilometer must be between 1 and 15
-        required:
-          - pricePerKilometer
+      type: object
+      properties:
+        pricePerKilometer:
+          type: number
+          format: double
+          minimum: 1
+          maximum: 15
+          description: Price per kilometer must be between 1 and 15
+      required:
+        - pricePerKilometer
 
     CompanyPriceUpdateRequest:
-        type: object
-        description: Empty object for future updates
-        properties:
-            pricePerKilometer:
-                type: number
-                format: double
-                minimum: 1
-                maximum: 15
-                description: Price per kilometer must be between 1 and 15
+      type: object
+      description: Empty object for future updates
+      properties:
+        pricePerKilometer:
+          type: number
+          format: double
+          minimum: 1
+          maximum: 15
+          description: Price per kilometer must be between 1 and 15
 
     CompanyPriceSearchObject:
-        type: object
-        properties:
-          pageNumber:
-            type: integer
-          pageSize:
-            type: integer
-          pricePerKilometer:
-            type: number
-            format: double
+      type: object
+      properties:
+        pageNumber:
+          type: integer
+        pageSize:
+          type: integer
+        pricePerKilometer:
+          type: number
+          format: double
     #Route data objects
     RouteDTO:
       type: object
@@ -2723,9 +2779,9 @@ components:
         status:
           type: string
         client:
-          $ref: '#/components/schemas/ClientDTO'
+          $ref: "#/components/schemas/ClientDTO"
         driver:
-          $ref: '#/components/schemas/DriverDTO'
+          $ref: "#/components/schemas/DriverDTO"
     RouteInsertRequest:
       type: object
       required:
@@ -2799,6 +2855,16 @@ components:
         year:
           type: integer
           minimum: 2024
+    RouteClientCountDTO:
+      type: object
+      properties:
+        client:
+          type: string
+        count:
+          type: int
+     
+
+
 
     #Vehicle data objects
     VehicleDTO:
@@ -2877,9 +2943,9 @@ components:
         status:
           type: string
         vehicle:
-          $ref: '#/components/schemas/VehicleDTO'
+          $ref: "#/components/schemas/VehicleDTO"
         client:
-          $ref: '#/components/schemas/ClientDTO'
+          $ref: "#/components/schemas/ClientDTO"
 
     RentInsertRequest:
       type: object
@@ -3007,9 +3073,9 @@ components:
           type: string
           format: date-time
         client:
-          $ref: '#/components/schemas/ClientDTO'
+          $ref: "#/components/schemas/ClientDTO"
         driver:
-          $ref: '#/components/schemas/DriverDTO'
+          $ref: "#/components/schemas/DriverDTO"
 
     ReviewSearchObject:
       type: object
@@ -3054,6 +3120,14 @@ components:
       required:
         - value
         - description
+    ClientReviewAverageDTO:
+      type: object
+      properties:
+        client:
+          type: string
+        averageReview:
+          type: number
+          format: double  
     #Statistics data objects
     StatisticsDTO:
       type: object
@@ -3074,7 +3148,7 @@ components:
           type: string
           format: date-time
         driver:
-          $ref: '#/components/schemas/DriverDTO'
+          $ref: "#/components/schemas/DriverDTO"
 
     StatisticsSearchObject:
       type: object
@@ -3097,8 +3171,7 @@ components:
         beginningOfWork:
           type: string
           format: date-time
-      required: [ ]
-
+      required: []
 
     StatisticsUpdateRequest:
       type: object
@@ -3115,37 +3188,37 @@ components:
         accepted:
           type: boolean
         route:
-          $ref: '#/components/schemas/RouteDTO'
+          $ref: "#/components/schemas/RouteDTO"
         driver:
-          $ref: '#/components/schemas/DriverDTO'
+          $ref: "#/components/schemas/DriverDTO"
 
     RequestInsertRequest:
-        type: object
-        properties:
-          driver_id:
-            type: integer
-          route_id:
-            type: integer
+      type: object
+      properties:
+        driver_id:
+          type: integer
+        route_id:
+          type: integer
 
     RequestUpdateRequest:
-        type: object
-        properties:
-          accepted:
-            type: boolean
+      type: object
+      properties:
+        accepted:
+          type: boolean
 
     RequestSearchObject:
-        type: object
-        properties:
-          pageNumber:
-            type: integer
-          pageSize:
-            type: integer
-          driver_id:
-            type: integer
-          route_id:
-            type: integer
-          accepted:
-            type: boolean
+      type: object
+      properties:
+        pageNumber:
+          type: integer
+        pageSize:
+          type: integer
+        driver_id:
+          type: integer
+        route_id:
+          type: integer
+        accepted:
+          type: boolean
     #DriverVehicle data objects
     DriverVehicleDTO:
       type: object
@@ -3159,39 +3232,39 @@ components:
           type: string
           format: date-time
         vehicle:
-          $ref: '#/components/schemas/VehicleDTO'
+          $ref: "#/components/schemas/VehicleDTO"
         driver:
-          $ref: '#/components/schemas/DriverDTO'
+          $ref: "#/components/schemas/DriverDTO"
 
     DriverVehicleInsertRequest:
-        type: object
-        properties:
-          driver_id:
-            type: integer
-          vehicle_id:
-            type: integer
+      type: object
+      properties:
+        driver_id:
+          type: integer
+        vehicle_id:
+          type: integer
 
     DriverVehicleUpdateRequest:
-        type: object
-        properties:
-          datePick:
-            type: string
-            format: date-time
+      type: object
+      properties:
+        datePick:
+          type: string
+          format: date-time
 
     DriverVehicleSearchObject:
-        type: object
-        properties:
-          pageNumber:
-            type: integer
-          pageSize:
-            type: integer
-          driver_id:
-            type: integer
-          vehicle_id:
-            type: integer
-          datePick:
-            type: string
-            format: date-time
+      type: object
+      properties:
+        pageNumber:
+          type: integer
+        pageSize:
+          type: integer
+        driver_id:
+          type: integer
+        vehicle_id:
+          type: integer
+        datePick:
+          type: string
+          format: date-time
     DriverVehicleFinishRequest:
       type: object
       properties:

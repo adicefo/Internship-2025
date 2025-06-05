@@ -28,6 +28,10 @@ class RentService extends BaseService {
       const url=`${this.endpoint}/updateFinish/${id}`;
       return apiClient.put(url);
     }
+    async getAmountForReport(request){
+      const url=`${this.endpoint}/getAmountForReport`;
+      return apiClient.post(url,request);
+    }
   }
   
   // Create a singleton instance

@@ -23,6 +23,7 @@ import ReviewPage from './pages/review/ReviewPage'
 import ReviewDetailsPage from './pages/review/ReviewDetailsPage'
 import StatisticsPage from './pages/statistics/StatisticsPage'
 import CompanyPricePage from './pages/companyPrice/CompanyPricePage'
+import ReportsPage from './components/report/ReportsPage';
 function App() {
   const { initialized, keycloak } = useKeycloak();
   const [initializationTimeout, setInitializationTimeout] = useState(false);
@@ -103,6 +104,7 @@ function App() {
           <Route path="/rent/edit" element={<RentDetailsPage />} />
           <Route path="/statistics" element={<StatisticsPage/>}/>
           <Route path="/prices" element={<CompanyPricePage/>}/>
+          <Route path="/report" element={<ReportsPage/>}></Route>
         </Route>
       </Routes>
     </>

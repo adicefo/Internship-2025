@@ -39,7 +39,13 @@ public class ReviewDelegateImpl implements ReviewApiDelegate {
     public ResponseEntity<Map<String, Object>> getDriversForReport(GeneralReportRequest generalReportRequest) {
         return new ResponseEntity<>(service.getDriversForReport(generalReportRequest), HttpStatus.OK);
     }
+    
+    @Override
+    public ResponseEntity<List<ClientReviewAverageDTO>> getAverageReview()
+    {
+        return new ResponseEntity<>(service.getAverageReviewPerClient(), HttpStatus.OK);
 
+    }
     @Override
     public ResponseEntity<ReviewDTO> updateReview(Integer id, ReviewUpdateRequest reviewUpdateRequest) {
         return new ResponseEntity<>(service.updateById(id.longValue(), reviewUpdateRequest), HttpStatus.OK);

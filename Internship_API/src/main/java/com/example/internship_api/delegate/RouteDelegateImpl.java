@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -34,7 +35,10 @@ public class RouteDelegateImpl implements RouteApiDelegate {
     public ResponseEntity<Map<String, Double>> getAmountForReport(GeneralReportRequest generalReportRequest) {
         return new ResponseEntity<>(service.getAmountForReport(generalReportRequest), HttpStatus.OK);
     }
-
+    @Override
+    public ResponseEntity<List<RouteClientCountDTO>> getTopClients(){
+        return new ResponseEntity<>(service.getTopClientsByRoute(),HttpStatus.OK);
+    }
     @Override
     public ResponseEntity<RouteDTO> saveRoute(RouteInsertRequest routeInsertRequest) {
         return new ResponseEntity<>(service.save(routeInsertRequest), HttpStatus.CREATED);

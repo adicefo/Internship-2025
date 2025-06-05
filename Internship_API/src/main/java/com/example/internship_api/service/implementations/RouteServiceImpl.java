@@ -22,6 +22,7 @@ import org.springframework.data.domain.Pageable;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -73,6 +74,30 @@ public class RouteServiceImpl extends BaseCRUDServiceImpl<RouteDTO, RouteSearchO
             return Map.of("fullAmount",0.0);
         return Map.of("fullAmount",amount);
     }
+    @Override
+public List<RouteClientCountDTO> getTopClientsByRoute() {
+    var routes = repository.findAll()
+        .stream()
+        .filter(route -> route.getStartDate() != null)
+        .filter(route -> "finished".equals(route.getStatus()))
+        .filter(route -> route.getClient() != null)
+        .collect(Collectors.toList());
+
+    Map<String, Long> routeCountByClient = routes.stream()
+        .collect(Collectors.groupingBy(
+            route -> route.getClient().getUser().getName() + " " + route.getClient().getUser().getSurname(),
+            Collectors.counting()
+        ));
+
+    return routeCountByClient.entrySet()
+        .stream()
+        .map(entry -> new RouteClientCountDTO()
+            .client(entry.getKey())
+            .count(entry.getValue().intValue())) // Convert Long to Integer
+        .sorted(Comparator.comparingInt(RouteClientCountDTO::getCount).reversed())
+        .collect(Collectors.toList());
+}
+
 
     @Override
     protected void beforeInsert(RouteInsertRequest request, Route entity) {
@@ -146,5 +171,6 @@ public class RouteServiceImpl extends BaseCRUDServiceImpl<RouteDTO, RouteSearchO
         throw new EntityNotFoundException(client_id, Client.class);
     }
     //method for checking if passed route exist in db
+   
 
 }

@@ -17,6 +17,18 @@ class RouteService extends BaseService {
       console.log(url);
       return apiClient.put(url);
     }
+
+    async getForReport(filter){
+      const url = `${this.endpoint}/getAmountForReport`;
+      return apiClient.post(url,filter);
+    }
+
+    async getTopClients()
+    {
+      const url = `${this.endpoint}/getTopClients`;
+      return apiClient.get(url);
+
+    }
     
   }
   

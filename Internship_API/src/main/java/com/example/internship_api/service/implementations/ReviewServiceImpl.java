@@ -71,6 +71,21 @@ public class ReviewServiceImpl extends BaseCRUDServiceImpl<ReviewDTO, ReviewSear
 
         return Map.of("maxDriver", maxAvgDriver, "minDriver", minAvgDriver);
     }
+     @Override
+    public List<ClientReviewAverageDTO> getAverageReviewPerClient() {
+       List<Review> allReviews = repository.findAll();
+
+    return allReviews.stream()
+        .filter(r -> r.getClient() != null)
+        .collect(Collectors.groupingBy(
+            r -> r.getClient().getUser().getName(),
+            Collectors.averagingDouble(Review::getValue)
+        ))
+        .entrySet()
+        .stream()
+        .map(entry -> new ClientReviewAverageDTO().client(entry.getKey()).averageReview(entry.getValue()))
+        .toList();
+    }
     @Override
     protected void beforeInsert(ReviewInsertRequest request, Review entity) {
         var route=routeRepository.findAll()
@@ -133,6 +148,7 @@ public class ReviewServiceImpl extends BaseCRUDServiceImpl<ReviewDTO, ReviewSear
             return driver.get();
         throw new EntityNotFoundException(driver_id, Driver.class);
     }
+   
 
 
 }

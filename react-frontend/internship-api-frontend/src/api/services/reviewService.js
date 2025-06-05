@@ -1,3 +1,4 @@
+import apiClient from '../apiClient';
 import BaseService from '../baseService';
 
 class ReviewService extends BaseService {
@@ -13,6 +14,10 @@ class ReviewService extends BaseService {
       super('/review', customEndpoints);
     }
     
+    async getAverageReview(){
+      const url = `${this.endpoint}/getAverageReview`;
+      return apiClient.get(url);
+    }
     
   }
   

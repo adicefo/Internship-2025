@@ -58,7 +58,20 @@ public class RentServiceImpl extends BaseCRUDServiceImpl<RentDTO, RentSearchObje
         repository.save(unwrapEntity);
         return modelMapper.map(unwrapEntity,modelClass);
     }
-
+   @Override
+    public Map<String, Double> getAmountForReport(GeneralReportRequest request) {
+        var rents=repository.findAll()
+                .stream()
+                .filter(item->item.getStatus().equals("finished"))
+                .filter(item->item.getRentDate()!=null&&item.getEndDate()!=null)
+                .filter(item->item.getRentDate().getMonthValue()==request.getMonth())
+                .filter(item->item.getRentDate().getYear()==request.getYear())
+                .collect(Collectors.toList());
+        var amount=rents.stream().mapToDouble(item->item.getFullPrice()).sum();
+        if(amount==0)
+            return Map.of("fullAmount",0.0);
+        return Map.of("fullAmount",amount);
+    }
     @Override
     public Map<String, Boolean> checkAvailability(Long id, RentAvailabilityRequest request) {
         var entity=unwrapEntity(repository.findById(id),id);

@@ -8,4 +8,5 @@ import java.util.Map;
 public interface ReviewService extends BaseCRUDService<ReviewDTO, ReviewSearchObject,
         ReviewInsertRequest, ReviewUpdateRequest>{
     Map<String,Object> getDriversForReport(GeneralReportRequest request);
+    List<ClientReviewAverageDTO> getAverageReviewPerClient();
 }

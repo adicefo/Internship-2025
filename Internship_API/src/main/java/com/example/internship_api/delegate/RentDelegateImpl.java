@@ -38,7 +38,10 @@ public class RentDelegateImpl implements RentApiDelegate {
     public ResponseEntity<Map<String, Boolean>> checkRentAvailability(Integer id, RentAvailabilityRequest rentAvailabilityRequest) {
         return new ResponseEntity<>(service.checkAvailability(id.longValue(), rentAvailabilityRequest), HttpStatus.OK);
     }
-
+    @Override
+    public ResponseEntity<Map<String, Double>> getAmountForReportRent(GeneralReportRequest generalReportRequest) {
+        return new ResponseEntity<>(service.getAmountForReport(generalReportRequest), HttpStatus.OK);
+    }
     @Override
     public ResponseEntity<RentDTO> updateRent(Integer id, RentUpdateRequest rentUpdateRequest) {
         return new ResponseEntity<>(service.updateById(id.longValue(), rentUpdateRequest), HttpStatus.OK);

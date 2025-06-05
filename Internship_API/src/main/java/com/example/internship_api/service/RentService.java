@@ -10,4 +10,5 @@ public interface RentService extends BaseCRUDService<RentDTO, RentSearchObject,
     RentDTO updateFinish(Long id);
     RentDTO updatePayment(Long id);
     Map<String,Boolean> checkAvailability(Long id, RentAvailabilityRequest request);
+    Map<String,Double> getAmountForReport(GeneralReportRequest request);
 }
