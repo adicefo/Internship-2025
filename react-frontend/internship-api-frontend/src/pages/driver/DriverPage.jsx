@@ -70,8 +70,8 @@ const DriverPage = () => {
   };
 
   useEffect(() => {
-    fetchDrivers({name:nameFilter,surname:surnameFilter});
-  }, [currentPage]); 
+    fetchDrivers({ name: nameFilter, surname: surnameFilter });
+  }, [currentPage]);
 
   const confirmDelete = async (id) => {
     setShowDialog(false);

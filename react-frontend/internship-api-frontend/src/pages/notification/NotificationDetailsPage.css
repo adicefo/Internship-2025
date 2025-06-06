@@ -26,7 +26,7 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    margin-bottom: 16px;
+    margin-top: 50px;
 }
 
 .form-group label {
@@ -63,8 +63,9 @@ textarea.form-control {
 
 .checkbox-container {
     display: flex;
-    align-items: center;
+    align-items:center;
     padding: 10px 0;
+    margin-left:175px;
 }
 
 .checkbox-container input[type="checkbox"] {

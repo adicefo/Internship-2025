@@ -14,6 +14,7 @@ import {
   FaMoneyBillWave,
   FaCarSide,
   FaPlus,
+  FaRedRiver,
 } from "react-icons/fa";
 import "./Dashboard.css";
 import {
@@ -159,6 +160,13 @@ const Dashboard = () => {
       path: "/rent/add",
       color: "#d35400",
       description: "Create a new rental",
+    },
+    {
+      title: "Add Driver",
+      icon: <FaRedRiver />,
+      path: "/driver/add",
+      color: "#34495e",
+      description: "Create a new driver",
     },
   ];
 

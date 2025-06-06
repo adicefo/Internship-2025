@@ -10,6 +10,7 @@ import {
   FaSave,
   FaArrowLeft,
   FaPhotoVideo,
+  FaHeading
 } from "react-icons/fa";
 import { toast } from "react-hot-toast";
 import noImagePlaceholder from "../../assets/no_image_placeholder.png";
@@ -184,9 +185,12 @@ const NotificationDetailsPage = () => {
         <form onSubmit={handleSubmit}>
           <div className="form-container">
             <div className="form-row">
+              <div className="form-heading">
+              <h5>Notification info</h5>
+              </div>
               <div className="form-group">
                 <label htmlFor="title">
-                  Notification Heading
+                 <FaHeading className="icon"></FaHeading> Notification Heading
                 </label>
                 <textarea
                   id="title"

@@ -382,7 +382,6 @@ const ClientDetailsPage = () => {
               <div className="form-group">
                 <label htmlFor="gender">Gender</label>
                 <div className="input-icon-wrapper">
-                  <i className="input-icon">👥</i>
                   <select
                     id="gender"
                     name="gender"

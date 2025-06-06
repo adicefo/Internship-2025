@@ -16,6 +16,7 @@ import {
   FaMoneyBillWave,
   FaCarSide,
   FaHome,
+  
 } from "react-icons/fa";
 import "./MasterPage.css";
 
@@ -79,6 +80,9 @@ const MasterPage = ({ children, currentRoute }) => {
 
   const handleDashboard = () => {
     navigate("/dashboard");
+  };
+  const handleReports = () => {
+    navigate("/report");
   };
 
   return (
@@ -163,6 +167,12 @@ const MasterPage = ({ children, currentRoute }) => {
                 <FaHome />
               </div>
               <div className="nav-title">Dashboard</div>
+            </div>
+            <div className="nav-item reports" onClick={handleReports}>
+              <div className="nav-icon">
+                <FaChartBar />
+              </div>
+              <div className="nav-title">Reports</div>
             </div>
             <div className="nav-item logout" onClick={handleLogout}>
               <div className="nav-icon">
