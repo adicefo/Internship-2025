@@ -30,8 +30,10 @@ First, clone the repository to your local machine:
    `cd path/to/your/frontend-app`
 2. Install the necessary dependencies:
    `npm install`
-3.Start the development server:
+3. Start the development server:
    `npm run dev`
+   
+
    
 ### Login credentials:
 - **Username:** `real_admin`  
