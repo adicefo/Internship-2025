@@ -16,6 +16,7 @@ import {
   FaMoneyBillWave,
   FaCarSide,
   FaHome,
+  FaMale,
   
 } from "react-icons/fa";
 import "./MasterPage.css";
@@ -57,12 +58,18 @@ const MasterPage = ({ children, currentRoute }) => {
 
   const additionalItems = [
     {
+      title: "Admin",
+      icon: <FaMale />,
+      route: "Admin",
+      path: "/admin",
+    },
+    
+     {
       title: "Statistics",
       icon: <FaChartBar />,
       route: "Statistics",
       path: "/statistics",
-    },
-    {
+    },{
       title: "Company Prices",
       icon: <FaMoneyBillWave />,
       route: "Company Price",
