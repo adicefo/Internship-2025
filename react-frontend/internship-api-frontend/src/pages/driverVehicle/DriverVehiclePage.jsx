@@ -92,16 +92,25 @@ const DriverVehicle = () => {
     }
   };
 
+  const handleOpenAddModal=()=>{
+    
+  }
+
   const paginatedList = driverVehicles.slice(
     currentPage * pageSize,
     currentPage * pageSize + pageSize
   );
+
+
 
   return (
     <MasterPage currentRoute="DriverVehicle">
       <div className="driver-vehicle-section">
         <div className="section-header">
           <h3>Driver-Vehicle Assignments</h3>
+          <button className="add-button" onClick={handleOpenAddModal}>
+            Add New DriverVehicle
+          </button>
         </div>
 
         {/* Filter */}
