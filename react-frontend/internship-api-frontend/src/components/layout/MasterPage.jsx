@@ -75,6 +75,12 @@ const MasterPage = ({ children, currentRoute }) => {
       route: "Company Price",
       path: "/prices",
     },
+    {
+      title: "Driver Vehicle",
+      icon: <FaCar />,
+      route: "Driver Vehicle",
+      path: "/driverVehicle",
+    },
   ];
 
   const handleNavigation = (route, path) => {
