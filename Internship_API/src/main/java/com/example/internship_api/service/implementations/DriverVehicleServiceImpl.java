@@ -91,7 +91,7 @@ public class DriverVehicleServiceImpl extends BaseCRUDServiceImpl<DriverVehicleD
         List<DriverVehicle> filteredQuery = query.stream()
                 .filter(item->search.getDriverId()==null||item.getDriver().getId()==search.getDriverId())
                 .filter(item->search.getVehicleId()==null||item.getVehicle().getId()==search.getVehicleId())
-                .filter(item->search.getDatePick()==null||item.getDatePick().equals(search.getDatePick()))
+                .filter(item->search.getDatePick()==null||item.getDatePick().toLocalDate().equals(search.getDatePick().toLocalDate()))
                 .collect(Collectors.toList());
         if (search.getPageNumber() != null && search.getPageSize() != null) {
         int start = search.getPageNumber() * search.getPageSize();

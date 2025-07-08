@@ -25,6 +25,7 @@ import StatisticsPage from './pages/statistics/StatisticsPage'
 import CompanyPricePage from './pages/companyPrice/CompanyPricePage'
 import ReportsPage from './components/report/ReportsPage';
 import AdminPage from './pages/admin/AdminPage';
+import DriverVehiclePage from './pages/driverVehicle/DriverVehiclePage';
 function App() {
   const { initialized, keycloak } = useKeycloak();
   const [initializationTimeout, setInitializationTimeout] = useState(false);
@@ -107,6 +108,7 @@ function App() {
           <Route path="/prices" element={<CompanyPricePage/>}/>
           <Route path="/report" element={<ReportsPage/>}></Route>
           <Route path="/admin" element={<AdminPage/>}/>
+          <Route path="/driverVehicle" element={<DriverVehiclePage/>}/>
 
         </Route>
       </Routes>
