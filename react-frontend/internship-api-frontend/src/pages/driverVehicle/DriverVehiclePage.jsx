@@ -131,6 +131,22 @@ const DriverVehicle = () => {
     setVehicleError("");
 
   }
+  const handleSaveDriverVehicle= async()=>{
+      if (validateDriver()&&validateVehicle()) {
+      try {
+        await driverVehicleService.create({
+          driver_id: parseInt(selectedDriver),
+          vehicle_id:parseInt(selectedVehicle)
+        });
+        toast.success("New driverVehicle added successfully");
+        setShowAddModal(false);
+        fetchDriverVehicles();
+      } catch (err) {
+        console.error("Error adding driverVehicle:", err);
+        toast.error("Failed to add driverVehicle. Please try again.");
+      }
+    }
+  }
 
   const handleCloseAddModal=()=>{
     setShowAddModal(false);
