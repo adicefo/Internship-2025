@@ -1,12 +1,14 @@
 import MasterPage from "../../components/layout/MasterPage";
 import { useState, useEffect } from "react";
-import { driverVehicleService, vehicleService } from "../../api";
+import { driverService, driverVehicleService, vehicleService } from "../../api";
 import {
   FaSearch,
   FaTrash,
   FaEdit,
   FaChevronLeft,
   FaChevronRight,
+  FaArrowLeft,
+  FaSave
 } from "react-icons/fa";
 import ConfirmDialog from "../../utils/ConfirmDialog";
 import { toast } from "react-hot-toast";
@@ -16,9 +18,14 @@ const DriverVehicle = () => {
   const [datePickFilter, setDatePickFilter] = useState("");
   const [driverVehicles, setDriverVehicles] = useState([]);
   const [vehicles, setVehicles] = useState([]);
+  const [drivers,setDrivers]=useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const [showAddModal, setShowAddModal] = useState(false);
+   const [selectedDriver, setSelectedDriver] = useState("");
+    const [selectedVehicle, setSelectedVehicle] = useState("");
+     const [driverError, setDriverError] = useState("");
+   const [vehicleError,setVehicleError]=useState("");
   // Pagination
   const [currentPage, setCurrentPage] = useState(0);
   const pageSize = 3;
@@ -32,6 +39,14 @@ const DriverVehicle = () => {
     try {
       const response = await vehicleService.getAll();
       setVehicles(response.data.items || []);
+    } catch (err) {
+      console.error("Error loading vehicles", err);
+    }
+  };
+    const fetchDrivers = async () => {
+    try {
+      const response = await driverService.getAll();
+      setDrivers(response.data.items || []);
     } catch (err) {
       console.error("Error loading vehicles", err);
     }
@@ -60,6 +75,7 @@ const DriverVehicle = () => {
 
   useEffect(() => {
     fetchVehicles();
+    fetchDrivers();
  fetchDriverVehicles({
   vehicleId: vehicleIdFilter || undefined,
   datePick: datePickFilter ? `${datePickFilter}T00:00:00` : undefined,
@@ -79,7 +95,22 @@ const DriverVehicle = () => {
     setShowDialog(true);
     setDeleteId(id);
   };
-
+  const validateDriver = () => {
+    if (!selectedDriver) {
+      setDriverError("Please select a driver");
+      return false;
+    }
+    setDriverError("");
+    return true;
+  };
+    const validateVehicle = () => {
+    if (!selectedVehicle) {
+      setVehicleError("Please select a vehicle");
+      return false;
+    }
+    setVehicleError("");
+    return true;
+  };
   const confirmDelete = async () => {
     try {
       await driverVehicleService.delete(deleteId);
@@ -93,7 +124,16 @@ const DriverVehicle = () => {
   };
 
   const handleOpenAddModal=()=>{
-    
+        setShowAddModal(true);
+    setSelectedDriver("");
+    setSelectedVehicle("");
+    setDriverError("");
+    setVehicleError("");
+
+  }
+
+  const handleCloseAddModal=()=>{
+    setShowAddModal(false);
   }
 
   const paginatedList = driverVehicles.slice(
@@ -230,6 +270,88 @@ const DriverVehicle = () => {
             )}
           </div>
         )}
+         {showAddModal && (
+                  <div className="modal-overlay">
+                    <div className="modal-content">
+                      <div className="modal-header">
+                        <h4>Add New DriverVehicle</h4>
+                        <button className="modal-close" onClick={handleCloseAddModal}>
+                          &times;
+                        </button>
+                      </div>
+                      <div className="modal-body">
+                        <form
+                          onSubmit={(e) => {
+                            e.preventDefault();
+                            handleSaveDriverVehicle();
+                          }}
+                        >
+                           <div className="modal-body">
+                <div className="form-field">
+                  <label htmlFor="driverSelect">Select Driver:</label>
+                  <select
+                    id="driverSelect"
+                    value={selectedDriver}
+                    onChange={(e) => {
+                      setSelectedDriver(e.target.value);
+                      if (e.target.value) setDriverError("");
+                    }}
+                  >
+                    <option value="">-- Select a driver --</option>
+                    {drivers.map((driver) => (
+                      <option key={driver.id} value={driver.id}>
+                        {driver.user?.name} {driver.user?.surname}
+                      </option>
+                    ))}
+                  </select>
+                  {driverError && (
+                    <div className="error-message">{driverError}</div>
+                  )}
+                </div>
+              </div>
+               <div className="modal-body">
+                <div className="form-field">
+                  <label htmlFor="vehicleSelect">Select Vehicle:</label>
+                  <select
+                    id="vehicleSelect"
+                    value={selectedVehicle}
+                    onChange={(e) => {
+                      setSelectedVehicle(e.target.value);
+                      if (e.target.value) setVehicleError("");
+                    }}
+                  >
+                    <option value="">-- Select a vehicle --</option>
+                    {vehicles.map((v) => (
+                      <option key={v.id} value={v.id}>
+                        {v?.name}
+                      </option>
+                    ))}
+                  </select>
+                  {vehicleError && (
+                    <div className="error-message">{vehicleError}</div>
+                  )}
+                </div>
+              </div>
+        
+                          <div className="modal-footer">
+                            <button
+                              type="button"
+                              className="btn-cancel"
+                              onClick={handleCloseAddModal}
+                            >
+                              <FaArrowLeft className="go-back-icon" />
+                              Close
+                            </button>
+                            <button type="submit" className="btn-save">
+                              <FaSave className="save-icon" />
+                              Save
+                            </button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                )}
 
         {/* Confirm Dialog */}
         {showDialog && (
