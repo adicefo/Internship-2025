@@ -173,7 +173,7 @@ const [formData, setFormData] = useState({
   );
 
   return (
-    <MasterPage currentRoute="Admins">
+    <MasterPage currentRoute="Admin">
       <div className="admin-section">
         <div className="section-header">
           <h3>Admin Management</h3>

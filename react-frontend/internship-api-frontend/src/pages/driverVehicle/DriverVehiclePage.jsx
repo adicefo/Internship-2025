@@ -160,7 +160,7 @@ const DriverVehicle = () => {
 
 
   return (
-    <MasterPage currentRoute="DriverVehicle">
+    <MasterPage currentRoute="Driver Vehicle">
       <div className="driver-vehicle-section">
         <div className="section-header">
           <h3>Driver-Vehicle Assignments</h3>
