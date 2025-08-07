@@ -8,6 +8,7 @@ import {
   FaTrash,
   FaChevronLeft,
   FaChevronRight,
+  FaSyncAlt
 } from "react-icons/fa";
 import "./NotificationPage.css";
 import noImagePlaceholder from "../../assets/no_image_placeholder.png";
@@ -98,6 +99,12 @@ const NotificationPage = () => {
     setDeleteId(id);
     setShowDialog(true);
   };
+  const handleRefresh = () => {
+  setHeadingFilter("");
+  setNotificationTypeFilter("");
+  setCurrentPage(0); // Reset to first page
+  fetchNotifications({}); // Fetch without filters
+};
 
   const handlePageChange = (newPage) => {
     // Simple validation to prevent going to invalid pages
@@ -155,10 +162,11 @@ const NotificationPage = () => {
                 </select>
               </div>
             </div>
-
+ <FaSyncAlt className="refresh-button" onClick={handleRefresh} />
             <button className="filter-button" onClick={handleFilter}>
               <FaSearch className="filter-icon" /> Filter
             </button>
+           
           </div>
         </div>
         {loading ? (
