@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <changeSet id="insert-test-driverVehicle-data" author="adi">
+
+
+        <!-- Insert request -->
+        <insert tableName="driver_vehicle">
+          <column name="id" value="100"/>
+            <column name="driver_id" value="101"/>
+            <column name="vehicle_id" value="102"/>
+            <column name="date_pick" valueComputed="NOW() - INTERVAL '5 days'"/>
+            <column name="date_drop" valueComputed="NOW() - INTERVAL '5 days'"/>
+        </insert>
+ <insert tableName="driver_vehicle">
+          <column name="id" value="101"/>
+            <column name="driver_id" value="102"/>
+            <column name="vehicle_id" value="103"/>
+            <column name="date_pick" valueComputed="NOW() - INTERVAL '6 days'"/>
+            <column name="date_drop" valueComputed="NOW() - INTERVAL '6 days'"/>
+        </insert> <insert tableName="driver_vehicle">
+          <column name="id" value="102"/>
+            <column name="driver_id" value="103"/>
+            <column name="vehicle_id" value="104"/>
+            <column name="date_pick" valueComputed="NOW() - INTERVAL '7 days'"/>
+            <column name="date_drop" valueComputed="NOW() - INTERVAL '7 days'"/>
+        </insert> <insert tableName="driver_vehicle">
+          <column name="id" value="103"/>
+            <column name="driver_id" value="104"/>
+            <column name="vehicle_id" value="104"/>
+            <column name="date_pick" valueComputed="NOW() - INTERVAL '8 days'"/>
+            <column name="date_drop" valueComputed="NOW() - INTERVAL '8 days'"/>
+        </insert> <insert tableName="driver_vehicle">
+          <column name="id" value="104"/>
+            <column name="driver_id" value="105"/>
+            <column name="vehicle_id" value="103"/>
+            <column name="date_pick" valueComputed="NOW() - INTERVAL '10 days'"/>
+            <column name="date_drop" valueComputed="NOW() - INTERVAL '10 days'"/>
+        </insert> <insert tableName="driver_vehicle">
+          <column name="id" value="105"/>
+            <column name="driver_id" value="105"/>
+            <column name="vehicle_id" value="105"/>
+            <column name="date_pick" valueComputed="NOW() - INTERVAL '25 days'"/>
+            <column name="date_drop" valueComputed="NOW() - INTERVAL '25 days'"/>
+        </insert> <insert tableName="driver_vehicle">
+          <column name="id" value="106"/>
+            <column name="driver_id" value="106"/>
+            <column name="vehicle_id" value="105"/>
+            <column name="date_pick" valueComputed="NOW() - INTERVAL '10 days'"/>
+            <column name="date_drop" valueComputed="NOW() - INTERVAL '10 days'"/>
+        </insert> <insert tableName="driver_vehicle">
+          <column name="id" value="107"/>
+            <column name="driver_id" value="106"/>
+            <column name="vehicle_id" value="103"/>
+            <column name="date_pick" valueComputed="NOW() - INTERVAL '15 days'"/>
+            <column name="date_drop" valueComputed="NOW() - INTERVAL '15 days'"/>
+        </insert> <insert tableName="driver_vehicle">
+          <column name="id" value="108"/>
+            <column name="driver_id" value="107"/>
+            <column name="vehicle_id" value="103"/>
+            <column name="date_pick" valueComputed="NOW() - INTERVAL '10 days'"/>
+            <column name="date_drop" valueComputed="NOW() - INTERVAL '10 days'"/>
+        </insert> <insert tableName="driver_vehicle">
+          <column name="id" value="109"/>
+            <column name="driver_id" value="107"/>
+            <column name="vehicle_id" value="104"/>
+            <column name="date_pick" valueComputed="NOW() - INTERVAL '25 days'"/>
+            <column name="date_drop" valueComputed="NOW() - INTERVAL '25 days'"/>
+        </insert>
+
+
+
+        <sql>SELECT setval('driver_vehicle_id_seq', (SELECT MAX(id) FROM driver_vehicle) + 1);</sql>
+
+
+    </changeSet>
+
+</databaseChangeLog>
