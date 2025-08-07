@@ -151,7 +151,7 @@ const DriverPage = () => {
               />
             </div>
 
-            <button className="filter-button" onClick={handleFilter}>
+            <button className="filter-buttond" onClick={handleFilter}>
               <FaSearch className="filter-icon" /> Filter
             </button>
           </div>

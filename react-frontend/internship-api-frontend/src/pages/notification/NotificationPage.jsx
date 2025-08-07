@@ -163,7 +163,7 @@ const NotificationPage = () => {
               </div>
             </div>
  <FaSyncAlt className="refresh-button" onClick={handleRefresh} />
-            <button className="filter-button" onClick={handleFilter}>
+            <button className="filter-buttonn" onClick={handleFilter}>
               <FaSearch className="filter-icon" /> Filter
             </button>
            

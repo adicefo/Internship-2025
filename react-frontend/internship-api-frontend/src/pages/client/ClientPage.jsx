@@ -12,7 +12,7 @@ import {
 import { clientService } from "../../api";
 import toast from "react-hot-toast";
 import ConfirmDialog from "../../utils/ConfirmDialog";
-
+import "./ClientPage.css";
 const ClientPage = () => {
   const [clients, setClients] = useState([]);
   const [showDialog, setShowDialog] = useState(false);
@@ -137,7 +137,7 @@ const ClientPage = () => {
               />
             </div>
 
-            <button className="filter-button" onClick={handleFilter}>
+            <button className="filter-buttonc" onClick={handleFilter}>
               <FaSearch className="filter-icon" /> Filter
             </button>
           </div>

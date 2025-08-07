@@ -16,7 +16,12 @@
     margin: 0;
     color: #333;
   }
-  
+  .filter-buttond
+{
+  background-color:#FFD700;
+  margin-top: 2.5%;
+
+}
   .add-button {
     background-color: #FFD700;
     color: black;

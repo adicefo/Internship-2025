@@ -44,6 +44,12 @@
     border: none;
     cursor: pointer;
 }
+ .filter-buttonr
+{
+  background-color:#FFD700;
+  margin-top: 2.5%;
+
+}
 
 .filter-button:hover {
     background-color: #FFD769;

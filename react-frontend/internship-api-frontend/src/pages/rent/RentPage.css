@@ -9,6 +9,9 @@
     background-color: #ffa14f;
     border: 1px solid #155724;
   }
+  .filter-button{
+    margin-top: 5%;
+  }
   .active{
     background-color: #007bff;
     border: 1px solid #007bff;

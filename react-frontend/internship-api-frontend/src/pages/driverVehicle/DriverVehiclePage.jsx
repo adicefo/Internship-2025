@@ -12,6 +12,7 @@ import {
 } from "react-icons/fa";
 import ConfirmDialog from "../../utils/ConfirmDialog";
 import { toast } from "react-hot-toast";
+import "./DriverVehiclePage.css";
 
 const DriverVehicle = () => {
   const [vehicleIdFilter, setVehicleIdFilter] = useState("");
@@ -198,7 +199,7 @@ const DriverVehicle = () => {
               />
             </div>
 
-            <button className="filter-button" onClick={handleFilter}>
+            <button className="filter-buttondv" onClick={handleFilter}>
               <FaSearch className="filter-icon" /> Filter
             </button>
           </div>

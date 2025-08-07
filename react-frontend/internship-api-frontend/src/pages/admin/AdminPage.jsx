@@ -11,7 +11,7 @@ import {
   FaArrowLeft,
 } from "react-icons/fa";
 import { toast } from "react-hot-toast";
-
+import "./AdminPage.css";
 const AdminPage = () => {
   const [adminNameFilter, setAdminNameFilter] = useState("");
   const [admins, setAdmins] = useState([]);
@@ -196,7 +196,7 @@ const [formData, setFormData] = useState({
               />
             </div>
 
-            <button className="filter-button" onClick={handleFilter}>
+            <button className="filter-buttona" onClick={handleFilter}>
               <FaSearch className="filter-icon" /> Filter
             </button>
           </div>

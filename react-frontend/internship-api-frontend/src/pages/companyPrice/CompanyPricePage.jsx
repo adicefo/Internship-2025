@@ -165,7 +165,7 @@ const CompanyPricePage = () => {
               />
             </div>
 
-            <button className="filter-button" onClick={handleFilter}>
+            <button className="filter-buttonco" onClick={handleFilter}>
               <FaSearch className="filter-icon" /> Filter
             </button>
           </div>

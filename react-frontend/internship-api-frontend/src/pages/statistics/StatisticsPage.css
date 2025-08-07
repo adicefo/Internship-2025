@@ -10,7 +10,12 @@
     align-items: center;
     z-index: 1000;
 }
+ .filter-buttons
+{
+  background-color:#FFD700;
+  margin-top: 2.5%;
 
+}
 .modal-content {
     background-color: white;
     padding: 20px;
