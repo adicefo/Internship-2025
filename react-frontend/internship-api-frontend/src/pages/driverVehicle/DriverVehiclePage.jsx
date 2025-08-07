@@ -8,7 +8,8 @@ import {
   FaChevronLeft,
   FaChevronRight,
   FaArrowLeft,
-  FaSave
+  FaSave,
+  FaSyncAlt
 } from "react-icons/fa";
 import ConfirmDialog from "../../utils/ConfirmDialog";
 import { toast } from "react-hot-toast";
@@ -148,6 +149,14 @@ const DriverVehicle = () => {
       }
     }
   }
+const handleRefresh = () => {
+  setVehicleIdFilter("");
+  setDatePickFilter("");
+  setCurrentPage(0); 
+  fetchDrivers();
+  fetchVehicles();
+  fetchDriverVehicles({});
+};
 
   const handleCloseAddModal=()=>{
     setShowAddModal(false);
@@ -180,7 +189,7 @@ const DriverVehicle = () => {
                 value={vehicleIdFilter}
                 onChange={(e) => setVehicleIdFilter(e.target.value)}
               >
-                <option value="">-- All Vehicles --</option>
+                <option value="">All Vehicles</option>
                 {vehicles.map((v) => (
                   <option key={v.id} value={v.id}>
                     {v.name}
@@ -198,6 +207,7 @@ const DriverVehicle = () => {
                 onChange={(e) => setDatePickFilter(e.target.value)}
               />
             </div>
+<FaSyncAlt className="refresh-button" onClick={handleRefresh} />
 
             <button className="filter-buttondv" onClick={handleFilter}>
               <FaSearch className="filter-icon" /> Filter
