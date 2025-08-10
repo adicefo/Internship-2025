@@ -1,13 +1,16 @@
 .notification-details-container {
     padding: 20px;
+    
 }
 
 .form-container {
     background-color: white;
     border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     padding: 16px;
-    margin-bottom: 24px;
+    max-width: 1500px;
+}
+.form-Form{
+    width: 100%;
 }
 
 .form-row {
