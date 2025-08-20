@@ -188,7 +188,7 @@ const CompanyPricePage = () => {
                 {prices.map((obj) => (
                   <tr key={obj.id}>
                     <td>{obj.pricePerKilometer.toFixed(2) + " KM"}</td>
-                    <td>{obj.addingDate?.toString().substring(0, 16)}</td>
+                    <td>{obj.addingDate?.toString().substring(0, 10)}</td>
                     <td className="action-buttons">
                       {/* Edit button */}
                       <button
