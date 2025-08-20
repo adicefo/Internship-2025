@@ -224,7 +224,7 @@ const [formData, setFormData] = useState({
                   <tr key={admin.id}>
                     <td>{admin.user?.name}</td>
                     <td>{admin.user?.surname}</td>
-                    <td>{admin.user?.userName}</td>
+                    <td>{admin.user?.userName??"-"}</td>
                     <td>{admin.user?.email}</td>
                     <td>{admin.user?.telephoneNumber}</td>
                     <td className="action-buttons">

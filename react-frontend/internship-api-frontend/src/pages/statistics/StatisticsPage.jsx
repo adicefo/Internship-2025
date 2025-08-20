@@ -196,8 +196,8 @@ const StatisticsPage = () => {
                   <tr key={obj.id}>
                     <td>{obj.driver?.user?.name}</td>
                     <td>{obj.driver?.user?.surname}</td>
-                    <td>{obj.beginningOfWork?.toString().substring(0, 16)}</td>
-                    <td>{obj.endOfWork?.toString().substring(0, 16)}</td>
+                    <td>{obj.beginningOfWork?.toString().substring(0, 16)??"-"}</td>
+                    <td>{obj.endOfWork?.toString().substring(0, 16)??"-"}</td>
                     <td>{obj.numberOfHours}</td>
                     <td>{obj.numberOfClients}</td>
                     <td className="action-buttons">
