@@ -191,8 +191,8 @@ const DriverPage = () => {
                     <td>{driver.user.username}</td>
                     <td>{driver.user.email}</td>
                     <td>{driver.user.telephoneNumber}</td>
-                    <td>{driver.numberOfHoursAmount}</td>
-                    <td>{driver.numberOfClientsAmount}</td>
+                    <td>{driver.numberOfHoursAmount??"-"}</td>
+                    <td>{driver.numberOfClientsAmount??"-"}</td>
                     <td className="action-buttons">
                       <button
                         className="edit-button"

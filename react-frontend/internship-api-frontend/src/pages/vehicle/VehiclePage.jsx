@@ -227,8 +227,8 @@ const VehiclePage = () => {
                       />
                     </td>
 
-                    <td>{vehicle.price}</td>
-                    <td>{vehicle.averageFuelConsumption}</td>
+                    <td>{vehicle.price+ " KM"}</td>
+                    <td>{vehicle.averageFuelConsumption+"l/100km"}</td>
                     <td className="action-buttons">
                       <button
                         className="edit-button"

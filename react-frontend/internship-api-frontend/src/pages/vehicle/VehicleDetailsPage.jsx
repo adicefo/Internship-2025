@@ -181,7 +181,7 @@ const VehicleDetailsPage = () => {
               </div>
               
               <div className="form-group">
-                <label htmlFor="averageFuelConsumption">Average Consumption (l/km)</label>
+                <label htmlFor="averageFuelConsumption">Average Consumption (l/100km)</label>
                 <div className="input-icon-wrapper">
                   <i className="input-icon"><FaGasPump /></i>
                   <input
