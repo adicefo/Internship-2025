@@ -166,7 +166,7 @@ const RoutePage = () => {
                 </tr>
               </thead>
               <tbody>
-                {paginatedRoutes.map((route) => (
+                {paginatedRoutes.length>0?(paginatedRoutes.map((route) => (
                   <tr key={route.id}>
                     <td>
                       {route.client.user.name} {route.client.user.surname}
@@ -228,7 +228,12 @@ const RoutePage = () => {
                       )}
                     </td>
                   </tr>
-                ))}
+                ))):( <tr>
+      <td colSpan="10" className="no-results-message">
+        There are no{" "}
+        {statusFilter ? statusFilter.toUpperCase() : "matching"} routes.
+      </td>
+    </tr>)}
               </tbody>
             </table>
 
