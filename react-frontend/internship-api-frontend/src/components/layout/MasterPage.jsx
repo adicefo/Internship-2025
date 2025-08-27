@@ -17,6 +17,9 @@ import {
   FaCarSide,
   FaHome,
   FaMale,
+  FaInfoCircle,
+  FaArrowLeft,
+  FaClosedCaptioning
   
 } from "react-icons/fa";
 import "./MasterPage.css";
@@ -24,6 +27,7 @@ import "./MasterPage.css";
 const MasterPage = ({ children, currentRoute }) => {
   const { keycloak } = useKeycloak();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const[showModal,setShowModal]=useState(false);
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -97,6 +101,12 @@ const MasterPage = ({ children, currentRoute }) => {
   const handleReports = () => {
     navigate("/report");
   };
+  const handleShowModal=()=>{
+    setShowModal(true);
+  }
+  const handleCloseModal=()=>{
+    setShowModal(false);
+  }
 
   return (
     <div className="dashboard">
@@ -221,6 +231,32 @@ const MasterPage = ({ children, currentRoute }) => {
                 marginLeft: "auto",
               }}
             >
+              <FaInfoCircle onClick={() => setShowModal(true)} />
+              {showModal && (
+          <div className="modal-overlay">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h4>Information</h4>
+                <button className="modal-close" onClick={handleCloseModal}>
+                  &times;
+                </button>
+              </div>
+              <div className="modal-body">
+                <div className="form-field">
+                  <h5>This application is used to properly manage functions and entities of eCar application.It is mainly set up for admin who might be doing main CRUD operations with all entites and be able to see report of his bussiness flow.</h5>
+                  
+                </div>
+              </div>
+              <div className="modal-footer">
+                <button className="btn-cancel" onClick={handleCloseModal}>
+                  <FaClosedCaptioning className="go-back-icon" />
+                 Close
+                </button>
+                
+              </div>
+            </div>
+          </div>
+        )}
               <div className="date-display">
                 {new Date().toLocaleDateString("en-US", {
                   weekday: "long",
