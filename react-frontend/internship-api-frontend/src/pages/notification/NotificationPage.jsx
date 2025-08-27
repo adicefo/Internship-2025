@@ -187,7 +187,7 @@ const NotificationPage = () => {
                 </tr>
               </thead>
               <tbody>
-                {paginatedNotifications.map((notification) => (
+                {paginatedNotifications.length>0?(paginatedNotifications.map((notification) => (
                   <tr key={notification.id}>
                     <td className="tooltip-cell">
                       {notification.title != null
@@ -281,7 +281,11 @@ const NotificationPage = () => {
                       </button>
                     </td>
                   </tr>
-                ))}
+                ))):( <tr>
+      <td colSpan="7" className="no-results-message">
+        There are no matching notificatioins.
+      </td>
+    </tr>)}
               </tbody>
             </table>
 
