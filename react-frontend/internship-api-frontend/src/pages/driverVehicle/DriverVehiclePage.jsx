@@ -232,7 +232,7 @@ const handleRefresh = () => {
                 </tr>
               </thead>
               <tbody>
-                {paginatedList.map((item) => (
+                {paginatedList.length>0?(paginatedList.map((item) => (
                   <tr key={item.id}>
                     <td>
                       {item.driver?.user?.name} {item.driver?.user?.surname}
@@ -258,7 +258,12 @@ const handleRefresh = () => {
                       </button>
                     </td>
                   </tr>
-                ))}
+                ))):( <tr>
+      <td colSpan="7" className="no-results-message">
+        There are no matching elements.
+        
+      </td>
+    </tr>)}
               </tbody>
             </table>
 
