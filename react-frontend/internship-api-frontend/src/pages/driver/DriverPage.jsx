@@ -184,7 +184,7 @@ const DriverPage = () => {
                 </tr>
               </thead>
               <tbody>
-                {paginatedDrivers.map((driver) => (
+                {paginatedDrivers.length>0?(paginatedDrivers.map((driver) => (
                   <tr key={driver.id}>
                     <td>{driver.user.name}</td>
                     <td>{driver.user.surname}</td>
@@ -218,7 +218,11 @@ const DriverPage = () => {
                       )}
                     </td>
                   </tr>
-                ))}
+                ))):( <tr>
+      <td colSpan="10" className="no-results-message">
+        There are no matching drivers.
+      </td>
+    </tr>)}
               </tbody>
             </table>
 
