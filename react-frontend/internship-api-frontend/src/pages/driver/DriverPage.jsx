@@ -219,7 +219,7 @@ const DriverPage = () => {
                     </td>
                   </tr>
                 ))):( <tr>
-      <td colSpan="10" className="no-results-message">
+      <td colSpan="8" className="no-results-message2">
         There are no matching drivers.
       </td>
     </tr>)}

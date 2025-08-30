@@ -22,11 +22,11 @@
   margin-top: 2.5%;
 
 }
-.no-results-message
-{
-  text-align: center;
-  color: #3498db;
-
+.no-results-message2
+{  text-align: center !important;
+  font-weight: bold;
+  color: #555;
+  padding: 20px;
 }
   .add-button {
     background-color: #FFD700;
