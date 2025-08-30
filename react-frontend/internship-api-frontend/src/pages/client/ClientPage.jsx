@@ -161,7 +161,7 @@ const ClientPage = () => {
                 </tr>
               </thead>
               <tbody>
-                {paginatedClients.map((client) => (
+                {paginatedClients.length>0?(paginatedClients.map((client) => (
                   <tr key={client.id}>
                     <td>{client.user.name}</td>
                     <td>{client.user.surname}</td>
@@ -193,7 +193,11 @@ const ClientPage = () => {
                       )}
                     </td>
                   </tr>
-                ))}
+                ))):( <tr>
+      <td colSpan="7" className="no-results-message">
+        There are no matching clients.
+      </td>
+    </tr>)}
               </tbody>
             </table>
 
