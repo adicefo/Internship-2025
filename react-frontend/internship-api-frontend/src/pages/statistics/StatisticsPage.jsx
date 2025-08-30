@@ -193,7 +193,7 @@ const StatisticsPage = () => {
                 </tr>
               </thead>
               <tbody>
-                {paginatedStatistics.map((obj) => (
+                {paginatedStatistics.length>0?(paginatedStatistics.map((obj) => (
                   <tr key={obj.id}>
                     <td>{obj.driver?.user?.name}</td>
                     <td>{obj.driver?.user?.surname}</td>
@@ -221,7 +221,11 @@ const StatisticsPage = () => {
                       </button>
                     </td>
                   </tr>
-                ))}
+                ))):( <tr>
+      <td colSpan="7" className="no-results-message">
+        There are no matching statistics.
+      </td>
+    </tr>)}
               </tbody>
             </table>
 

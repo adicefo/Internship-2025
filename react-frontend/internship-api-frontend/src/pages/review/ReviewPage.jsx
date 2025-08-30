@@ -159,7 +159,7 @@ const ReviewPage = () => {
                 </tr>
               </thead>
               <tbody>
-                {paginatedReviews.map((review) => (
+                {paginatedReviews.length>0?(paginatedReviews.map((review) => (
                   <tr key={review.id}>
                     <td>
                       {review.driver?.user?.name} {review.driver?.user?.surname}
@@ -192,7 +192,11 @@ const ReviewPage = () => {
                       </button>
                     </td>
                   </tr>
-                ))}
+                ))):( <tr>
+      <td colSpan="7" className="no-results-message">
+        There are no matching reviews.
+      </td>
+    </tr>)}
               </tbody>
             </table>
 

@@ -220,7 +220,7 @@ const [formData, setFormData] = useState({
                 </tr>
               </thead>
               <tbody>
-                {paginatedAdmins.map((admin) => (
+                {paginatedAdmins.length>0?(paginatedAdmins.map((admin) => (
                   <tr key={admin.id}>
                     <td>{admin.user?.name}</td>
                     <td>{admin.user?.surname}</td>
@@ -252,7 +252,11 @@ const [formData, setFormData] = useState({
                       </button>
                     </td>
                   </tr>
-                ))}
+                ))):( <tr>
+      <td colSpan="7" className="no-results-message">
+        There are no matching admins.
+      </td>
+    </tr>)}
               </tbody>
             </table>
 

@@ -185,7 +185,7 @@ const CompanyPricePage = () => {
                 </tr>
               </thead>
               <tbody>
-                {prices.map((obj) => (
+                {prices.length>0?(prices.map((obj) => (
                   <tr key={obj.id}>
                     <td>{obj.pricePerKilometer.toFixed(2) + " KM"}</td>
                     <td>{obj.addingDate?.toString().substring(0, 10)}</td>
@@ -209,7 +209,11 @@ const CompanyPricePage = () => {
                       </button>
                     </td>
                   </tr>
-                ))}
+                ))):( <tr>
+      <td colSpan="7" className="no-results-message">
+        There are no available prices.
+      </td>
+    </tr>)}
               </tbody>
             </table>
           </div>
