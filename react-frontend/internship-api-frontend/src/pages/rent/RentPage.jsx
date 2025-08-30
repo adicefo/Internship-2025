@@ -197,9 +197,7 @@ const RentPage = () => {
         <td>
           {rent.client?.user?.name} {rent.client?.user?.surname}
         </td>
-        <td className="action-buttons">
-          {/* buttons unchanged */}
-        </td>
+        <td className="action-buttons"> {/* Activate button */} {rent.status === "wait" ? ( <button className="activate-button" onClick={() => handleActivateRent(rent)} title="Activate rent" > <FaPlay style={{ color: "blue" }} /> </button> ) : ( <button className="activate-button-disabled" onClick={() => handleActivateRent(rent)} title="Status not 'wait'" > <FaPlay style={{ color: "grey" }} /> </button> )} {/* Edit button */} {rent.status !== "finished" ? ( <button className="edit-button" onClick={() => handleEditRent(rent)} title="Edit rent" > <FaEdit style={{ color: "blue" }} /> </button> ) : ( <button className="edit-button-disabled" onClick={() => handleEditRent(rent)} title="Cannot edit finished rent" > <FaEdit style={{ color: "grey" }} /> </button> )} {/* Delete button */} {rent.status !== "active" ? ( <button className="delete-button" onClick={() => handleDeleteRent(rent.id, rent.status)} title="Delete rent" > <FaTrash style={{ color: "red" }} /> </button> ) : ( <button className="delete-button-disabled" onClick={() => handleDeleteRent(rent.id, rent.status)} title="Cannot delete active rent" > <FaTrash style={{ color: "grey" }} /> </button> )} </td>
       </tr>
     ))
   ) : (
