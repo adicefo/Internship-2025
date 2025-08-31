@@ -1,0 +1,14 @@
+
+
+:root {
+  --text-color: black;
+  --table-color:white;
+  --dropdown-color:white;
+}
+
+/* Dark mode */
+body.dark-theme {
+--text-color:white;
+--table-color:black;
+--dropdown-color:white;
+}

@@ -63,6 +63,21 @@ const ReportsPage = () => {
   const [total2025Rent, setTotal2025Rent] = useState(0);
   const [loadingRoute, setLoadingRoute] = useState(true);
   const [radarData, setRadarData] = useState([]);
+  const [textColor,setTextColor]=useState("");
+
+const getCssVar = (name) =>
+  getComputedStyle(document.body).getPropertyValue(name).trim();
+
+
+useEffect(() => {
+  const observer = new MutationObserver(() => {
+    setTextColor(getCssVar("--text-color"));
+  });
+
+  observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
+  return () => observer.disconnect();
+}, []);
+
 
   const fetchDrivers = async () => {
     try {
@@ -309,7 +324,7 @@ const ReportsPage = () => {
             </Typography>
             <Typography
               variant="h5"
-              sx={{ color: "#333", fontWeight: 500 }}
+              sx={{ color: "var(--text-color)", fontWeight: 500 }}
               gutterBottom
               align="left"
             >
@@ -326,12 +341,13 @@ const ReportsPage = () => {
           <Typography variant="h4" gutterBottom>
             Driver Reports
           </Typography>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 3 }}>
-            <FormControl sx={{ minWidth: 200 }}>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 3,color:"var(--text-color)" }}>
+            <FormControl sx={{ minWidth: 200,background:"var(--dropdown-color)"}}>
               <InputLabel>Filter by</InputLabel>
               <Select
                 value={filter}
                 label="Filter by"
+                
                 onChange={(e) => setFilter(e.target.value)}
               >
                 <MenuItem value="clients">Clients</MenuItem>
@@ -351,14 +367,22 @@ const ReportsPage = () => {
                   id: "driver",
                   data: labels,
                   scaleType: "band",
-                  label: "Driver",
+                  label: "Driver",tickLabelStyle: { fill: textColor }, 
                 },
               ]}
-              series={[
-                { data, label: filter === "clients" ? "Clients" : "Hours" },
-              ]}
-              width={500}
-              height={300}
+              yAxis={[
+  {
+    label: filter === "clients" ? "Clients" : "Hours",
+    tickLabelStyle: { fill: textColor },
+  },
+  
+]} series={[
+    { data, label: filter === "clients" ? "Clients" : "Hours" },
+  ]}
+  width={500}
+  height={300}
+  sx={{ "& text": { fill: textColor } }} 
+ 
             />
           </Box>
 
@@ -376,6 +400,7 @@ const ReportsPage = () => {
                   alignItems: "center",
                   justifyContent: "center",
                   height: 120,
+                  color:"var(--text-color)"
                 }}
               >
                 <CircularProgress />
@@ -387,10 +412,11 @@ const ReportsPage = () => {
                   borderRadius: 2,
                   boxShadow: 2,
                   maxWidth: "100%",
-                  overflowX: "auto",
+                  overflowX: "auto",  color:"var(--text-color)",backgroundColor:"var(--table-color)"
                 }}
               >
-                <Table sx={{ minWidth: 900 }}>
+                <Table sx={{ minWidth: 900,
+                 }}>
                   <TableHead>
                     <TableRow sx={{ backgroundColor: "#f5f5f5" }}>
                       <TableCell sx={{ fontWeight: "bold" }}>Year</TableCell>
@@ -399,7 +425,7 @@ const ReportsPage = () => {
                           {month}
                         </TableCell>
                       ))}
-                      <TableCell sx={{ fontWeight: "bold" }}>Total</TableCell>
+                      <TableCell sx={{ fontWeight: "bold",  color:"var(--text-color)" }}>Total</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -407,8 +433,7 @@ const ReportsPage = () => {
                       <TableCell
                         sx={{
                           fontWeight: "bold",
-                          backgroundColor: "#e8f5e9",
-                          color: "#388e3c",
+                      
                         }}
                       >
                         2025
@@ -421,8 +446,7 @@ const ReportsPage = () => {
                       <TableCell
                         sx={{
                           fontWeight: "bold",
-                          backgroundColor: "#e8f5e9",
-                          color: "#388e3c",
+                  
                         }}
                       >
                         {total2025.toFixed(2)} KM
@@ -446,21 +470,28 @@ const ReportsPage = () => {
             series={[
               {
                 data: pieData,
+                color:"var(--text-color)"
+
               },
             ]}
             width={500}
             height={300}
+              sx={{ color:"var(--text-color)" }}slotProps={{
+    
+  }}
+              
           />
-          <Typography variant="h5" sx={{ mt: 6 }} gutterBottom>
+          <Typography variant="h5" sx={{ mt: 6 ,color:"var(--text-color)"}} gutterBottom>
             Clients with most drives
           </Typography>
           <BarChart
             xAxis={[
               {
                 data: topClients.map((c) => c.client),
-                scaleType: "band",
+                scaleType: "band",tickLabelStyle: { fill: textColor },
               },
             ]}
+              yAxis={[{ tickLabelStyle: { fill: textColor } }]}
             series={[
               {
                 data: topClients.map((c) => c.count),
@@ -470,7 +501,7 @@ const ReportsPage = () => {
             width={500}
             height={300}
           />
-          <Box sx={{ mt: 6 }}>
+          <Box sx={{ mt: 6 ,color:"var(--text-color)"}}>
             <Typography variant="h5" gutterBottom>
               Reviewing Clients
             </Typography>
@@ -483,6 +514,7 @@ const ReportsPage = () => {
                 series={[
                   {
                     label: "Average Review",
+                    
                     data: transformedData.map((item) => item.averageReview),
                   },
                 ]}
@@ -490,6 +522,7 @@ const ReportsPage = () => {
                   metrics: transformedData.map((item) => item.client),
                 }}
                 margin={{ top: 70, bottom: 70, left: 70, right: 70 }}
+                sx={{ "& text": { fill: textColor } }}
               />
             )}
           </Box>
@@ -507,6 +540,7 @@ const ReportsPage = () => {
                   alignItems: "center",
                   justifyContent: "center",
                   height: 120,
+                  
                 }}
               >
                 <CircularProgress />
@@ -521,7 +555,7 @@ const ReportsPage = () => {
                   overflowX: "auto",
                 }}
               >
-                <Table sx={{ minWidth: 900 }}>
+                <Table sx={{ minWidth: 900 ,backgroundColor:"var(--table-color)"}}>
                   <TableHead>
                     <TableRow sx={{ backgroundColor: "#f5f5f5" }}>
                       <TableCell sx={{ fontWeight: "bold" }}>Year</TableCell>
@@ -538,8 +572,7 @@ const ReportsPage = () => {
                       <TableCell
                         sx={{
                           fontWeight: "bold",
-                          backgroundColor: "#e8f5e9",
-                          color: "#388e3c",
+           
                         }}
                       >
                         2025
@@ -552,8 +585,7 @@ const ReportsPage = () => {
                       <TableCell
                         sx={{
                           fontWeight: "bold",
-                          backgroundColor: "#e8f5e9",
-                          color: "#388e3c",
+                   
                         }}
                       >
                         {total2025Rent.toFixed(2)} KM
