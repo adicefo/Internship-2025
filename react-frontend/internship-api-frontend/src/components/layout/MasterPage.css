@@ -202,6 +202,24 @@
   font-weight: 500;
 }
 
+.dashboard-header {
+  background-color: var(--primary-color) !important;
+  color: var(--text-color) !important;
+}
+
+.welcome-text h2 {
+  color: var(--text-color) !important;
+}
+
+.welcome-text p {
+  color: var(--secondary-text) !important;
+}
+
+.date-display {
+  background-color: var(--primary-color) !important;
+  color: var(--text-color) !important;
+}
+
 .date-display {
   padding: 10px 15px;
   background-color: #FFD700;

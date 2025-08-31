@@ -27,7 +27,9 @@
   --danger-color: #ef5350;
   --danger-hover: #c62828;
 }
-
+h3,td,tr{
+  color: var(--text-color) !important;
+}
 * {
   box-sizing: border-box;
   margin: 0;
@@ -38,6 +40,9 @@
 body {
   background-color: var(--background-color);
   color: var(--text-color);
+}
+body, body * {
+  color: inherit;
 }
 
 /* Common button styles */
@@ -840,11 +845,36 @@ button:active {
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
-.pagination-container{
+.pagination-container .pagination-controls{
   background-color: var(--background-color);
-  color: var(--text-color);
+  color:black;
+}
+.filter-container,
+.pagination-container  {
+  background-color: var(--card-background) !important;
+  color: var(--text-color) !important;
 }
 
+.filter-group label {
+  color: var(--text-color) !important;
+}
+
+.drivers-table th {
+  background-color: var(--card-background) !important;
+  color: var(--text-color) !important;
+}
+
+.drivers-table tr:hover {
+  background-color: var(--background-color) !important;
+}
+.filter-group input{
+   background-color: var(--card-background) !important;
+  color: var(--text-color) !important;
+}
+.filter-group select{
+   background-color: var(--card-background) !important;
+  color: var(--text-color) !important;
+}
 .filter-row {
   display: flex;
   flex-wrap: wrap;
@@ -882,7 +912,7 @@ button:active {
 
 .filter-button {
   background-color: var(--primary-color);
-  color: var(--text-color);
+  color:black;
   padding: 0.6rem 1.2rem;
   border-radius: 4px;
   font-weight: 600;
@@ -892,12 +922,17 @@ button:active {
   height: 40px;
 }
 
-.filter-button:hover {
-  background-color: var(--primary-hover);
-}
+
 
 .filter-icon {
   font-size: 0.9rem;
+}
+.filter-button{
+  color: black;
+}
+.pagination-info{
+    background-color: var(--card-background) !important;
+  color: var(--text-color) !important;
 }
 
 @media (max-width: 768px) {
