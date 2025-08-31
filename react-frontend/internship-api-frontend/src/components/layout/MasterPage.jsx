@@ -1,5 +1,5 @@
 import { useKeycloak } from "@react-keycloak/web";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   FaCar,
@@ -19,7 +19,9 @@ import {
   FaMale,
   FaInfoCircle,
   FaArrowLeft,
-  FaClosedCaptioning
+  FaClosedCaptioning,
+  FaMoon,
+  FaSun
   
 } from "react-icons/fa";
 import "./MasterPage.css";
@@ -29,7 +31,18 @@ const MasterPage = ({ children, currentRoute }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const[showModal,setShowModal]=useState(false);
   const navigate = useNavigate();
-
+  const [darkMode, setDarkMode] = useState(() => {
+    return localStorage.getItem("theme") === "dark";
+  });
+    useEffect(() => {
+    if (darkMode) {
+      document.body.classList.add("dark-theme");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.body.classList.remove("dark-theme");
+      localStorage.setItem("theme", "light");
+    }
+  }, [darkMode]);
   const handleLogout = () => {
     keycloak.logout({
       redirectUri: window.location.origin,
@@ -257,6 +270,20 @@ const MasterPage = ({ children, currentRoute }) => {
             </div>
           </div>
         )}
+         {/* Dark mode toggle */}
+            <button
+              onClick={() => setDarkMode(!darkMode)}
+              style={{
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                fontSize: 20,
+                color: "var(--text-color)"
+              }}
+              title="Toggle dark mode"
+            >
+              {darkMode ? <FaSun /> : <FaMoon />}
+            </button>
               <div className="date-display">
                 {new Date().toLocaleDateString("en-US", {
                   weekday: "long",
