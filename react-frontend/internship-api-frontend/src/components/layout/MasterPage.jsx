@@ -329,7 +329,9 @@ const MasterPage = ({ children, currentRoute }) => {
           </div>
 
           {/* Page-specific content */}
-          {children}
+         <div className="page-container">
+  {children}
+</div>
         </div>
       </div>
 

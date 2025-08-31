@@ -115,7 +115,7 @@ const VehiclePage = () => {
 
   return (
     <MasterPage currentRoute="Vehicles">
-      <div className="drivers-section">
+      <div className="vehicles-section">
         <div className="section-header">
           <h3>Vehicles Management</h3>
           <button className="add-button" onClick={handleAddVehicle}>
