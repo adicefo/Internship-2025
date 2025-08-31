@@ -245,7 +245,35 @@
   min-height: 100%; /* ensures full height content */
   transition: background-color 0.3s, color 0.3s;
 }
+/* Light mode (default) */
+:root {
+  --header-bg: #FFC400;
+  --header-text: #222;
+}
 
+/* Dark mode */
+body.dark-theme {
+  --header-bg: #FFC400 !important;
+  --header-text: black !important;
+}
+
+/* Apply to header + buttons */
+.dashboard-header {
+  background-color: var(--header-bg);
+  color: var(--header-text);
+}
+
+.report-button {
+  background-color: var(--header-bg) !important;
+  color: var(--header-text) !important;
+}
+
+.date-display {
+  background-color: var(--header-bg) !important;
+  color: var(--header-text) !important;
+  padding: 6px 12px;
+  border-radius: 4px;
+}
 @media (max-width: 768px) {
   .main-content.shifted {
     margin-left: 0;

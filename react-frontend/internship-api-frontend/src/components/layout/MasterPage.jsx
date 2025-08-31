@@ -292,39 +292,27 @@ const MasterPage = ({ children, currentRoute }) => {
                   day: "numeric",
                 })}
               </div>
-              <button
-                className="report-button"
-                style={{
-                  background: "#FFD700",
-                  color: "#222",
-                  border: "none",
-                  borderRadius: 4,
-                  padding: "8px 16px",
-                  fontWeight: "bold",
-                  cursor: "pointer",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 8,
-                }}
-                onClick={() => navigate("/report")}
-              >
-                <span style={{ display: "flex", alignItems: "center" }}>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    width="20"
-                    style={{ marginRight: 4 }}
-                  >
-                    <path d="M0 0h24v24H0z" fill="none" />
-                    <path
-                      fill="#222"
-                      d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 8h13v-2H7v2zm0-4h13v-2H7v2zm0-6v2h13V7H7z"
-                    />
-                  </svg>
-                  Report
-                </span>
-              </button>
+            <button
+  className="report-button"
+  onClick={() => navigate("/report")}
+>
+  <span style={{ display: "flex", alignItems: "center" }}>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      height="20"
+      viewBox="0 0 24 24"
+      width="20"
+      style={{ marginRight: 4 }}
+    >
+      <path d="M0 0h24v24H0z" fill="none" />
+      <path
+        fill="currentColor"
+        d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 8h13v-2H7v2zm0-4h13v-2H7v2zm0-6v2h13V7H7z"
+      />
+    </svg>
+    Report
+  </span>
+</button>
             </div>
           </div>
 

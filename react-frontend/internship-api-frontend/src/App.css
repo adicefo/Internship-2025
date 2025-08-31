@@ -755,6 +755,7 @@ button:active {
 .drivers-table {
   width: 100%;
   border-collapse: collapse;
+  table-layout: fixed;
 }
 
 .drivers-table th {
@@ -789,9 +790,13 @@ button:active {
   font-size: 1rem;
 }
 
+
 .view-button {
   background-color: #e3f2fd;
   color: #1976d2;
+}
+table{
+  white-space: nowrap;
 }
 
 .view-button:hover {
