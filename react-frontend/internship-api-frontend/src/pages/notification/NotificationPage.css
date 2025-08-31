@@ -27,6 +27,7 @@
  .filter-buttonn
 {
   background-color:#FFD700;
+  color: black;
   margin-top: 1.5%;
 
 }
@@ -97,3 +98,8 @@
     visibility: visible;
     opacity: 1;
 }
+.notification-table{
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
