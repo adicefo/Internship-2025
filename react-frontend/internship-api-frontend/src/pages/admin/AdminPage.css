@@ -10,6 +10,6 @@
   background:var(--background-color);
  
 }
-.modal-content form input{
+.modal-content form input,select{
   color:black;
 }
