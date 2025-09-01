@@ -125,7 +125,7 @@ const MasterPage = ({ children, currentRoute }) => {
     <div className="dashboard">
       {/* Header */}
       <header className="dashboard-header">
-        <button className="menu-toggle" onClick={toggleSidebar}>
+        <button className="menu-toggle" onClick={toggleSidebar} style={{color:"var(--text-color)"}}>
           <FaBars />
         </button>
         <h1>eCar Management System</h1>
