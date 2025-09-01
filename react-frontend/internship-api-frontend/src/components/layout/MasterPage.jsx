@@ -210,7 +210,7 @@ const MasterPage = ({ children, currentRoute }) => {
               </div>
               <div className="nav-title">Reports</div>
             </div>
-            <div className="nav-item logout" onClick={handleLogout}>
+            <div className="nav-item logout" onClick={handleLogout} style={{color:"var(--lgbtn-color)"}}>
               <div className="nav-icon">
                 <FaSignOutAlt />
               </div>
