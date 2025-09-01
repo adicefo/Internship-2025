@@ -254,6 +254,7 @@ const CompanyPricePage = () => {
                     max="10"
                     step="0.01"
                     placeholder="Enter price per kilometer"
+                    style={{color:"black"}}
                   />
                   {priceError && (
                     <div className="error-message">{priceError}</div>
