@@ -325,7 +325,7 @@ const StatisticsPage = () => {
                   <FaArrowLeft className="go-back-icon" />
                   Go Back
                 </button>
-                <button className="btn-save" onClick={handleSaveStatistics}>
+                <button className="btn-save" onClick={handleSaveStatistics} style={{background:"var(--primary-color)" ,color:"var(--text-color)"}}>
                   <FaSave className="save-icon" />
                   Save
                 </button>

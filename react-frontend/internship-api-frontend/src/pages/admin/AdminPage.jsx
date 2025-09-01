@@ -449,7 +449,7 @@ const [formData, setFormData] = useState({
                       <FaArrowLeft className="go-back-icon" />
                       Close
                     </button>
-                    <button type="submit" className="btn-save">
+                    <button type="submit" className="btn-save" style={{background:"var(--primary-color)" ,color:"var(--text-color)"}}>
                       <FaSave className="save-icon" />
                       Save
                     </button>

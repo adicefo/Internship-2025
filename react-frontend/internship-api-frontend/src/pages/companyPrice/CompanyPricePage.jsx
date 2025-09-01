@@ -266,7 +266,7 @@ const CompanyPricePage = () => {
                   <FaArrowLeft className="go-back-icon" />
                   Go Back
                 </button>
-                <button className="btn-save" onClick={handleSavePrice}>
+                <button className="btn-save" onClick={handleSavePrice} style={{background:"var(--primary-color)" ,color:"var(--text-color)"}}>
                   <FaSave className="save-icon" />
                   Save
                 </button>
