@@ -12,8 +12,8 @@
 }
  .filter-buttons
 {
-  background-color:#FFD700;
-  color: black;
+   background-color: var(--primary-color) !important;
+  color: var(--text-color) !important;
   margin-top: 2.5%;
 
 }

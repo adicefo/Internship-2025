@@ -21,6 +21,8 @@
 .filter-button {
   margin-bottom: 10px;
   height: 50px;
+     background-color: var(--primary-color) !important;
+  color: var(--text-color) !important;
 }
 
 /* Pagination styles */

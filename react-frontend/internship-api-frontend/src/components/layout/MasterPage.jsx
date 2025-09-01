@@ -294,6 +294,7 @@ const MasterPage = ({ children, currentRoute }) => {
               </div>
             <button
   className="report-button"
+  style={{background:"var(--primary-color) !important",color:"var(--text-color) !important"}}
   onClick={() => navigate("/report")}
 >
   <span style={{ display: "flex", alignItems: "center" }}>

@@ -27,7 +27,7 @@
   font-size: 25px;
   margin: 0;
   font-weight: bold;
-  color: #000;
+  color:var(--text-color);
 }
 
 .menu-toggle {
@@ -54,7 +54,7 @@
   left: -360px;
   width: 360px;
   height: 100%;
-  background-color: #FFD700;
+  background-color: var(--primary-color) !important;
   /* YellowAccent equivalent */
   transition: left 0.3s ease;
   z-index: 1001;
@@ -63,6 +63,7 @@
 
 .sidebar.open {
   left: 0;
+  background-color: var(--primary-color);
 }
 
 .sidebar-header {
@@ -84,7 +85,7 @@
 }
 
 .user-avatar {
-  background-color: #FFD700;
+  background-color: var(--primary-color);
   padding: 6px;
   border-radius: 50%;
   display: flex;
@@ -107,7 +108,8 @@
 }
 
 .nav-items {
-  background-color: #FFD700;
+  background-color: var(--primary-color);
+  color: var(--text-color);
 }
 
 .nav-item {
@@ -116,7 +118,7 @@
   padding: 12px 20px;
   cursor: pointer;
   transition: background-color 0.3s;
-  color: #000;
+  color: var(--text-color);
 }
 
 .nav-item:hover {
@@ -217,17 +219,14 @@
   color: var(--secondary-text) !important;
 }
 
-.date-display {
-  background-color: var(--primary-color) !important;
-  color: var(--text-color) !important;
-}
+
 
 .date-display {
   padding: 10px 15px;
-  background-color: #FFD700;
+background-color: var(--primary-color) !important;
   border-radius: 4px;
   font-size: 14px;
-  color: #666;
+  color: var(--text-color);
 }
 
 .sidebar-overlay {
@@ -272,12 +271,7 @@ body.dark-theme {
   color: var(--header-text) !important;
 }
 
-.date-display {
-  background-color: var(--header-bg) !important;
-  color: var(--header-text) !important;
-  padding: 6px 12px;
-  border-radius: 4px;
-}
+
 @media (max-width: 768px) {
   .main-content.shifted {
     margin-left: 0;

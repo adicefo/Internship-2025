@@ -19,9 +19,9 @@
   }
   .filter-buttond
 {
-  background-color:#FFD700;
+   background-color: var(--primary-color) !important;
+  color: var(--text-color) !important;
   margin-top: 2.5%;
-  color:black;
 
 }
 .no-results-message2

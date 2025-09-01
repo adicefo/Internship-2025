@@ -33,21 +33,11 @@
     gap: 10px;
 }
 
-.filter-button {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    padding: 8px 15px;
-    border-radius: 4px;
-    background-color: #FFD700;
-    color: black;
-    border: none;
-    cursor: pointer;
-}
+
  .filter-buttonr
 {
-  background-color:#FFD700;
-  color: black;
+  background-color: var(--primary-color) !important;
+  color: var(--text-color) !important;
   margin-top: 2.5%;
 
 }
