@@ -949,6 +949,10 @@ table{
     background-color: var(--card-background) !important;
   color: var(--text-color) !important;
 }
+.pagination-button.active {
+  background-color: var(--primary-color) !important;
+  color:var(--text-color);
+}
 
 .form-container{
   background-color: var(--background-color) !important;

@@ -145,7 +145,7 @@ const MasterPage = ({ children, currentRoute }) => {
               <FaCarAlt />
             </div>
           </div>
-          <div className="user-name">
+          <div className="user-name" style={{color:"var(--primary-color)"}}>
             {keycloak.tokenParsed?.preferred_username ||
               keycloak.tokenParsed?.name ||
               "User"}
