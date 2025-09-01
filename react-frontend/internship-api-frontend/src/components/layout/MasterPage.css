@@ -246,7 +246,9 @@
   min-height: 100%; /* ensures full height content */
   transition: background-color 0.3s, color 0.3s;
 }
-
+.page-container input{
+  color:black;
+}
 /* Light mode (default) */
 :root {
   --header-bg: #FFC400;
