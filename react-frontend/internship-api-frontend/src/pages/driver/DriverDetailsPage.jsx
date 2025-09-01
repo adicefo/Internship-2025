@@ -240,7 +240,7 @@ const DriverDetailsPage = () => {
   return (
     <MasterPage currentRoute={isAddMode ? "Add Driver" : "Edit Driver"}>
       <div className="form-container">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} >
           <div className="form-section">
             <h3>Personal Information</h3>
             

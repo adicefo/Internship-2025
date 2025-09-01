@@ -30,6 +30,13 @@
 h3,td,tr{
   color: var(--text-color) !important;
 }
+form h2,
+form h3,
+form h4,
+form h5,
+form h6 {
+  color: black !important;
+}
 * {
   box-sizing: border-box;
   margin: 0;
@@ -938,6 +945,11 @@ table{
 .pagination-info{
     background-color: var(--card-background) !important;
   color: var(--text-color) !important;
+}
+
+.form-container{
+  background-color: var(--background-color) !important;
+  color:var(--text-color) !important;
 }
 
 @media (max-width: 768px) {
