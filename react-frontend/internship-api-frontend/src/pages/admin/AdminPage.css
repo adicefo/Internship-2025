@@ -5,3 +5,11 @@
   margin-top: 2.5%;
 
 }
+
+.modal-content{
+  background:var(--background-color);
+ 
+}
+.modal-content form input{
+  color:black;
+}
