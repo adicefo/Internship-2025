@@ -149,7 +149,7 @@ const StatisticsPage = () => {
     <MasterPage currentRoute="Statistics">
       <div className="review-section">
         <div className="section-header">
-          <h3>Statistics Management</h3>
+          <h3 style={{color:"var(--text-color) !important"}}>Statistics Management</h3>
           <button className="add-button" onClick={handleAddStatistics}>
             Add New Statistics
           </button>

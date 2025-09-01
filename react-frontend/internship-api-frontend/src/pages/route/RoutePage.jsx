@@ -105,7 +105,7 @@ const RoutePage = () => {
     <MasterPage currentRoute="Route">
       <div className="routes-section">
         <div className="section-header">
-          <h3>Routes Management</h3>
+          <h3 style={{color:"var(--text-color) !important"}}>Routes Management</h3>
           <button className="add-button" onClick={handleAddRoute}>
             Add New Route
           </button>

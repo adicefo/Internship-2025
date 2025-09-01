@@ -107,7 +107,7 @@ const ClientPage = () => {
     <MasterPage currentRoute="Clients">
       <div className="clients-section">
         <div className="section-header">
-          <h3>Clients Management</h3>
+          <h3 style={{color:"var(--text-color) !important"}}>Clients Management</h3>
           <button className="add-button" onClick={handleAddClient}>
             Add New Client
           </button>

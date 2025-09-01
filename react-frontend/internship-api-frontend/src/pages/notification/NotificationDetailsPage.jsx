@@ -186,10 +186,12 @@ const NotificationDetailsPage = () => {
           <div className="form-container">
             <div className="form-row">
               <div className="form-heading">
-              <h5>Notification info</h5>
+             <p style={{ color: "white",fontSize:"20px",fontWeight:"bolder" }}>Notification info</p>
+
+
               </div>
               <div className="form-group">
-                <label htmlFor="title">
+                <label htmlFor="title" style={{color:"white"}}>
                  <FaHeading className="icon"></FaHeading> Notification Heading
                 </label>
                 <textarea
@@ -207,7 +209,7 @@ const NotificationDetailsPage = () => {
               </div>
 
               <div className="form-group">
-                <label htmlFor="content">
+                <label htmlFor="content" style={{color:"white"}}>
                   <FaFileAlt className="icon" /> Notification Content
                 </label>
                 <textarea
@@ -234,7 +236,7 @@ const NotificationDetailsPage = () => {
                   checked={formData.forClient}
                   onChange={handleChange}
                 />
-                <label htmlFor="forClient">Notification for client</label>
+                <label htmlFor="forClient" style={{color:"white"}}>Notification for client</label>
               </div>
             </div>
           </div>

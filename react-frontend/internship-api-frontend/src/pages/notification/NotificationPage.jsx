@@ -122,7 +122,7 @@ const NotificationPage = () => {
     <MasterPage currentRoute="Notification">
       <div className="notification-section">
         <div className="section-header">
-          <h3>Notification Management</h3>
+          <h3 style={{color:"var(--text-color) !important"}}>Notification Management</h3>
           <button className="add-button" onClick={handleAddNotification}>
             Add New Notification
           </button>

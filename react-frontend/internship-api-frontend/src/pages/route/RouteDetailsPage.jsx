@@ -407,7 +407,7 @@ const RouteDetailsPage = () => {
     <MasterPage currentRoute={isAddMode ? "Add Route" : "Edit Route"}>
       <div className="card">
         <div className="card-header">
-          <h5 className="card-title">
+          <h5 className="card-title" style={{color:"black"}}>
             {isAddMode ? "Add New Route" : "Route Details"}
           </h5>
         </div>

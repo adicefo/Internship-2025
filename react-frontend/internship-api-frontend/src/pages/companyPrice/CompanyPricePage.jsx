@@ -135,7 +135,7 @@ const CompanyPricePage = () => {
     <MasterPage currentRoute="Company Price">
       <div className="company-price-container">
         <div className="section-header">
-          <h3>Company Price Management</h3>
+          <h3 style={{color:"var(--text-color) !important"}}>Company Price Management</h3>
           <button className="add-button" onClick={handleAddPrice}>
             Add New Price
           </button>

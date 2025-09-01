@@ -216,7 +216,7 @@ setShowFinishDialog(true);
     <MasterPage currentRoute={isAddMode ? "Add Rent" : "Edit Rent"}>
       <div className="rent-details-container">
         <div className="section-header">
-          <h3>{isAddMode ? "Add New Rent" : "Edit Rent"}</h3>
+          <h3 style={{color:"black"}}>{isAddMode ? "Add New Rent" : "Edit Rent"} </h3>
         </div>
 
         {loading ? (

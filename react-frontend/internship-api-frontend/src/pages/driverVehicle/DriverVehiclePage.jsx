@@ -173,7 +173,7 @@ const handleRefresh = () => {
     <MasterPage currentRoute="Driver Vehicle">
       <div className="driver-vehicle-section">
         <div className="section-header">
-          <h3>Driver-Vehicle Assignments</h3>
+          <h3 style={{color:"var(--text-color) !important"}}>Driver-Vehicle Assignments</h3>
           <button className="add-button" onClick={handleOpenAddModal}>
             Add New DriverVehicle
           </button>

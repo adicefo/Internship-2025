@@ -176,7 +176,7 @@ const [formData, setFormData] = useState({
     <MasterPage currentRoute="Admin">
       <div className="admin-section">
         <div className="section-header">
-          <h3>Admin Management</h3>
+          <h3 style={{color:"var(--text-color) !important"}}>Admin Management</h3>
           <button className="add-button" onClick={handleOpenAddModal}>
             Add New Admin
           </button>

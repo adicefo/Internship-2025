@@ -122,7 +122,7 @@ const RentPage = () => {
     <MasterPage currentRoute="Rent">
       <div className="rent-section">
         <div className="section-header">
-          <h3>Rent Management</h3>
+          <h3 style={{color:"var(--text-color) !important"}}>Rent Management</h3>
           <button className="add-button" onClick={handleAddRent}>
             Add New Rent
           </button>

@@ -117,7 +117,7 @@ const VehiclePage = () => {
     <MasterPage currentRoute="Vehicles">
       <div className="vehicles-section">
         <div className="section-header">
-          <h3>Vehicles Management</h3>
+          <h3 style={{color:"var(--text-color) !important"}}>Vehicles Management</h3>
           <button className="add-button" onClick={handleAddVehicle}>
             Add New Vehicle
           </button>

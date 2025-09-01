@@ -121,7 +121,7 @@ const DriverPage = () => {
     <MasterPage currentRoute="Drivers">
       <div className="drivers-section">
         <div className="section-header">
-          <h3>Drivers Management</h3>
+          <h3 style={{color:"var(--text-color) !important"}}>Drivers Management</h3>
           <button className="add-button" onClick={handleAddDriver}>
             Add New Driver
           </button>

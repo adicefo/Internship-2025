@@ -117,7 +117,7 @@ const ReviewPage = () => {
     <MasterPage currentRoute="Review">
       <div className="review-section">
         <div className="section-header">
-          <h3>Review Management</h3>
+          <h3 style={{color:"var(--text-color) !important"}}> Review Management</h3>
           <button className="add-button" onClick={handleAddReview}>
             Add New Review
           </button>

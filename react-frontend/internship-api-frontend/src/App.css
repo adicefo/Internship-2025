@@ -27,7 +27,7 @@
   --danger-color: #ef5350;
   --danger-hover: #c62828;
 }
-h3,td,tr{
+h2,h3,h4,h5,h6,td,tr{
   color: var(--text-color) !important;
 }
 form h2,
@@ -37,6 +37,7 @@ form h5,
 form h6 {
   color: black !important;
 }
+
 * {
   box-sizing: border-box;
   margin: 0;
