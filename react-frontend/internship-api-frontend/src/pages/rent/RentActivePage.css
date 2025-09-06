@@ -60,7 +60,8 @@
     
 }
 .rent-active-details-container{
-    background-color: rgb(249, 240, 228);
+    background-color: var(--background-color) !important;
+    color: var(--text-color) !important;
 }
 
 .rent-info-section {
@@ -115,7 +116,7 @@
 .detail-label {
     width: 140px;
     font-weight: 600;
-    color: #555;
+    color: var(--text-color);
 }
 
 .detail-value {
