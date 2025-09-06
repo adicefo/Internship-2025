@@ -290,7 +290,7 @@ const NotificationDetailsPage = () => {
             </button>
             <button
               type="submit"
-              className="btn btn-save"
+              className="save-button"
               disabled={isSubmitting}
             >
               <FaSave /> Save

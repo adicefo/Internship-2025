@@ -99,10 +99,13 @@
     font-size: 1rem;
     transition: background-color 0.2s;
 }
-
+.save-button{
+     background: var(--primary-color) !important;
+  color:var(--text-color) !important;
+}
 .back-button {
-    background-color: #6c757d;
-    color: white;
+    background-color: #6c757d !important;
+    color: white !important;
 }
 
 .back-button:hover {
