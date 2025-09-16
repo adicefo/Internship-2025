@@ -21,6 +21,7 @@ import { RadarChart } from "@mui/x-charts/RadarChart";
 import MasterPage from "../../components/layout/MasterPage";
 import {
   driverService,
+  vehicleService,
   rentService,
   reviewService,
   routeService,
@@ -29,6 +30,7 @@ import "./ReportsPage.css";
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
+import FileDownloadIcon from "@mui/icons-material/FileDownload";
 
 const monthNames = [
   "January",
@@ -54,6 +56,7 @@ const mockDrivers = [
 const ReportsPage = () => {
   const [filter, setFilter] = useState("clients");
   const [drivers, setDrivers] = useState([]);
+  const [vehicles, setVehicles] = useState([]);
   const [routeData2025, setRouteData2025] = useState(Array(12).fill(null));
   const [rentData2025, setRentData2025] = useState(Array(12).fill(null));
   const [rents, setRents] = useState([]);
@@ -63,21 +66,22 @@ const ReportsPage = () => {
   const [total2025Rent, setTotal2025Rent] = useState(0);
   const [loadingRoute, setLoadingRoute] = useState(true);
   const [radarData, setRadarData] = useState([]);
-  const [textColor,setTextColor]=useState("");
+  const [textColor, setTextColor] = useState("");
 
-const getCssVar = (name) =>
-  getComputedStyle(document.body).getPropertyValue(name).trim();
+  const getCssVar = (name) =>
+    getComputedStyle(document.body).getPropertyValue(name).trim();
 
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      setTextColor(getCssVar("--text-color"));
+    });
 
-useEffect(() => {
-  const observer = new MutationObserver(() => {
-    setTextColor(getCssVar("--text-color"));
-  });
-
-  observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
-  return () => observer.disconnect();
-}, []);
-
+    observer.observe(document.body, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+    return () => observer.disconnect();
+  }, []);
 
   const fetchDrivers = async () => {
     try {
@@ -86,6 +90,16 @@ useEffect(() => {
       setDrivers(items);
     } catch (error) {
       console.log("Error while fetching drivers " + error);
+    }
+  };
+
+  const fetchVehicles = async () => {
+    try {
+      const response = await vehicleService.getAll();
+      const items = response.data.items || [];
+      setVehicles(items);
+    } catch (error) {
+      console.log("Error while fetching vehicles " + error);
     }
   };
   const fetchReviewAverage = async () => {
@@ -152,6 +166,9 @@ useEffect(() => {
     fetchDrivers();
   }, [filter]);
   useEffect(() => {
+    fetchVehicles();
+  }, []);
+  useEffect(() => {
     fetchRents();
   }, []);
   useEffect(() => {
@@ -197,6 +214,84 @@ useEffect(() => {
     client: item.client,
     averageReview: item.averageReview,
   }));
+
+  // Export to CSV Handler
+  const handleExportCSV = () => {
+    try {
+      // Create CSV content
+      const csvRows = [];
+
+      // Headers for drivers
+      csvRows.push(
+        [
+          "Driver ID",
+          "Name",
+          "Surname",
+          "Email",
+          "Username",
+          "Telephone Number",
+        ].join(",")
+      );
+
+      // Driver rows
+      drivers.forEach((driver) => {
+        csvRows.push(
+          [
+            driver.id,
+            driver.user?.name || "",
+            driver.user?.surname || "",
+            driver.user?.email || "",
+            driver.user?.userName || "",
+            driver.user?.telephoneNumber || "",
+          ].join(",")
+        );
+      });
+
+      // Add an empty row as separator
+      csvRows.push([]);
+
+      // Headers for vehicles
+      csvRows.push(
+        [
+          "Vehicle ID",
+          "Name",
+          "Price",
+          "Average Consumption",
+          "Available",
+        ].join(",")
+      );
+
+      // Vehicle rows
+      vehicles.forEach((vehicle) => {
+        csvRows.push(
+          [
+            vehicle.id,
+            vehicle.name || "",
+            vehicle.price || "",
+            vehicle.averageConsumption || "",
+            vehicle.available ? "Yes" : "No",
+          ].join(",")
+        );
+      });
+
+      // Combine all rows into a CSV string
+      const csvString = csvRows.join("\n");
+
+      // Create a blob and download link
+      const blob = new Blob([csvString], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.setAttribute("href", url);
+      link.setAttribute("download", "drivers_and_vehicles.csv");
+      link.style.visibility = "hidden";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error("Error exporting CSV: ", error);
+      alert("Error exporting CSV. Please try again.");
+    }
+  };
 
   // PDF Export Handler (multi-page, file dialog, improved heading/date)
   const handleExportPDF = async () => {
@@ -279,15 +374,41 @@ useEffect(() => {
   return (
     <MasterPage currentRoute="Reports">
       <Box sx={{ p: 4 }}>
-        {/* PDF Export Button */}
+        {/* Export Buttons */}
         <Box
           sx={{
             display: "flex",
             justifyContent: "flex-end",
             alignItems: "center",
             mb: 2,
+            gap: 2,
           }}
         >
+          {/* CSV Export Button */}
+          <button
+            onClick={handleExportCSV}
+            style={{
+              background: "#1c801f",
+              color: "white",
+              border: "none",
+              borderRadius: 6,
+              padding: "8px 18px",
+              fontWeight: "bold",
+              fontSize: 16,
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
+              boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+              transition: "background 0.2s",
+            }}
+            title="Export to CSV"
+          >
+            <FileDownloadIcon style={{ color: "white" }} />
+            Export CSV
+          </button>
+
+          {/* PDF Export Button */}
           <button
             onClick={handleExportPDF}
             style={{
@@ -341,13 +462,22 @@ useEffect(() => {
           <Typography variant="h4" gutterBottom>
             Driver Reports
           </Typography>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 3,color:"var(--text-color)" }}>
-            <FormControl sx={{ minWidth: 200,background:"var(--dropdown-color)"}}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 2,
+              mb: 3,
+              color: "var(--text-color)",
+            }}
+          >
+            <FormControl
+              sx={{ minWidth: 200, background: "var(--dropdown-color)" }}
+            >
               <InputLabel>Filter by</InputLabel>
               <Select
                 value={filter}
                 label="Filter by"
-                
                 onChange={(e) => setFilter(e.target.value)}
               >
                 <MenuItem value="clients">Clients</MenuItem>
@@ -367,22 +497,22 @@ useEffect(() => {
                   id: "driver",
                   data: labels,
                   scaleType: "band",
-                  label: "Driver",tickLabelStyle: { fill: textColor }, 
+                  label: "Driver",
+                  tickLabelStyle: { fill: textColor },
                 },
               ]}
               yAxis={[
-  {
-    label: filter === "clients" ? "Clients" : "Hours",
-    tickLabelStyle: { fill: textColor },
-  },
-  
-]} series={[
-    { data, label: filter === "clients" ? "Clients" : "Hours" },
-  ]}
-  width={500}
-  height={300}
-  sx={{ "& text": { fill: textColor } }} 
- 
+                {
+                  label: filter === "clients" ? "Clients" : "Hours",
+                  tickLabelStyle: { fill: textColor },
+                },
+              ]}
+              series={[
+                { data, label: filter === "clients" ? "Clients" : "Hours" },
+              ]}
+              width={500}
+              height={300}
+              sx={{ "& text": { fill: textColor } }}
             />
           </Box>
 
@@ -400,7 +530,7 @@ useEffect(() => {
                   alignItems: "center",
                   justifyContent: "center",
                   height: 120,
-                  color:"var(--text-color)"
+                  color: "var(--text-color)",
                 }}
               >
                 <CircularProgress />
@@ -412,11 +542,12 @@ useEffect(() => {
                   borderRadius: 2,
                   boxShadow: 2,
                   maxWidth: "100%",
-                  overflowX: "auto",  color:"var(--text-color)",backgroundColor:"var(--table-color)"
+                  overflowX: "auto",
+                  color: "var(--text-color)",
+                  backgroundColor: "var(--table-color)",
                 }}
               >
-                <Table sx={{ minWidth: 900,
-                 }}>
+                <Table sx={{ minWidth: 900 }}>
                   <TableHead>
                     <TableRow sx={{ backgroundColor: "#f5f5f5" }}>
                       <TableCell sx={{ fontWeight: "bold" }}>Year</TableCell>
@@ -425,7 +556,11 @@ useEffect(() => {
                           {month}
                         </TableCell>
                       ))}
-                      <TableCell sx={{ fontWeight: "bold",  color:"var(--text-color)" }}>Total</TableCell>
+                      <TableCell
+                        sx={{ fontWeight: "bold", color: "var(--text-color)" }}
+                      >
+                        Total
+                      </TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -433,7 +568,6 @@ useEffect(() => {
                       <TableCell
                         sx={{
                           fontWeight: "bold",
-                      
                         }}
                       >
                         2025
@@ -446,7 +580,6 @@ useEffect(() => {
                       <TableCell
                         sx={{
                           fontWeight: "bold",
-                  
                         }}
                       >
                         {total2025.toFixed(2)} KM
@@ -470,28 +603,30 @@ useEffect(() => {
             series={[
               {
                 data: pieData,
-                color:"var(--text-color)"
-
+                color: "var(--text-color)",
               },
             ]}
             width={500}
             height={300}
-              sx={{ color:"var(--text-color)" }}slotProps={{
-    
-  }}
-              
+            sx={{ color: "var(--text-color)" }}
+            slotProps={{}}
           />
-          <Typography variant="h5" sx={{ mt: 6 ,color:"var(--text-color)"}} gutterBottom>
+          <Typography
+            variant="h5"
+            sx={{ mt: 6, color: "var(--text-color)" }}
+            gutterBottom
+          >
             Clients with most drives
           </Typography>
           <BarChart
             xAxis={[
               {
                 data: topClients.map((c) => c.client),
-                scaleType: "band",tickLabelStyle: { fill: textColor },
+                scaleType: "band",
+                tickLabelStyle: { fill: textColor },
               },
             ]}
-              yAxis={[{ tickLabelStyle: { fill: textColor } }]}
+            yAxis={[{ tickLabelStyle: { fill: textColor } }]}
             series={[
               {
                 data: topClients.map((c) => c.count),
@@ -501,7 +636,7 @@ useEffect(() => {
             width={500}
             height={300}
           />
-          <Box sx={{ mt: 6 ,color:"var(--text-color)"}}>
+          <Box sx={{ mt: 6, color: "var(--text-color)" }}>
             <Typography variant="h5" gutterBottom>
               Reviewing Clients
             </Typography>
@@ -514,7 +649,7 @@ useEffect(() => {
                 series={[
                   {
                     label: "Average Review",
-                    
+
                     data: transformedData.map((item) => item.averageReview),
                   },
                 ]}
@@ -540,7 +675,6 @@ useEffect(() => {
                   alignItems: "center",
                   justifyContent: "center",
                   height: 120,
-                  
                 }}
               >
                 <CircularProgress />
@@ -555,7 +689,9 @@ useEffect(() => {
                   overflowX: "auto",
                 }}
               >
-                <Table sx={{ minWidth: 900 ,backgroundColor:"var(--table-color)"}}>
+                <Table
+                  sx={{ minWidth: 900, backgroundColor: "var(--table-color)" }}
+                >
                   <TableHead>
                     <TableRow sx={{ backgroundColor: "#f5f5f5" }}>
                       <TableCell sx={{ fontWeight: "bold" }}>Year</TableCell>
@@ -572,7 +708,6 @@ useEffect(() => {
                       <TableCell
                         sx={{
                           fontWeight: "bold",
-           
                         }}
                       >
                         2025
@@ -585,7 +720,6 @@ useEffect(() => {
                       <TableCell
                         sx={{
                           fontWeight: "bold",
-                   
                         }}
                       >
                         {total2025Rent.toFixed(2)} KM
